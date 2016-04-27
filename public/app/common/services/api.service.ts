@@ -29,6 +29,17 @@ export class ApiService {
                 type = RequestMethod.Post;
                 authHeader = false;
                 break;
+
+            // Get all users
+            case 'getUsers':
+                url = this._url.getUsers;
+                type = RequestMethod.Get;
+                break;
+
+            case 'getRooms':
+                url = this._url.getRooms;
+                type = RequestMethod.Get;
+                break;
         }
 
         // Define the options for the request
@@ -52,7 +63,7 @@ export class ApiService {
         if (authHeader) options.headers.append('Authorization', 'Bearer ' + this._userStoreService.getUser().token);
 
         return this.http.request(new Request(options))
-            .map(res => res.json())
+            .map(res => res)
             .catch(this.logError);
     }
 

@@ -1,7 +1,42 @@
+import 'rxjs/Rx';
 import {Component} from 'angular2/core';
+import {LoginComponent} from './pages/login/login.component';
+import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {SignupComponent} from './pages/signup/signup.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {UserStoreService} from './common/services/userStore.service';
+import {IsActiveLinkService} from './common/services/isActiveLink.service';
 
 @Component({
     selector: 'app',
-    template: '<h1>Title</h1>'
+    templateUrl: 'app/app.html',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [IsActiveLinkService]
 })
-export class AppComponent { }
+
+@RouteConfig([
+    {path: '/login', name: 'Login', component: LoginComponent},
+    {path: '/signup', name: 'Signup', component: SignupComponent},
+    {path: '/dashboard/...', name: 'Dashboard', component: DashboardComponent},
+
+    // Catch route
+    {path: '/**', redirectTo: ['Login']}
+])
+export class AppComponent {
+    constructor(
+        public isActiveLink: IsActiveLinkService,
+        private _router: Router,
+        private _userStore: UserStoreService
+    ) {
+        let local = _userStore.getUser();
+        this.user = local ? local.user.username : false;
+    }
+    
+    public user: string;
+
+    logOut() {
+        this._userStore.setUser();
+        this._router.navigate(['Login']);
+    }
+}
+ 

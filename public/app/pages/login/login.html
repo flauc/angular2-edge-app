@@ -1,0 +1,33 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="row">
+            <label for="username">Username/Email</label>
+            <input
+                    class="u-full-width"
+                    type="email"
+                    placeholder="test@mailbox.com"
+                    id="username"
+                    required
+                    [(ngModel)]="username"
+                    ngControl="user"
+                    #user="ngForm">
+            <p [hidden]="user.valid || user.pristine">Username is required</p>
+        </div>
+        <div class="row">
+            <label for="password">Password</label>
+            <input
+                    class="u-full-width"
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    required
+                    [(ngModel)]="password"
+                    ngControl="pass"
+                    #pass="ngForm">
+            <p [hidden]="pass.valid || pass.pristine">Password is required</p>
+        </div>
+        <div class="row">
+            <input type="submit" [disabled]="!loginForm.form.valid" value="Sign in">
+        </div>
+    </form>
+</div>
