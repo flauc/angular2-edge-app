@@ -1,6 +1,6 @@
 {
   "name": "angular2-edge-app",
-  "description": "Just a description",
+  "description": "",
   "version": "0.0.1",
   "scripts": {
     "start": "nodemon index.js",
