@@ -11,7 +11,7 @@ export default class RoutesConfig {
         app.get('/api/users', getHelper(getUsers));
 
         // Get all Rooms
-        app.get('/api/projects', getHelper(getRooms));
+        app.get('/api/rooms', getHelper(getRooms));
 
         // Catch API
         app.all('/api/*', (req, res) => res.sendStatus(404));
