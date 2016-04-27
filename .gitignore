@@ -1,0 +1,10 @@
+.idea
+typings
+node_modules
+public/app/**/**.js
+public/app/**/**.js.map
+public/assets/vendorJs
+server/**/**.js
+server/**/**.js.map
+index.js.map
+index.js

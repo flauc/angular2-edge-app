@@ -1,0 +1,35 @@
+{
+  "name": "angular2-edge-app",
+  "description": "Just a description",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "nodemon index.js",
+    "db": "mongod",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "angular2": "2.0.0-beta.15",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "co": "^4.6.0",
+    "es6-shim": "^0.35.0",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^6.1.0",
+    "mongodb": "^2.1.18",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "socket.io": "^1.4.5",
+    "systemjs": "0.19.26",
+    "zone.js": "0.6.10"
+  },
+  "devDependencies": {
+    "typescript": "^1.8.10",
+    "typings": "^0.7.12",
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.0.0"
+  }
+}

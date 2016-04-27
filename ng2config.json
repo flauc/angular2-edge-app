@@ -1,0 +1,12 @@
+{
+  "appName": "angular2-edge-app",
+  "appType": "standard",
+  "appFolder": "public/app",
+  "bootLocation": "boot.ts",
+  "defaultFolders": {
+    "components": "common/components",
+    "services": "common/services",
+    "directives": "common/directives",
+    "pipes": "common/pipes"
+  }
+}

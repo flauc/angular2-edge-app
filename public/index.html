@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>angular2-edge-app</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="assets/style/skeleton.css">
+
+        <!-- inject:js -->
+        <script src="assets/vendorJs/es6-shim.min.js"></script>
+        <script src="assets/vendorJs/system-polyfills.js"></script>
+        <script src="assets/vendorJs/shims_for_IE.js"></script>
+        <script src="assets/vendorJs/angular2-polyfills.js"></script>
+        <script src="assets/vendorJs/system.src.js"></script>
+        <script src="assets/vendorJs/Rx.js"></script>
+        <script src="assets/vendorJs/angular2.dev.js"></script>
+        <script src="assets/vendorJs/router.dev.js"></script>
+        <script src="assets/vendorJs/http.dev.js"></script>
+        <script src="assets/vendorJs/socket.io.js"></script>
+        <!-- endinject -->
+
+        <script>
+          System.config({
+            packages: {        
+              app: {
+                format: "register",
+                defaultExtension: "js"
+              }
+            }
+          });
+
+          System.import("app/boot").then(null, console.error.bind(console));
+        </script>
+    </head>
+
+    <body>
+        <app></app>
+    </body>
+</html>

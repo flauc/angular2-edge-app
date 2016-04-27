@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false
+  },
+  "files": [
+    "typings/main.d.ts",
+    "index.ts",
+    "server/config/mongo.ts",
+    "server/config/auth.ts",
+    "server/config/express.ts",
+    "server/config/routes.ts",
+    "server/config/socket.ts",
+    "server/controllers/rooms.controller.ts",
+    "server/controllers/users.controller.ts",
+    "server/helpers/commonHelpers.ts"
+  ]
+}
