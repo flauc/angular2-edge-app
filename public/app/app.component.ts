@@ -28,10 +28,12 @@ export class AppComponent {
         private _router: Router,
         private _userStore: UserStoreService
     ) {
-        this.user = _userStore.user;
+        this.user = _userStore.getUser();
+        this.userChangeListener = _userStore.emitter.subscribe(item => this.user = item)
     }
     
-    public user: string;
+    public user: any;
+    public userChangeListener: any;
 
     logOut() {
         this._userStore.setUser();

@@ -1,14 +1,12 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, EventEmitter} from 'angular2/core';
 import {appValues} from '../config/app.values';
 
 @Injectable()
 export class UserStoreService {
     constructor() {
-        this.user = this.getUser();
     }
 
-    public user: any;
-    
+    public emitter: EventEmitter<any> = new EventEmitter();
     private _appName = appValues.name;
 
     getUser() {
@@ -21,8 +19,8 @@ export class UserStoreService {
 
     setUser(user?) {
         if (user) {
-            this.user = user;
             localStorage.setItem(this._appName, JSON.stringify(user));
+            this.emitter.emit(user);
         }
         
         else localStorage.removeItem(this._appName);
