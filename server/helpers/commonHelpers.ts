@@ -16,12 +16,10 @@ export function createDefaultDbDocs(db) {
                 {username: 'wojtek.kwiatek@gmail.com', password: 'Wojtek1!', status: 'offline'},
                 {username: 'laco0416@gmail.com', password: 'Suguru!', status: 'offline'}
             ];
-            
-            users.forEach(a => {
-                co(function *() {
-                    a.password = yield  hashPass(a.password)
-                });
-            });
+
+            for (let i = 0; i < users.length; i++) users[i].password = yield hashPass(users[i].password);
+
+            console.log(users);
 
             let r = yield db.collection('users').insertMany(users);
             

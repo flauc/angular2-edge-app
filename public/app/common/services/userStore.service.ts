@@ -21,8 +21,8 @@ export class UserStoreService {
 
     setUser(user?) {
         if (user) {
-            localStorage.setItem(this._appName, JSON.stringify(user));
             this.user = user;
+            localStorage.setItem(this._appName, JSON.stringify(user));
         }
         
         else localStorage.removeItem(this._appName);

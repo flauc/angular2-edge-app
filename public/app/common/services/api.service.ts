@@ -63,7 +63,7 @@ export class ApiService {
         if (authHeader) options.headers.append('Authorization', 'Bearer ' + this._userStoreService.getUser().token);
 
         return this.http.request(new Request(options))
-            .map(res => res)
+            .map(res => res.json())
             .catch(this.logError);
     }
 

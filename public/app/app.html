@@ -1,5 +1,5 @@
-<nav>
-    <ul *ngIf="!user">
+<nav *ngIf="!user">
+    <ul>
         <li [class.active]="isActiveLink.check(['Login'])"><a [routerLink]="['Login']">Log In</a></li>
         <li [class.active]="isActiveLink.check(['Signup'])"><a [routerLink]="['Signup']">Sign Up</a></li>
     </ul>
