@@ -28,8 +28,7 @@ export class AppComponent {
         private _router: Router,
         private _userStore: UserStoreService
     ) {
-        let local = _userStore.getUser();
-        this.user = local ? local.user.username : false;
+        this.user = _userStore.user;
     }
     
     public user: string;

@@ -3,7 +3,12 @@ import {appValues} from '../config/app.values';
 
 @Injectable()
 export class UserStoreService {
+    constructor() {
+        this.user = this.getUser();
+    }
 
+    public user: any;
+    
     private _appName = appValues.name;
 
     getUser() {
@@ -15,7 +20,11 @@ export class UserStoreService {
 
 
     setUser(user?) {
-        if (user) localStorage.setItem(this._appName, JSON.stringify(user));
+        if (user) {
+            localStorage.setItem(this._appName, JSON.stringify(user));
+            this.user = user;
+        }
+        
         else localStorage.removeItem(this._appName);
     }
     

@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+}
+
+nav {
+    float: left;
+    width: 100%;
+    background: #78909C;
+    position: fixed;
+    color: #fff;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    float: left;
+    margin: 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 10px;
+    line-height: 50px;
+    font-size: 18px;
+    float: left;
+}
+
+nav ul li.active {
+    background: #637e8c;
+}
+nav ul li:hover > a {
+    color: #242424;
+}
+
+nav ul li.active > a {
+    color: #fff;
+}
+
+.container {
+    margin-top: 100px;
+}

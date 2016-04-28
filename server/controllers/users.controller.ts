@@ -1,7 +1,7 @@
-import {hashPass} from "../helpers/commonHelpers";
+import {hashPass} from '../helpers/commonHelpers';
 
-const mongo = require("../config/mongo"),
-    colName = "users";
+const mongo = require('../config/mongo'),
+    colName = 'users';
 
 // Get one or more users
 // If no search criteria is found the function fetches all of the users
@@ -21,8 +21,8 @@ export function getUsers(searchCriteria?: Object, sendPass?: boolean) {
 
                 // Remove the fields that should not be sent
                 docs.forEach(a => {
-                    if (!sendPass) delete a["password"];
-                    delete a["__v"];
+                    if (!sendPass) delete a['password'];
+                    delete a['__v'];
                 });
 
                 resolve(docs)
@@ -45,7 +45,7 @@ export function createUser(data) {
 
                 coll.insertOne(data, function(err, r) {
                     if (err) reject(err);
-                    else if (r.insertedCount !== 1) reject("Error in user insert");
+                    else if (r.insertedCount !== 1) reject('Error in user insert');
                     else resolve(r.ops[0])
                 })
             },
@@ -64,7 +64,7 @@ export function updateUser(sent) {
             toSet = sent;
 
         // Remove the id from the setter
-        delete toSet["_id"];
+        delete toSet['_id'];
 
         coll.findOneAndUpdate(
             {_id: id},
@@ -80,7 +80,7 @@ export function updateUser(sent) {
             },
             (err, r) => {
                 if (err) reject(err);
-                else if (r.lastErrorObject.n !== 1) reject("An error with edit.");
+                else if (r.lastErrorObject.n !== 1) reject('An error with edit.');
                 else resolve(r.value)
             }
         );
