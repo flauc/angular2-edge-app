@@ -4,19 +4,24 @@ import {UserStoreService} from '../../common/services/userStore.service';
 import {appInjector} from '../../common/config/app.injector';
 import {RoomComponent} from './room/room.component';
 import {DashboardMainComponent} from './main/dashboardMain.component';
+import {RoomsDataService} from '../../common/services/roomsData.service';
 
 @CanActivate(() => {
     let injector: Injector = appInjector(),
         router: Router = injector.get(Router),
         userStore: UserStoreService = injector.get(UserStoreService),
+        roomsData: RoomsDataService = injector.get(RoomsDataService),
         user = userStore.getUser();
 
-    if (user) return true;
-
-    else {
-        router.navigate(['Login']);
-        return false;
+    if (user) {
+        return roomsData.getRooms()
+            .catch(err => false)
+            .then(res => true)
     }
+
+    router.navigate(['Login']);
+    return false;
+
 })
 
 @Component({
