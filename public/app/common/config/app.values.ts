@@ -9,3 +9,7 @@ export const urlValues = {
 export const appValues = {
     name: 'angular2-edge-app'
 };
+
+export const socketValues = {
+    url: base
+};

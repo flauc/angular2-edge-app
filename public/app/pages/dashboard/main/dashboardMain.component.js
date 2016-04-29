@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../common/services/roomsData.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../common/services/data.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,29 +10,29 @@ System.register(['angular2/core', '../../../common/services/roomsData.service'],
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, roomsData_service_1;
+    var core_1, data_service_1;
     var DashboardMainComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (roomsData_service_1_1) {
-                roomsData_service_1 = roomsData_service_1_1;
+            function (data_service_1_1) {
+                data_service_1 = data_service_1_1;
             }],
         execute: function() {
             DashboardMainComponent = (function () {
-                function DashboardMainComponent(_roomsData) {
-                    this._roomsData = _roomsData;
-                    this.rooms = _roomsData.rooms;
-                    console.log(this.rooms);
+                function DashboardMainComponent(_data) {
+                    this._data = _data;
+                    this.rooms = _data.rooms;
+                    this.users = _data.users;
                 }
                 DashboardMainComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
                         templateUrl: 'app/pages/dashboard/main/main'
                     }), 
-                    __metadata('design:paramtypes', [roomsData_service_1.RoomsDataService])
+                    __metadata('design:paramtypes', [data_service_1.DataService])
                 ], DashboardMainComponent);
                 return DashboardMainComponent;
             }());

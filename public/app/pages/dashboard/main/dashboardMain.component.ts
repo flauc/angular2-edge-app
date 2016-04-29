@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {RoomsDataService} from '../../../common/services/roomsData.service';
+import {DataService} from '../../../common/services/data.service';
 
 @Component({
     selector: 'main',
@@ -7,11 +7,12 @@ import {RoomsDataService} from '../../../common/services/roomsData.service';
 })
 export class DashboardMainComponent {
     constructor(
-        private _roomsData: RoomsDataService
+        private _data: DataService
     ) {
-        this.rooms = _roomsData.rooms;
-        console.log(this.rooms);
+        this.rooms = _data.rooms;
+        this.users = _data.users;
     }
 
     public rooms;
+    public users;
 }

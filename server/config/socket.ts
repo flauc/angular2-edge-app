@@ -1,5 +1,6 @@
 import {unpackToken} from './auth'
 import {updateUser} from '../controllers/users.controller'
+import {createRoom} from '../controllers/rooms.controller';
 
 export default class SocketConfig {
 
@@ -31,12 +32,12 @@ export default class SocketConfig {
             socket.on('server', (info, fn) => {
                 if (user) {
                     switch (info.command) {
-                        case 'projectCreate':
+                        case 'roomCreate':
 
                             // Add the user
                             info.data.createdBy = user;
 
-                            createProject(info.data).then(
+                            createRoom(info.data).then(
                                 res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {

@@ -19,8 +19,6 @@ export function createDefaultDbDocs(db) {
 
             for (let i = 0; i < users.length; i++) users[i].password = yield hashPass(users[i].password);
 
-            console.log(users);
-
             let r = yield db.collection('users').insertMany(users);
             
             if (r.insertedCount === 3) console.log('...users created successfully.')

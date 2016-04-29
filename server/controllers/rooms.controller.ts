@@ -143,7 +143,7 @@ export function addTask(roomTitle: string, task: any) {
 export function editTask(roomTitle: string, data) {
     return new Promise((resolve, reject) => {
         let coll = mongo.client.collection(colName),
-            keys = Object.keys(sent),
+            keys = Object.keys(data),
             setObj = {};
 
         keys.forEach(a => {

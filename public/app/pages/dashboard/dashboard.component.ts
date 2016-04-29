@@ -4,17 +4,17 @@ import {UserStoreService} from '../../common/services/userStore.service';
 import {appInjector} from '../../common/config/app.injector';
 import {RoomComponent} from './room/room.component';
 import {DashboardMainComponent} from './main/dashboardMain.component';
-import {RoomsDataService} from '../../common/services/roomsData.service';
+import {DataService} from '../../common/services/data.service';
 
 @CanActivate(() => {
     let injector: Injector = appInjector(),
         router: Router = injector.get(Router),
         userStore: UserStoreService = injector.get(UserStoreService),
-        roomsData: RoomsDataService = injector.get(RoomsDataService),
+        data: DataService = injector.get(DataService),
         user = userStore.getUser();
 
     if (user) {
-        return roomsData.getRooms()
+        return data.getRooms()
             .catch(err => false)
             .then(res => true)
     }
