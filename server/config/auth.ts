@@ -35,6 +35,21 @@ export function login(req, res) {
         });
 }
 
+export function loginAfterReg(data) {
+    return new Promise((resolve, reject) => {
+        // Only done to check that everything works properly
+        getUsers({_id: data._id}, true)
+            .catch((err) => reject(err))
+            .then(() => {
+                resolve({
+                    success: true,
+                    data: {username: data.username, _id: data._id},
+                    token: jwt.sign({username: data.username, _id: data._id}, config.appSecret, {expiresIn: 2880})
+                })
+            })
+    })
+}
+
 // Unpack token
 export function unpackToken(token) {
     return new Promise((resolve, reject) => {

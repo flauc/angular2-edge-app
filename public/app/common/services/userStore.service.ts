@@ -23,7 +23,10 @@ export class UserStoreService {
             this.emitter.emit(user);
         }
         
-        else localStorage.removeItem(this._appName);
+        else {
+            localStorage.removeItem(this._appName);
+            this.emitter.emit(false);
+        }
     }
     
 }

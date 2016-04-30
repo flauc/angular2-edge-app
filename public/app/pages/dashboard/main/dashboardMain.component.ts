@@ -3,7 +3,7 @@ import {DataService} from '../../../common/services/data.service';
 
 @Component({
     selector: 'main',
-    templateUrl: 'app/pages/dashboard/main/main'
+    templateUrl: 'app/pages/dashboard/main/main.html'
 })
 export class DashboardMainComponent {
     constructor(

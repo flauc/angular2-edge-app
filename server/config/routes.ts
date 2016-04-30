@@ -1,4 +1,4 @@
-import {login} from './auth';
+import {login, loginAfterReg} from './auth';
 import {getUsers, createUser} from '../controllers/users.controller';
 import {getRooms} from '../controllers/rooms.controller';
 
@@ -12,6 +12,9 @@ export default class RoutesConfig {
 
         // Create a user
         app.post('/api/sign-up', (req, res) => {
+
+            let initialReq = req;
+
             createUser(req.body)
                 .catch(err => {
                     res.status(401).send({
@@ -20,11 +23,15 @@ export default class RoutesConfig {
                     });
                 })
                 .then(data => {
-                    res.json({
-                        success: true,
-                        data: data
-                    });
-                })
+                    loginAfterReg(data)
+                        .catch(err => {
+                            res.status(401).send({
+                                success: false,
+                                error: err
+                            });
+                        })
+                        .then(val => res.json(val))
+                });
         });
 
         // Get all Rooms

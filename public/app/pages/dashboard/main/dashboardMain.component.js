@@ -30,7 +30,7 @@ System.register(['angular2/core', '../../../common/services/data.service'], func
                 DashboardMainComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
-                        templateUrl: 'app/pages/dashboard/main/main'
+                        templateUrl: 'app/pages/dashboard/main/main.html'
                     }), 
                     __metadata('design:paramtypes', [data_service_1.DataService])
                 ], DashboardMainComponent);

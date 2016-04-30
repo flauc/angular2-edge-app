@@ -4,7 +4,7 @@ import {DataService} from '../../../common/services/data.service';
 
 @Component({
     selector: 'room',
-    templateUrl: './public/app/pages/dashboard/room/room'
+    templateUrl: './public/app/pages/dashboard/room/room.html'
 })
 export class RoomComponent {
     constructor(

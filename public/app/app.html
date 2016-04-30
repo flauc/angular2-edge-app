@@ -4,6 +4,12 @@
         <li [class.active]="isActiveLink.check(['Login'])"><a [routerLink]="['Login']">Log In</a></li>
         <li [class.active]="isActiveLink.check(['Signup'])"><a [routerLink]="['Signup']">Sign Up</a></li>
     </ul>
+
+    <ul *ngIf="user">
+        <li [class.active]="isActiveLink.check(['Home'])"><a [routerLink]="['Home']">Home</a></li>
+        <li [class.active]="isActiveLink.check(['Dashboard'])"><a [routerLink]="['Dashboard']">Dashboard</a></li>
+        <li (click)="logOut()">Log Out</li>
+    </ul>
 </nav>
 <div class="row">
     <div class="container">

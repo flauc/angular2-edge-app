@@ -26,7 +26,7 @@ import {DataService} from '../../common/services/data.service';
 
 @Component({
     selector: 'user',
-    templateUrl: 'app/user/userLayout.html',
+    templateUrl: 'app/pages/dashboard/dashboard.html',
     directives: [
         ROUTER_DIRECTIVES,
         RouterLink
