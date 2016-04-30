@@ -1,4 +1,4 @@
-const base = 'http://46.101.114.89/';
+const base = 'http://localhost:1000/';
 
 export const urlValues = {
     login: `${base}api/login`,
