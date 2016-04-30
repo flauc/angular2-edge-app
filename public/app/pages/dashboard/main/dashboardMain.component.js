@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../common/services/data.service', '../../../common/services/socketControl.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../common/services/data.service', '../../../common/services/socketControl.service', '../../../common/components/userBlock/userBlock.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, data_service_1, socketControl_service_1;
+    var core_1, data_service_1, socketControl_service_1, userBlock_component_1;
     var DashboardMainComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
             },
             function (socketControl_service_1_1) {
                 socketControl_service_1 = socketControl_service_1_1;
+            },
+            function (userBlock_component_1_1) {
+                userBlock_component_1 = userBlock_component_1_1;
             }],
         execute: function() {
             DashboardMainComponent = (function () {
@@ -32,12 +35,21 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
                     this.rooms = _data.rooms;
                     this.users = _data.users;
                 }
+                DashboardMainComponent.prototype.roomEnter = function () {
+                };
                 DashboardMainComponent.prototype.roomCreate = function () {
-                    this._socketControl.roomCreate({ name: this.roomName, description: this.roomDescription });
+                    var _this = this;
+                    this._socketControl.roomCreate({ name: this.roomName, description: this.roomDescription })
+                        .then(function () {
+                        _this.roomName = '';
+                        _this.roomDescription = '';
+                        _this.roomCreateToggle = false;
+                    });
                 };
                 DashboardMainComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
+                        directives: [userBlock_component_1.UserBlockComponent],
                         templateUrl: 'app/pages/dashboard/main/main.html'
                     }), 
                     __metadata('design:paramtypes', [data_service_1.DataService, socketControl_service_1.SocketControlService])

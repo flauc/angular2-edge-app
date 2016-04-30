@@ -5,6 +5,7 @@ import {appInjector} from '../../common/config/app.injector';
 import {RoomComponent} from './room/room.component';
 import {DashboardMainComponent} from './main/dashboardMain.component';
 import {DataService} from '../../common/services/data.service';
+import {SocketControlService} from '../../common/services/socketControl.service';
 
 @CanActivate(() => {
     let injector: Injector = appInjector(),
@@ -27,6 +28,7 @@ import {DataService} from '../../common/services/data.service';
 @Component({
     selector: 'user',
     templateUrl: 'app/pages/dashboard/dashboard.html',
+    providers: [SocketControlService],
     directives: [
         ROUTER_DIRECTIVES,
         RouterLink
@@ -41,4 +43,10 @@ import {DataService} from '../../common/services/data.service';
     {path: '/**', redirectTo: ['DashboardMain']}
 ])
 
-export class DashboardComponent {}
+export class DashboardComponent {
+    constructor(
+        private _socketControl: SocketControlService
+    ) {
+        _socketControl.validateAndOpenListeners();
+    }
+}

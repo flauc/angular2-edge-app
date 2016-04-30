@@ -10,9 +10,9 @@ import {HomeComponent} from './pages/home/home.component';
 
 @Component({
     selector: 'app',
-    templateUrl: 'app/app.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [IsActiveLinkService]
+    providers: [IsActiveLinkService],
+    templateUrl: 'app/app.html',
 })
 
 @RouteConfig([

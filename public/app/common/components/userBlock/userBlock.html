@@ -1,0 +1,7 @@
+<button (click)="isVisible = !isVisible">Open Users</button>
+<ul class="users-block" [class.active]="isVisible">
+    <li *ngFor="#user of users">
+        <p>{{user.username}}</p>
+        <p>{{user.status}}</p>
+    </li>
+</ul>

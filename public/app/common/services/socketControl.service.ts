@@ -56,7 +56,12 @@ export class SocketControlService {
     }
 
     roomCreate(data) {
-        this.socket.emit('server', {command: this.sv.roomCreate, data: data})
+        return new Promise((resolve, reject) => {
+            this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
+                this._data.rooms.push(val.data);
+                resolve(val);
+            }) 
+        });
     }
 
     // Disconnect the socket

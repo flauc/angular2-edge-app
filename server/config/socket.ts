@@ -58,9 +58,7 @@ export default class SocketConfig {
             });
 
             socket.on('disconnect', () => {
-                updateUser({_id: user._id, status: 'offline'}).then(
-                    res => socket.broadcast.emit('client', {command: 'userStatus', data: {username: res.username, status: 'offline'}})
-                )
+                if (user) updateUser({_id: user._id, status: 'offline'}).then(res => socket.broadcast.emit('client', {command: 'userStatus', data: {username: res.username, status: 'offline'}}))
             });
 
 

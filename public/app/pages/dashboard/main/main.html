@@ -6,12 +6,14 @@
     </div>
 </div>
 
+<edge-userBlock [users]="users"></edge-userBlock>
+
 <button (click)="roomCreateToggle = !roomCreateToggle">Create Room</button>
 
 <div class="room-create" [hidden]="!roomCreateToggle">
     <h3>Create New Room</h3>
 
-    <form (ngSubmit)="createRoom()" #roomForm="ngForm">
+    <form (ngSubmit)="roomCreate()" #roomForm="ngForm">
         <div class="row">
             <label for="name">Name</label>
             <input
@@ -25,7 +27,7 @@
                     #name="ngForm">
         </div>
         <div class="row">
-            <label for="description">Description</label>
+            <label for="roomDescription">Description</label>
             <textarea
                     class="u-full-width"
                     placeholder="What is this room about?"
