@@ -6,6 +6,7 @@ import {SignupComponent} from './pages/signup/signup.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {UserStoreService} from './common/services/userStore.service';
 import {IsActiveLinkService} from './common/services/isActiveLink.service';
+import {HomeComponent} from './pages/home/home.component';
 
 @Component({
     selector: 'app',
@@ -15,12 +16,13 @@ import {IsActiveLinkService} from './common/services/isActiveLink.service';
 })
 
 @RouteConfig([
+    {path: '/', name: 'Home', component: HomeComponent},
     {path: '/login', name: 'Login', component: LoginComponent},
     {path: '/signup', name: 'Signup', component: SignupComponent},
     {path: '/dashboard/...', name: 'Dashboard', component: DashboardComponent},
 
     // Catch route
-    {path: '/**', redirectTo: ['Login']}
+    {path: '/**', redirectTo: ['Home']}
 ])
 export class AppComponent {
     constructor(

@@ -33,7 +33,9 @@ export class LoginComponent {
             },
 
             err => {
-                this.error = err;
+
+                // Clean the password
+                this.password = '';
                 this.submitted = false;
             }
         )

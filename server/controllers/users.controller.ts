@@ -43,10 +43,13 @@ export function createUser(data) {
 
                 data.password = res;
 
-                coll.insertOne(data, function(err, r) {
+                coll.insertOne(data, (err, r) => {
                     if (err) reject(err);
                     else if (r.insertedCount !== 1) reject('Error in user insert');
-                    else resolve(r.ops[0])
+                    else {
+                        delete r.ops[0].password;
+                        resolve(r.ops[0])
+                    }
                 })
             },
 

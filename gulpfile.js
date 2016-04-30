@@ -1,5 +1,7 @@
 var gulp = require('gulp'),
     inject = require('gulp-inject'),
+    stylus = require('gulp-stylus'),
+    autoprefixer = require('gulp-autoprefixer'),
 
     config = {
 
@@ -35,7 +37,10 @@ var gulp = require('gulp'),
         ],
 
 
-        vendorJsFolder: './public/assets/vendorJs'
+        vendorJsFolder: './public/assets/vendorJs',
+
+        stylus: './public/assets/style/**/*.styl',
+        stylusMain: './public/assets/style/style.styl'
     };
 
 // Dev Tasks
@@ -51,4 +56,16 @@ gulp.task('inject-development', () => {
     return target
         .pipe(inject(vendorStream, {relative: true}))
         .pipe(gulp.dest(config.public));
+});
+
+gulp.task('stylus',() => {
+    gulp.src(config.stylusMain)
+        .pipe(stylus())
+        .pipe(autoprefixer({browsers: ['last 2 version']}))
+        .pipe(gulp.dest(config.public));
+});
+
+// Watch Task
+gulp.task('watch', function() {
+    gulp.watch(config.stylus, ['stylus']);
 });

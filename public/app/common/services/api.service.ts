@@ -29,6 +29,14 @@ export class ApiService {
                 type = RequestMethod.Post;
                 authHeader = false;
                 break;
+            
+            // Create a user 
+            // Used on sign up
+            case 'signUp':
+                url = this._url.signUp;
+                type = RequestMethod.Post;
+                authHeader = false;
+                break;
 
             // Get all users
             case 'getUsers':
@@ -36,6 +44,7 @@ export class ApiService {
                 type = RequestMethod.Get;
                 break;
 
+            // Get all rooms
             case 'getRooms':
                 url = this._url.getRooms;
                 type = RequestMethod.Get;
