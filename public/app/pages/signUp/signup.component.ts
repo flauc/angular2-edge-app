@@ -5,7 +5,7 @@ import {UserStoreService} from '../../common/services/userStore.service';
 
 @Component({
     selector: 'signup',
-    templateUrl: '/signup.html'
+    templateUrl: 'app/pages/signup/signup.html'
 })
 export class SignupComponent {
     constructor(
@@ -24,7 +24,7 @@ export class SignupComponent {
 
     onSubmit() {
         this.submitted = true;
-        this._api.send('createUser', {username: this.username, password: this.password}).subscribe(
+        this._api.send('signUp', {username: this.username, password: this.password}).subscribe(
             res => {
                 // Remove success so we don't store it in local
                 delete res['success'];

@@ -42,7 +42,7 @@ export default class SocketConfig {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
                                         success: true,
-                                        command: 'projectCreated',
+                                        command: 'roomCreated',
                                         by: user._id,
                                         data: res
                                     })

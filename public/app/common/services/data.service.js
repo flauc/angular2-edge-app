@@ -32,7 +32,7 @@ System.register(['angular2/core', './api.service'], function(exports_1, context_
                     var _this = this;
                     return new Promise(function (resolve, reject) {
                         _this._api.send('getRooms').subscribe(function (res) {
-                            _this.rooms = res;
+                            _this.rooms = res.data;
                             resolve(res);
                         }, function (err) { return reject(err); });
                     });
@@ -41,7 +41,7 @@ System.register(['angular2/core', './api.service'], function(exports_1, context_
                     var _this = this;
                     return new Promise(function (resolve, reject) {
                         _this._api.send('getUsers').subscribe(function (res) {
-                            _this.users = res;
+                            _this.users = res.data;
                             resolve(res);
                         }, function (err) { return reject(err); });
                     });

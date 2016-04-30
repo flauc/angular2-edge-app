@@ -12,5 +12,8 @@ export const appValues = {
 };
 
 export const socketValues = {
-    url: base
+    url: base,
+    
+    // Commands
+    roomCreate: 'roomCreate'
 };

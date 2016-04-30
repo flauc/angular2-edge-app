@@ -41,6 +41,7 @@ export class SocketControlService {
 
                     // When a new room is created
                     case 'roomCreated':
+                        console.log('from general');
                         this._data.rooms.push(value.data);
                         break;
                 }
@@ -52,6 +53,10 @@ export class SocketControlService {
         this._data.users.forEach(a => {
             if (a.username === username) a.status = status
         });
+    }
+
+    roomCreate(data) {
+        this.socket.emit('server', {command: this.sv.roomCreate, data: data})
     }
 
     // Disconnect the socket

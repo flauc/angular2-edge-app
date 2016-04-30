@@ -14,7 +14,7 @@ import {DataService} from '../../common/services/data.service';
         user = userStore.getUser();
 
     if (user) {
-        return data.getRooms()
+        return data.getAllData()
             .catch(err => false)
             .then(res => true)
     }

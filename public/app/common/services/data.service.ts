@@ -18,7 +18,7 @@ export class DataService {
         return new Promise((resolve, reject) => {
             this._api.send('getRooms').subscribe(
                 res => {
-                    this.rooms = res;
+                    this.rooms = res.data;
                     resolve(res)
                 }, 
                 err => reject(err)
@@ -30,7 +30,7 @@ export class DataService {
         return new Promise((resolve, reject) => {
             this._api.send('getUsers').subscribe(
                 res => {
-                    this.users = res;
+                    this.users = res.data;
                     resolve(res)
                 },
                 err => reject(err)

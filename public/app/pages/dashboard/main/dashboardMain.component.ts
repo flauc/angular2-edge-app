@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {DataService} from '../../../common/services/data.service';
+import {SocketControlService} from '../../../common/services/socketControl.service';
 
 @Component({
     selector: 'main',
@@ -7,7 +8,8 @@ import {DataService} from '../../../common/services/data.service';
 })
 export class DashboardMainComponent {
     constructor(
-        private _data: DataService
+        private _data: DataService,
+        private _socketControl: SocketControlService
     ) {
         this.rooms = _data.rooms;
         this.users = _data.users;
@@ -15,4 +17,13 @@ export class DashboardMainComponent {
 
     public rooms;
     public users;
+    
+    // New Room
+    public roomCreateToggle: boolean = false;
+    public roomName: string;
+    public roomDescription: string;
+    
+    roomCreate() {
+        this._socketControl.roomCreate({name: this.roomName, description: this.roomDescription})
+    }
 }

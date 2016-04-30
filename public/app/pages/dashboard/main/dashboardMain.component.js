@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../common/services/data.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../common/services/data.service', '../../../common/services/socketControl.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../common/services/data.service'], func
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, data_service_1;
+    var core_1, data_service_1, socketControl_service_1;
     var DashboardMainComponent;
     return {
         setters:[
@@ -19,20 +19,28 @@ System.register(['angular2/core', '../../../common/services/data.service'], func
             },
             function (data_service_1_1) {
                 data_service_1 = data_service_1_1;
+            },
+            function (socketControl_service_1_1) {
+                socketControl_service_1 = socketControl_service_1_1;
             }],
         execute: function() {
             DashboardMainComponent = (function () {
-                function DashboardMainComponent(_data) {
+                function DashboardMainComponent(_data, _socketControl) {
                     this._data = _data;
+                    this._socketControl = _socketControl;
+                    this.roomCreateToggle = false;
                     this.rooms = _data.rooms;
                     this.users = _data.users;
                 }
+                DashboardMainComponent.prototype.roomCreate = function () {
+                    this._socketControl.roomCreate({ name: this.roomName, description: this.roomDescription });
+                };
                 DashboardMainComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
                         templateUrl: 'app/pages/dashboard/main/main.html'
                     }), 
-                    __metadata('design:paramtypes', [data_service_1.DataService])
+                    __metadata('design:paramtypes', [data_service_1.DataService, socketControl_service_1.SocketControlService])
                 ], DashboardMainComponent);
                 return DashboardMainComponent;
             }());
