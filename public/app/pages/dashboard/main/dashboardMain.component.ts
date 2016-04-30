@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {DataService} from '../../../common/services/data.service';
 import {SocketControlService} from '../../../common/services/socketControl.service';
 import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component';
+import {Router} from 'angular2/router';
 
 @Component({
     selector: 'main',
@@ -10,6 +11,7 @@ import {UserBlockComponent} from '../../../common/components/userBlock/userBlock
 })
 export class DashboardMainComponent {
     constructor(
+        private _router: Router,
         private _data: DataService,
         private _socketControl: SocketControlService
     ) {
@@ -26,8 +28,8 @@ export class DashboardMainComponent {
     public roomDescription: string;
     
 
-    roomEnter() {
-        
+    roomEnter(room) {
+        this._router.navigate(['Room', {name: room.name}])
     }
 
     roomCreate() {

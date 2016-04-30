@@ -12,9 +12,11 @@ export function createDefaultDbDocs(db) {
             console.log('No users in the database. Creating default users now...');
 
             let users = [
-                {username: 'filip.lauc93@gmail.com', password: 'Filip1!', status: 'offline'},
-                {username: 'wojtek.kwiatek@gmail.com', password: 'Wojtek1!', status: 'offline'},
-                {username: 'laco0416@gmail.com', password: 'Suguru!', status: 'offline'}
+                {username: 'filip.lauc93@gmail.com', password: 'filip', status: 'offline'},
+                {username: 'wojtek.kwiatek@gmail.com', password: 'wojtek', status: 'offline'},
+                {username: 'laco0416@gmail.com', password: 'suguru', status: 'offline'},
+                {username: 'mgualtieri7@gmail.com', password: 'mary', status: 'offline'},
+                {username: 'ran.wahle@gmail.com', password: 'ran', status: 'offline'}
             ];
 
             for (let i = 0; i < users.length; i++) users[i].password = yield hashPass(users[i].password);

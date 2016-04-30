@@ -2,7 +2,7 @@
     <div class="room" *ngFor="#room of rooms">
         <h3>{{room.title}}</h3>
         <p>{{room.description}}</p>
-        <button>Enter Room</button>
+        <button (click)="roomEnter(room)">Enter Room</button>
     </div>
 </div>
 

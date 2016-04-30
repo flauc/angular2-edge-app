@@ -4,7 +4,7 @@ import {DataService} from '../../../common/services/data.service';
 
 @Component({
     selector: 'room',
-    templateUrl: './public/app/pages/dashboard/room/room.html'
+    templateUrl: 'app/pages/dashboard/room/room.html'
 })
 export class RoomComponent {
     constructor(
@@ -14,7 +14,7 @@ export class RoomComponent {
     ) {
 
         // Check if we are in a room that exists 
-        let currentRoom = _data.rooms.find(a => a.name === _params.get('roomName'));
+        let currentRoom = _data.rooms.find(a => a.name === _params.get('name'));
         if (currentRoom) this.room = currentRoom;
         else _router.navigate(['DashboardMain']);
     }

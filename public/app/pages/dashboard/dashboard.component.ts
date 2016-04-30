@@ -37,7 +37,7 @@ import {SocketControlService} from '../../common/services/socketControl.service'
 
 @RouteConfig([
     {path: '/', name: 'DashboardMain', component: DashboardMainComponent, useAsDefault: true},
-    {path: '/:roomName', name: 'Room', component: RoomComponent},
+    {path: '/:name', name: 'Room', component: RoomComponent},
 
     // Catch All route
     {path: '/**', redirectTo: ['DashboardMain']}
