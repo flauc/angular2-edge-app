@@ -8,7 +8,7 @@
     <li *ngFor="#task of room.tasks" [class.complete]="task.complete">
         <span>{{task.name}}</span>
         <button (click)="taskComplete(task)">Complete</button>
-        <button (click)="taskDelete(task)">Delete</button>
+        <button (click)="taskDelete(task._id)">Delete</button>
     </li>
 </ul>
 

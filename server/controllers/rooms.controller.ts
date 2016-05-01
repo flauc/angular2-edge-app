@@ -136,7 +136,7 @@ export function addTask(roomName: string, task: any) {
             },
             (err, r) => {
                 if (err) reject(err);
-                else if (r.lastErrorObject.n !== 1) reject('An error with adding the user to the room.');
+                else if (r.lastErrorObject.n !== 1) reject('An error with adding the task to the room.');
                 else resolve(r.value.tasks.find(a => a._id.equals(task._id)))
             }
         )
@@ -170,6 +170,28 @@ export function updateTask(roomName: string, data) {
                 if (err) reject(err);
                 else if (r.lastErrorObject.n !== 1) reject('An error with task edit.');
                 else resolve(r.value.tasks.find(a => a._id.equals(mongo.createId(data._id))))
+            }
+        );
+    })
+}
+
+export function deleteTask(roomName: string, id: string) {
+    return new Promise((resolve, reject) => {
+        let coll = mongo.client.collection(colName),
+            taskId = mongo.createId(id);
+
+        coll.findOneAndUpdate (
+            {name: roomName},
+            {$pull: { tasks: { _id: taskId}}},
+            (err, r) => {
+                if (err) reject(err);
+                else if (r.lastErrorObject.n !== 1) reject('No task to delete.');
+
+                // Check if task was deleted
+                let task = r.value.tasks.find(a => a._id.equals(taskId));
+                
+                if (task) reject('No task with that id was found.');
+                else resolve(task)
             }
         );
     })

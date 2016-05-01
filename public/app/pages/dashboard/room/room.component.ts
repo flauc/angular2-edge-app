@@ -44,7 +44,8 @@ export class RoomComponent {
             .catch(err => {})
     }
 
-    taskDelete(task) {
-
+    taskDelete(taskId) {
+        this._socketControl.taskDelete({roomName: this.room.name, taskId: taskId})
+            .catch(err => {})
     }
 }

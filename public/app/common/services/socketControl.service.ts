@@ -67,6 +67,11 @@ export class SocketControlService {
                                 taskIndex = _.findIndex(this._data.rooms[i].tasks, o => o._id === info.data._id);
                             this._data.rooms[index].tasks[taskIndex] = info.data;
                             break;
+
+                        // When a task i deleted
+                        case 'taskDeleted':
+                            break;
+
                     }
                 })
             }
@@ -144,8 +149,12 @@ export class SocketControlService {
     taskDelete(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.taskDelete, data: data}, val => {
+                console.log(val);
                 if (val.success) {
-
+                    console.log(val);
+                    // let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
+                    //     taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data._id);
+                    // this._data.rooms[index].tasks.splice(taskIndex, 1);
                 }
 
                 else reject(val)
