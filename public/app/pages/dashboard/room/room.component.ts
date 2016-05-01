@@ -40,7 +40,8 @@ export class RoomComponent {
     }
 
     taskComplete(task) {
-
+        this._socketControl.taskUpdate({roomName: this.room.name, task: {complete: !task.complete, _id: task._id}})
+            .catch(err => {})
     }
 
     taskDelete(task) {

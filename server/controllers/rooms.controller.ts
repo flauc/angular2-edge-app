@@ -144,7 +144,7 @@ export function addTask(roomName: string, task: any) {
     })
 }
 
-export function editTask(roomName: string, data) {
+export function updateTask(roomName: string, data) {
     return new Promise((resolve, reject) => {
         let coll = mongo.client.collection(colName),
             keys = Object.keys(data),

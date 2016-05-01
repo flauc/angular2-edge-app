@@ -60,6 +60,13 @@ export class SocketControlService {
                             let index = _.findIndex(this._data.rooms, o => o.name === info.toRoom);
                             if (index !== -1) this._data.rooms[index].tasks.push(info.data);
                             break;
+
+                        // When a task is updated
+                        case 'taskUpdated':
+                            let i = _.findIndex(this._data.rooms, o => o.name === info.toRoom),
+                                taskIndex = _.findIndex(this._data.rooms[i].tasks, o => o._id === info.data._id);
+                            this._data.rooms[index].tasks[taskIndex] = info.data;
+                            break;
                     }
                 })
             }
@@ -82,9 +89,6 @@ export class SocketControlService {
     roomCreate(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
-
-                console.log(val);
-
                 if (val.success) {
                     this._data.rooms.push(val.data);
                     resolve(val);
@@ -98,7 +102,6 @@ export class SocketControlService {
     roomDelete(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomDelete, data: data}, val => {
-                console.log(val);
                 if (val.success) {
                     this._data.rooms.splice(this._data.rooms.indexOf(data), 1);
                     resolve(val);
@@ -115,9 +118,7 @@ export class SocketControlService {
             this.socket.emit('server', {command: this.sv.taskCreate, data: {roomName: data.roomName, name: data.name}}, val => {
                 if (val.success) {
                     let index = _.findIndex(this._data.rooms, o => o.name === data.roomName);
-                    console.log(val);
-                    if (index !== -1) this._data.rooms[index].tasks.push(val.data)
-
+                    if (index !== -1) this._data.rooms[index].tasks.push(val.data);
                     resolve(val)
                 }
 
@@ -130,7 +131,9 @@ export class SocketControlService {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.taskUpdate, data: data}, val => {
                 if (val.success) {
-                    
+                    let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
+                        taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data._id);
+                    this._data.rooms[index].tasks[taskIndex] = val.data;
                 }
 
                 else reject(val)

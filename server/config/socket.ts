@@ -1,6 +1,6 @@
 import {unpackToken} from './auth'
 import {updateUser} from '../controllers/users.controller'
-import {createRoom, delRoom, addTask} from '../controllers/rooms.controller';
+import {createRoom, delRoom, addTask, updateTask} from '../controllers/rooms.controller';
 
 export default class SocketConfig {
 
@@ -84,6 +84,21 @@ export default class SocketConfig {
                                     })
                                 });
                             break;
+
+                        case 'taskUpdate':
+
+                            updateTask(info.data.roomName, info.data.task)
+                                .catch(err => fn({success: false, error: err}))
+                                .then(res => {
+                                    fn({success: true, data: res});
+                                    socket.broadcast.emit('client', {
+                                        success: true,
+                                        command: 'taskUpdated',
+                                        by: user._id,
+                                        toRoom: info.data.roomName,
+                                        data: res
+                                    })
+                                })
                             
                     }   
                 }
