@@ -3,6 +3,7 @@ import {UserStoreService} from './userStore.service';
 import {socketValues} from '../config/app.values';
 import {DataService} from './data.service';
 
+
 declare var io: any;
 
 @Injectable()
@@ -62,6 +63,15 @@ export class SocketControlService {
                 resolve(val);
             }) 
         });
+    }
+    
+    roomDelete(data) {
+        return new Promise((resolve, reject) => {
+            this.socket.emit('server', {command: this.sv.roomDelete, data: data}, val => {
+                this._data.rooms.push(val.data);
+                resolve(val);
+            })
+        })
     }
 
     // Disconnect the socket

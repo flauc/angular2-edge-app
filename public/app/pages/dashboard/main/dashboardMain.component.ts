@@ -3,6 +3,7 @@ import {DataService} from '../../../common/services/data.service';
 import {SocketControlService} from '../../../common/services/socketControl.service';
 import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component';
 import {Router} from 'angular2/router';
+import {UserStoreService} from '../../../common/services/userStore.service';
 
 @Component({
     selector: 'main',
@@ -13,14 +14,20 @@ export class DashboardMainComponent {
     constructor(
         private _router: Router,
         private _data: DataService,
-        private _socketControl: SocketControlService
+        private _socketControl: SocketControlService,
+        private _userStore: UserStoreService
     ) {
         this.rooms = _data.rooms;
         this.users = _data.users;
+        this.me = _userStore.getUser().data;
+
+        console.log(this.me);
+        console.log(this.rooms);
     }
 
     public rooms;
     public users;
+    public me;
     
     // New Room
     public roomCreateToggle: boolean = false;
@@ -39,5 +46,9 @@ export class DashboardMainComponent {
                 this.roomDescription = '';
                 this.roomCreateToggle = false;
             })
+    }
+
+    roomDelete(room) {
+        this._socketControl.roomDelete(room)
     }
 }

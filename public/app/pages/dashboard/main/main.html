@@ -1,8 +1,9 @@
 <div class="rooms-wrapper">
     <div class="room" *ngFor="#room of rooms">
-        <h3>{{room.title}}</h3>
+        <h3>{{room.name}}</h3>
         <p>{{room.description}}</p>
         <button (click)="roomEnter(room)">Enter Room</button>
+        <button *ngIf="room.createdBy._id === me._id" (click)="roomDelete(room)">Delete Room</button>
     </div>
 </div>
 

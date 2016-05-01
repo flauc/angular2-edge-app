@@ -20,13 +20,14 @@
         <!-- endinject -->
 
         <script>
-          System.config({
-            packages: {        
-              app: {
-                format: "register",
-                defaultExtension: "js"
-              }
-            }
+            System.config({
+                packages: {
+                    app: {
+                        format: "register",
+                        defaultExtension: "js"
+                    }
+                },
+                map: { 'lodash': 'assets/vendorJs/lodash.min.js' }
           });
 
           System.import("app/boot").then(null, console.error.bind(console));

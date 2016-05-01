@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../common/services/data.service', '../../../common/services/socketControl.service', '../../../common/components/userBlock/userBlock.component', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../common/services/data.service', '../../../common/services/socketControl.service', '../../../common/components/userBlock/userBlock.component', 'angular2/router', '../../../common/services/userStore.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, data_service_1, socketControl_service_1, userBlock_component_1, router_1;
+    var core_1, data_service_1, socketControl_service_1, userBlock_component_1, router_1, userStore_service_1;
     var DashboardMainComponent;
     return {
         setters:[
@@ -28,16 +28,23 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (userStore_service_1_1) {
+                userStore_service_1 = userStore_service_1_1;
             }],
         execute: function() {
             DashboardMainComponent = (function () {
-                function DashboardMainComponent(_router, _data, _socketControl) {
+                function DashboardMainComponent(_router, _data, _socketControl, _userStore) {
                     this._router = _router;
                     this._data = _data;
                     this._socketControl = _socketControl;
+                    this._userStore = _userStore;
                     this.roomCreateToggle = false;
                     this.rooms = _data.rooms;
                     this.users = _data.users;
+                    this.me = _userStore.getUser().data;
+                    console.log(this.me);
+                    console.log(this.rooms);
                 }
                 DashboardMainComponent.prototype.roomEnter = function (room) {
                     this._router.navigate(['Room', { name: room.name }]);
@@ -51,13 +58,16 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
                         _this.roomCreateToggle = false;
                     });
                 };
+                DashboardMainComponent.prototype.roomDelete = function (room) {
+                    this._socketControl.roomDelete(room);
+                };
                 DashboardMainComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
                         directives: [userBlock_component_1.UserBlockComponent],
                         templateUrl: 'app/pages/dashboard/main/main.html'
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService])
+                    __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
                 ], DashboardMainComponent);
                 return DashboardMainComponent;
             }());

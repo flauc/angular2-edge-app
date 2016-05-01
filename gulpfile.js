@@ -20,7 +20,8 @@ var gulp = require('gulp'),
             'node_modules/angular2/bundles/angular2.dev.js',
             'node_modules/angular2/bundles/router.dev.js',
             'node_modules/angular2/bundles/http.dev.js',
-            'node_modules/socket.io-client/socket.io.js'
+            'node_modules/socket.io-client/socket.io.js',
+            'node_modules/lodash/lodash.min.js'
         ],
 
         vendorJs: [
@@ -33,7 +34,8 @@ var gulp = require('gulp'),
             './public/assets/vendorJs/angular2.dev.js',
             './public/assets/vendorJs/router.dev.js',
             './public/assets/vendorJs/http.dev.js',
-            './public/assets/vendorJs/socket.io.js'
+            './public/assets/vendorJs/socket.io.js',
+            './public/assets/vendorJs/lodash.min.js'
         ],
 
 

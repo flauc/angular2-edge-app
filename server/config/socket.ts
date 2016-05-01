@@ -1,6 +1,6 @@
 import {unpackToken} from './auth'
 import {updateUser} from '../controllers/users.controller'
-import {createRoom} from '../controllers/rooms.controller';
+import {createRoom, delRoom} from '../controllers/rooms.controller';
 
 export default class SocketConfig {
 
@@ -37,8 +37,9 @@ export default class SocketConfig {
                             // Add the user
                             info.data.createdBy = user;
 
-                            createRoom(info.data).then(
-                                res => {
+                            createRoom(info.data)
+                                .catch(err => fn({success: false, error: err}))
+                                .then(res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
                                         success: true,
@@ -46,11 +47,29 @@ export default class SocketConfig {
                                         by: user._id,
                                         data: res
                                     })
-                                },
-
-                                err => fn({success: false, error: err})
-                            );
+                                });
                             break;
+                        
+                        case 'roomDelete':
+
+                            if (info.data.createdBy._id === user._id) {
+                                delRoom(info.data._id)
+                                    .catch(err => fn({success: false, error: err}))
+                                    .then(res => {
+                                        fn({success: true, data: res});
+                                        socket.broadcast.emit('client', {
+                                            success: true,
+                                            command: 'roomDeleted',
+                                            by: user._id,
+                                            data: res
+                                        })
+                                    });   
+                            }
+                            
+                            else fn({success: false, error: 'You dont have permission to do that'});
+                            
+                            break;    
+                            
                     }   
                 }
 

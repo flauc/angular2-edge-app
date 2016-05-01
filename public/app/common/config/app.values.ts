@@ -15,5 +15,6 @@ export const socketValues = {
     url: base,
     
     // Commands
-    roomCreate: 'roomCreate'
+    roomCreate: 'roomCreate',
+    roomDelete: 'roomDelete'
 };
