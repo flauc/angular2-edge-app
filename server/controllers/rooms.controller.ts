@@ -49,13 +49,14 @@ export function updateRoom(sent) {
     return new Promise((resolve, reject) => {
 
         let coll = mongo.client.collection(colName),
+            id = mongo.createId(sent._id),
             toSet = sent;
 
         // Remove the id from the setter
         delete toSet['_id'];
 
         coll.findOneAndUpdate(
-            {_id: sent._id},
+            {_id: id},
             {$set: toSet}, {
                 // This makes sure that the updated document is returned
                 returnOriginal: false,
@@ -77,11 +78,11 @@ export function updateRoom(sent) {
 
 export function delRoom(id: string) {
     return new Promise((resolve, reject) => {
+        let coll = mongo.client.collection(colName),
+            mongoId = mongo.createId(id);
 
-        let coll = mongo.client.collection(colName);
-
-        coll.findOneAndRemove(
-            {_id: id},
+        coll.findOneAndDelete(
+            {_id: mongoId},
             {
                 // Defines which fields should not be returned
                 projection: {
@@ -90,7 +91,7 @@ export function delRoom(id: string) {
             },
             (err, r) => {
                 if (err) reject(err);
-                else resolve(r)
+                else resolve(r.value)
             }
         );
     })

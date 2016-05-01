@@ -6,7 +6,7 @@ export default class SocketConfig {
 
     constructor(io) {
         io.on('connection', (socket) => {
-
+            
             let user;
 
             socket.on('validate', (info, fn) => {
@@ -20,11 +20,11 @@ export default class SocketConfig {
                                 socket.broadcast.emit('client', {command: 'userStatus', data: {username: res.username, status: 'online'}});
                                 user = res;
 
-                                fn({username: res.username, status: 'online'})
+                                fn({success: true, data: {username: res.username, status: 'online'}})
                             }
                         )
                     },
-                    err => fn(err)
+                    err => fn({success: false, error: err})
 
                 )
             });
@@ -51,8 +51,7 @@ export default class SocketConfig {
                             break;
                         
                         case 'roomDelete':
-
-                            if (info.data.createdBy._id === user._id) {
+                            if (info.data.createdBy.username === user.username) {
                                 delRoom(info.data._id)
                                     .catch(err => fn({success: false, error: err}))
                                     .then(res => {

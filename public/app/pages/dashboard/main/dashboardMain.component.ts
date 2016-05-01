@@ -20,9 +20,6 @@ export class DashboardMainComponent {
         this.rooms = _data.rooms;
         this.users = _data.users;
         this.me = _userStore.getUser().data;
-
-        console.log(this.me);
-        console.log(this.rooms);
     }
 
     public rooms;
@@ -41,6 +38,7 @@ export class DashboardMainComponent {
 
     roomCreate() {
         this._socketControl.roomCreate({name: this.roomName, description: this.roomDescription})
+            .catch(err => console.log(err))
             .then(() => {
                 this.roomName = '';
                 this.roomDescription = '';
@@ -50,5 +48,6 @@ export class DashboardMainComponent {
 
     roomDelete(room) {
         this._socketControl.roomDelete(room)
+            .catch(err => console.log(err))
     }
 }

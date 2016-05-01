@@ -43,8 +43,6 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
                     this.rooms = _data.rooms;
                     this.users = _data.users;
                     this.me = _userStore.getUser().data;
-                    console.log(this.me);
-                    console.log(this.rooms);
                 }
                 DashboardMainComponent.prototype.roomEnter = function (room) {
                     this._router.navigate(['Room', { name: room.name }]);
@@ -52,6 +50,7 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
                 DashboardMainComponent.prototype.roomCreate = function () {
                     var _this = this;
                     this._socketControl.roomCreate({ name: this.roomName, description: this.roomDescription })
+                        .catch(function (err) { return console.log(err); })
                         .then(function () {
                         _this.roomName = '';
                         _this.roomDescription = '';
@@ -59,7 +58,8 @@ System.register(['angular2/core', '../../../common/services/data.service', '../.
                     });
                 };
                 DashboardMainComponent.prototype.roomDelete = function (room) {
-                    this._socketControl.roomDelete(room);
+                    this._socketControl.roomDelete(room)
+                        .catch(function (err) { return console.log(err); });
                 };
                 DashboardMainComponent = __decorate([
                     core_1.Component({

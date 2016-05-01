@@ -97,7 +97,7 @@ export function delUser(id) {
         let coll = mongo.client.collection(colName);
 
 
-        coll.findOneAndRemove(
+        coll.findOneAndDelete(
             {_id: id},
             {
                 // Defines which fields should not be returned
@@ -108,7 +108,7 @@ export function delUser(id) {
             },
             (err, r) => {
                 if (err) reject(err);
-                else resolve(r)
+                else resolve(r.value)
             }
         );
     })

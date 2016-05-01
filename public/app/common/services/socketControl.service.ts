@@ -2,6 +2,7 @@ import {Injectable, EventEmitter} from 'angular2/core';
 import {UserStoreService} from './userStore.service';
 import {socketValues} from '../config/app.values';
 import {DataService} from './data.service';
+import {Router} from 'angular2/router';
 
 
 declare var io: any;
@@ -9,6 +10,7 @@ declare var io: any;
 @Injectable()
 export class SocketControlService {
     constructor(
+        private _router: Router,
         private _userStore: UserStoreService,
         private _data: DataService
     ) {
@@ -23,30 +25,43 @@ export class SocketControlService {
     private sv: any;
 
     validateAndOpenListeners() {
-        this.socket.emit('validate', {token: this._userStore.getUser().token}, (data) => {
-            this.changeStatus(data.username, data.status);
+        this.socket.emit('validate', {token: this._userStore.getUser().token}, (info) => {
 
-            // Once the connection is valid start listening
-            this.socket.on('client', (value) => {
-                switch (value.command) {
+            if (info.success) {
+                this.changeStatus(info.data.username, info.data.status);
 
-                    // When a user connects or disconnects 
-                    case 'userStatus':
-                        this.changeStatus(value.data.username, value.data.status);
-                        break;
+                // Once the connection is valid start listening
+                this.socket.on('client', (value) => {
+                    switch (value.command) {
 
-                    // When a new user is created
-                    case 'userCreated':
-                        this._data.users.push(value.data);
-                        break;
+                        // When a user connects or disconnects
+                        case 'userStatus':
+                            this.changeStatus(value.data.username, value.data.status);
+                            break;
 
-                    // When a new room is created
-                    case 'roomCreated':
-                        console.log('from general');
-                        this._data.rooms.push(value.data);
-                        break;
-                }
-            })
+                        // When a new user is created
+                        case 'userCreated':
+                            this._data.users.push(value.data);
+                            break;
+
+                        // When a new room is created
+                        case 'roomCreated':
+                            this._data.rooms.push(value.data);
+                            break;
+
+                        // When a room is deleted
+                        case 'roomDeleted':
+                            this._data.rooms.splice(this._data.rooms.indexOf(value.data), 1);
+                            break;
+                    }
+                })
+            }
+
+            // If there was an error that means there is something wrong with the token
+            else {
+                this._userStore.setUser();
+                this._router.navigate(['Login'])
+            }
         });
     }
 
@@ -59,8 +74,12 @@ export class SocketControlService {
     roomCreate(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
-                this._data.rooms.push(val.data);
-                resolve(val);
+                if (val.success) {
+                    this._data.rooms.push(val.data);
+                    resolve(val);
+                }
+
+                else reject(val)
             }) 
         });
     }
@@ -68,8 +87,13 @@ export class SocketControlService {
     roomDelete(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomDelete, data: data}, val => {
-                this._data.rooms.push(val.data);
-                resolve(val);
+                console.log(val);
+                if (val.success) {
+                    this._data.rooms.splice(this._data.rooms.indexOf(data), 1);
+                    resolve(val);
+                }
+
+                else reject(val)
             })
         })
     }
