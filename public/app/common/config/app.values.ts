@@ -16,5 +16,9 @@ export const socketValues = {
     
     // Commands
     roomCreate: 'roomCreate',
-    roomDelete: 'roomDelete'
+    roomDelete: 'roomDelete',
+
+    taskCreate: 'taskCreate',
+    taskUpdate: 'taskUpdate',
+    taskDelete: 'taskDelete'
 };

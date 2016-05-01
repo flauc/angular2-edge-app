@@ -71,6 +71,7 @@ export class SocketControlService {
         });
     }
 
+    // Room Methods
     roomCreate(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
@@ -91,6 +92,43 @@ export class SocketControlService {
                 if (val.success) {
                     this._data.rooms.splice(this._data.rooms.indexOf(data), 1);
                     resolve(val);
+                }
+
+                else reject(val)
+            })
+        })
+    }
+
+    // Task Methods
+    taskCreate(data) {
+        return new Promise((resolve, reject) => {
+            this.socket.emit('server', {command: this.sv.taskCreate, data: data}, val => {
+                if (val.success) {
+
+                }
+
+                else reject(val)
+            })
+        })
+    }
+
+    taskUpdate(data) {
+        return new Promise((resolve, reject) => {
+            this.socket.emit('server', {command: this.sv.taskUpdate, data: data}, val => {
+                if (val.success) {
+
+                }
+
+                else reject(val)
+            })
+        })
+    }
+
+    taskDelete(data) {
+        return new Promise((resolve, reject) => {
+            this.socket.emit('server', {command: this.sv.taskDelete, data: data}, val => {
+                if (val.success) {
+
                 }
 
                 else reject(val)

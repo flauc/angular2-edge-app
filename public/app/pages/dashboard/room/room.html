@@ -1,1 +1,25 @@
-<h1>Room: {{room.name}}</h1>
+<h3>Name: {{room.name}}</h3>
+<h5>Description: {{room.description}}</h5>
+
+
+<edge-tasksBlock [room]></edge-tasksBlock>
+<edge-userBlock [users]="allUsers"></edge-userBlock>
+<div class="tast-create">
+    <form (ngSubmit)="taskCreate()" #taskForm="ngForm">
+        <div class="row">
+            <label for="task">Name</label>
+            <input
+                    class="u-full-width"
+                    type="text"
+                    placeholder="What is the task?"
+                    id="task"
+                    required
+                    [(ngModel)]="taskName"
+                    ngControl="task"
+                    #task="ngForm">
+        </div>
+        <div class="row">
+            <input type="submit" [disabled]="!taskForm.form.valid" value="Create">
+        </div>
+    </form>
+</div>
