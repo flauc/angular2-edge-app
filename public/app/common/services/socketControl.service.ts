@@ -3,6 +3,7 @@ import {UserStoreService} from './userStore.service';
 import {socketValues} from '../config/app.values';
 import {DataService} from './data.service';
 import {Router} from 'angular2/router';
+import * as _ from "lodash"
 
 
 declare var io: any;
@@ -53,6 +54,12 @@ export class SocketControlService {
                         case 'roomDeleted':
                             this._data.rooms.splice(this._data.rooms.indexOf(value.data), 1);
                             break;
+
+                        // When a task is created
+                        case 'taskCreated':
+                            let index = _.findIndex(this._data.rooms, o => o.name === info.toRoom);
+                            if (index !== -1) this._data.rooms[index].tasks.push(info.data);
+                            break;
                     }
                 })
             }
@@ -75,6 +82,9 @@ export class SocketControlService {
     roomCreate(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
+
+                console.log(val);
+
                 if (val.success) {
                     this._data.rooms.push(val.data);
                     resolve(val);
@@ -102,9 +112,13 @@ export class SocketControlService {
     // Task Methods
     taskCreate(data) {
         return new Promise((resolve, reject) => {
-            this.socket.emit('server', {command: this.sv.taskCreate, data: data}, val => {
+            this.socket.emit('server', {command: this.sv.taskCreate, data: {roomName: data.roomName, name: data.name}}, val => {
                 if (val.success) {
+                    let index = _.findIndex(this._data.rooms, o => o.name === data.roomName);
+                    console.log(val);
+                    if (index !== -1) this._data.rooms[index].tasks.push(val.data)
 
+                    resolve(val)
                 }
 
                 else reject(val)
@@ -116,7 +130,7 @@ export class SocketControlService {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.taskUpdate, data: data}, val => {
                 if (val.success) {
-
+                    
                 }
 
                 else reject(val)

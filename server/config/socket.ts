@@ -1,6 +1,6 @@
 import {unpackToken} from './auth'
 import {updateUser} from '../controllers/users.controller'
-import {createRoom, delRoom} from '../controllers/rooms.controller';
+import {createRoom, delRoom, addTask} from '../controllers/rooms.controller';
 
 export default class SocketConfig {
 
@@ -68,6 +68,22 @@ export default class SocketConfig {
                             else fn({success: false, error: 'You dont have permission to do that'});
                             
                             break;    
+                        
+                        case 'taskCreate':
+
+                            addTask(info.data.roomName, { name: info.data.name, createdBy: user})
+                                .catch(err => fn({success: false, error: err}))
+                                .then(res => {
+                                    fn({success: true, data: res});
+                                    socket.broadcast.emit('client', {
+                                        success: true,
+                                        command: 'taskCreated',
+                                        by: user._id,
+                                        toRoom: info.data.roomName,
+                                        data: res
+                                    })
+                                });
+                            break;
                             
                     }   
                 }

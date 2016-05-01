@@ -32,10 +32,18 @@ export class RoomComponent {
     public taskName: string;
 
     taskCreate() {
-        this._socketControl.createTask()
+        this._socketControl.taskCreate({roomName: this.room.name, name: this.taskName})
             .catch(err => {})
             .then(() => {
                 this.taskName = '';
             })
+    }
+
+    taskComplete(task) {
+
+    }
+
+    taskDelete(task) {
+
     }
 }

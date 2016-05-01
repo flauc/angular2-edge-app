@@ -97,13 +97,13 @@ export function delRoom(id: string) {
     })
 }
 
-export function addUser(roomTitle: string, user: any) {
+export function addUser(roomName: string, user: any) {
     return new Promise((resolve, reject) => {
 
         let coll = mongo.client.collection(colName);
 
         coll.findOneAndUpdate(
-            {title: roomTitle},
+            {name: roomName},
             {$push: {users: user}},
             {
                 // This makes sure that the updated document is returned
@@ -119,13 +119,16 @@ export function addUser(roomTitle: string, user: any) {
     })
 }
 
-export function addTask(roomTitle: string, task: any) {
+export function addTask(roomName: string, task: any) {
     return new Promise((resolve, reject) => {
 
         let coll = mongo.client.collection(colName);
 
+        task._id = mongo.createId();
+        task.complete = false;
+
         coll.findOneAndUpdate(
-            {title: roomTitle},
+            {name: roomName},
             {$push: {tasks: task}},
             {
                 // This makes sure that the updated document is returned
@@ -134,14 +137,14 @@ export function addTask(roomTitle: string, task: any) {
             (err, r) => {
                 if (err) reject(err);
                 else if (r.lastErrorObject.n !== 1) reject('An error with adding the user to the room.');
-                else resolve(r.value.users)
+                else resolve(r.value.tasks.find(a => a._id.equals(task._id)))
             }
         )
 
     })
 }
 
-export function editTask(roomTitle: string, data) {
+export function editTask(roomName: string, data) {
     return new Promise((resolve, reject) => {
         let coll = mongo.client.collection(colName),
             keys = Object.keys(data),
@@ -152,7 +155,7 @@ export function editTask(roomTitle: string, data) {
         });
 
         coll.findOneAndUpdate(
-            {title: roomTitle, 'tasks._id': mongo.createId(data._id)},
+            {name: roomName, 'tasks._id': mongo.createId(data._id)},
             {$set: setObj},
             {
                 // This makes sure that the updated document is returned

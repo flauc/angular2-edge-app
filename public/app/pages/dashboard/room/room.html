@@ -2,7 +2,16 @@
 <h5>Description: {{room.description}}</h5>
 
 
-<edge-tasksBlock [room]></edge-tasksBlock>
+<!--<edge-tasksBlock [room]></edge-tasksBlock>-->
+
+<ul>
+    <li *ngFor="#task of room.tasks" [class.complete]="task.complete">
+        <span>{{task.name}}</span>
+        <button (click)="taskComplete(task)">Complete</button>
+        <button (click)="taskDelete(task)">Delete</button>
+    </li>
+</ul>
+
 <edge-userBlock [users]="allUsers"></edge-userBlock>
 <div class="tast-create">
     <form (ngSubmit)="taskCreate()" #taskForm="ngForm">
