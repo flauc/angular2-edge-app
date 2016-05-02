@@ -190,8 +190,8 @@ export function deleteTask(roomName: string, id: string) {
                 // Check if task was deleted
                 let task = r.value.tasks.find(a => a._id.equals(taskId));
                 
-                if (task) reject('No task with that id was found.');
-                else resolve(task)
+                if (!task) reject('No task with that id was found.');
+                else resolve(taskId)
             }
         );
     })

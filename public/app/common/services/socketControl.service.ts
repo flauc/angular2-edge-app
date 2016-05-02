@@ -57,19 +57,22 @@ export class SocketControlService {
 
                         // When a task is created
                         case 'taskCreated':
-                            let index = _.findIndex(this._data.rooms, o => o.name === info.toRoom);
-                            if (index !== -1) this._data.rooms[index].tasks.push(info.data);
+                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                            if (index !== -1) this._data.rooms[index].tasks.push(value.data);
                             break;
 
                         // When a task is updated
                         case 'taskUpdated':
-                            let i = _.findIndex(this._data.rooms, o => o.name === info.toRoom),
-                                taskIndex = _.findIndex(this._data.rooms[i].tasks, o => o._id === info.data._id);
-                            this._data.rooms[index].tasks[taskIndex] = info.data;
+                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom),
+                                taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data._id);
+                            this._data.rooms[index].tasks[taskIndex] = value.data;
                             break;
 
                         // When a task i deleted
                         case 'taskDeleted':
+                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom),
+                                taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data);
+                            this._data.rooms[index].tasks.splice(taskIndex, 1);
                             break;
 
                     }
@@ -151,10 +154,11 @@ export class SocketControlService {
             this.socket.emit('server', {command: this.sv.taskDelete, data: data}, val => {
                 console.log(val);
                 if (val.success) {
-                    console.log(val);
-                    // let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
-                    //     taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data._id);
-                    // this._data.rooms[index].tasks.splice(taskIndex, 1);
+
+                    let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
+                        taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data);
+
+                    this._data.rooms[index].tasks.splice(taskIndex, 1);
                 }
 
                 else reject(val)
