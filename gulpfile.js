@@ -1,4 +1,4 @@
-const gulp = require('gulp'),
+var gulp = require('gulp'),
     inject = require('gulp-inject'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -65,12 +65,12 @@ gulp.task('inject-development', () => {
 });
 
 gulp.task('tsServer', () => {
-    let tsRes = tsServer.src()
+    var tsRes = tsServer.src()
         .pipe(ts(tsServer));
 });
 
 gulp.task('tsPublic', () => {
-    let tsRes = tsPublic.src()
+    var tsRes = tsPublic.src()
         .pipe(ts(tsPublic));
 });
 
