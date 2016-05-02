@@ -41,6 +41,7 @@ var gulp = require('gulp'),
         ],
 
         tsServerFiles: [
+          'typings/main.d.ts',
           'index.ts',
           'server/**/**.ts'
         ],
@@ -69,7 +70,6 @@ gulp.task('inject-development', ['move-vendorJs'], () => {
 
 
 gulp.task('tsServer', () => {
-    gulp.src(config.tsServerFiles)
     gulp.src(config.tsServerFiles)
         .pipe(tsc({target: 'es6', module: "commonjs", sourceMap: true, emitDecoratorMetadata: true, experimentalDecorators: true, removeComments: true, noImplicitAny: false}))
         .pipe(gulp.dest('./'))
