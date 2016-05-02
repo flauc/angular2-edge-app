@@ -12,14 +12,17 @@ export function createDefaultDbDocs(db) {
             console.log('No users in the database. Creating default users now...');
 
             let users = [
-                {username: 'filip.lauc93@gmail.com', password: 'filip', status: 'offline'},
-                {username: 'wojtek.kwiatek@gmail.com', password: 'wojtek', status: 'offline'},
-                {username: 'laco0416@gmail.com', password: 'suguru', status: 'offline'},
-                {username: 'mgualtieri7@gmail.com', password: 'mary', status: 'offline'},
-                {username: 'ran.wahle@gmail.com', password: 'ran', status: 'offline'}
+                {username: 'filip.lauc93@gmail.com', password: 'filip', status: 'offline', profileImage: 0},
+                {username: 'wojtek.kwiatek@gmail.com', password: 'wojtek', status: 'offline', profileImage: 0},
+                {username: 'laco0416@gmail.com', password: 'suguru', status: 'offline', profileImage: 0},
+                {username: 'mgualtieri7@gmail.com', password: 'mary', status: 'offline', profileImage: 0},
+                {username: 'ran.wahle@gmail.com', password: 'ran', status: 'offline', profileImage: 0}
             ];
 
-            for (let i = 0; i < users.length; i++) users[i].password = yield hashPass(users[i].password);
+            for (let i = 0; i < users.length; i++) {
+                users[i].profileImage = generateRandomInt(1, 49);
+                users[i].password = yield hashPass(users[i].password);
+            }
 
             let r = yield db.collection('users').insertMany(users);
             
@@ -51,4 +54,8 @@ export function checkPassword(user) {
             }
         });
     })
+}
+
+export function generateRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

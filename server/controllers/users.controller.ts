@@ -1,4 +1,4 @@
-import {hashPass} from '../helpers/commonHelpers';
+import {hashPass, generateRandomInt} from '../helpers/commonHelpers';
 
 const mongo = require('../config/mongo'),
     colName = 'users';
@@ -42,6 +42,7 @@ export function createUser(data) {
             res => {
 
                 data.password = res;
+                data.profileImage = generateRandomInt(1, 49);
 
                 coll.insertOne(data, (err, r) => {
                     if (err) reject(err);
