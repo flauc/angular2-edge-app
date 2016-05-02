@@ -82,7 +82,7 @@ gulp.task('stylus',() => {
         .pipe(gulp.dest(config.public));
 });
 
-gulp.task('build', ['tsServer', 'tsPublic', 'stylus', 'inject-development']);
+gulp.task('build', ['stylus', 'inject-development']);
 
 // Watch Task
 gulp.task('watch', function() {
