@@ -16,6 +16,7 @@ export function login(req, res) {
             return {
                 username: user[0].username,
                 password: user[0].password,
+                profileImage: user[0].profileImage,
                 _id: user[0]._id,
                 receivedPass: req.body.password
             }
@@ -29,7 +30,7 @@ export function login(req, res) {
             // return the information including token as JSON
             res.json({
                 success: true,
-                data: {username: user.username, _id: user._id},
+                data: {username: user.username, _id: user._id, profileImg: user.profileImage,},
                 token: token
             });
         });

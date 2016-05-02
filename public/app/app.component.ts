@@ -31,11 +31,18 @@ export class AppComponent {
         private _userStore: UserStoreService
     ) {
         this.user = _userStore.getUser();
-        this.userChangeListener = _userStore.emitter.subscribe(item => this.user = item)
+        
+        if (this.user) this.profileImg = `<img src="assets/img/profile_icons/icon-${this.user.data.profileImg}.svg" />`;
+        
+        this.userChangeListener = _userStore.emitter.subscribe(item => {
+            this.user = item;
+            this.profileImg = `<img src="assets/img/profile_icons/icon-${this.user.data.profileImg}.svg" />`;
+        })
     }
     
     public user: any;
     public userChangeListener: any;
+    public profileImg: string;
 
     logOut() {
         this._userStore.setUser();

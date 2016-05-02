@@ -26,7 +26,7 @@ export function createDefaultDbDocs(db) {
 
             let r = yield db.collection('users').insertMany(users);
             
-            if (r.insertedCount === 3) console.log('...users created successfully.')
+            if (r.insertedCount === users.length) console.log('...users created successfully.')
 
         }
     }).catch((err) => console.log(err))

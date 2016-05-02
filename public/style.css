@@ -497,3 +497,11 @@ hr {
   display: table;
   clear: both;
 }
+.user-profile {
+  width: 75px;
+  height: 75px;
+}
+.chat-icon {
+  width: 50px;
+  height: 50px;
+}

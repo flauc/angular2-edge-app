@@ -10,6 +10,8 @@
         <li [class.active]="isActiveLink.check(['Dashboard'])"><a [routerLink]="['Dashboard']">Dashboard</a></li>
         <li (click)="logOut()">Log Out</li>
     </ul>
+    <div class="user-profile" *ngIf="user" [innerHTML]="profileImg">
+    </div>
 </nav>
 <div class="row">
     <div class="container">

@@ -6,6 +6,7 @@ import {RoomComponent} from './room/room.component';
 import {DashboardMainComponent} from './main/dashboardMain.component';
 import {DataService} from '../../common/services/data.service';
 import {SocketControlService} from '../../common/services/socketControl.service';
+import {UserBlockComponent} from '../../common/components/userBlock/userBlock.component';
 
 @CanActivate(() => {
     let injector: Injector = appInjector(),
@@ -31,7 +32,8 @@ import {SocketControlService} from '../../common/services/socketControl.service'
     providers: [SocketControlService],
     directives: [
         ROUTER_DIRECTIVES,
-        RouterLink
+        RouterLink,
+        UserBlockComponent
     ]
 })
 
@@ -45,8 +47,13 @@ import {SocketControlService} from '../../common/services/socketControl.service'
 
 export class DashboardComponent {
     constructor(
-        private _socketControl: SocketControlService
+        private _socketControl: SocketControlService,
+        private _data: DataService
     ) {
+        // Validate the socket connetion and start listening to client emits
         _socketControl.validateAndOpenListeners();
+        this.users = _data.users;
     }
+
+    public users;
 }

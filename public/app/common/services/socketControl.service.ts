@@ -152,7 +152,6 @@ export class SocketControlService {
     taskDelete(data) {
         return new Promise((resolve, reject) => {
             this.socket.emit('server', {command: this.sv.taskDelete, data: data}, val => {
-                console.log(val);
                 if (val.success) {
 
                     let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),

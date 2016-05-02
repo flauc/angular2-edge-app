@@ -22,11 +22,9 @@ export class RoomComponent {
         if (currentRoom) this.room = currentRoom;
         else _router.navigate(['DashboardMain']);
 
-        this.allUsers = _data.users;
     }
 
     public room;
-    public allUsers;
     
     // Task Creation
     public taskName: string;
