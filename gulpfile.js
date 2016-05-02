@@ -68,9 +68,10 @@ gulp.task('inject-development', ['move-vendorJs'], () => {
 });
 
 
-gulp.task('tsPublic', () => {
+gulp.task('tsServer', () => {
     gulp.src(config.tsServerFiles)
-        .pipe(tsc())
+    gulp.src(config.tsServerFiles)
+        .pipe(tsc({target: 'es6', module: "commonjs", sourceMap: true, emitDecoratorMetadata: true, experimentalDecorators: true, removeComments: true, noImplicitAny: false}))
         .pipe(gulp.dest('./'))
 });
 
