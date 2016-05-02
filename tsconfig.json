@@ -12,6 +12,7 @@
   "files": [
     "typings/main.d.ts",
     "index.ts",
+    "server/config/config.ts",
     "server/config/mongo.ts",
     "server/config/auth.ts",
     "server/config/express.ts",

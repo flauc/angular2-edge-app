@@ -55,7 +55,7 @@ gulp.task('move-vendorJs', () => {
         .pipe(gulp.dest(config.vendorJsFolder))
 });
 
-gulp.task('inject-development', () => {
+gulp.task('inject-development', ['move-vendorJs'], () => {
     var target = gulp.src(config.public + '/index.html');
     var vendorStream = gulp.src(config.vendorJs, {read: false});
 
@@ -84,6 +84,8 @@ gulp.task('stylus',() => {
         .pipe(autoprefixer({browsers: ['last 2 version']}))
         .pipe(gulp.dest(config.public));
 });
+
+gulp.task('build', ['tsServer', 'tsPublic', 'stylus', 'inject-development']);
 
 // Watch Task
 gulp.task('watch', function() {
