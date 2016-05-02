@@ -75,7 +75,7 @@ gulp.task('tsPublic', () => {
     var tsRes = tsPublic.src()
         .pipe(ts(tsPublic));
 
-    return tsRes.js.pipe(gulp.dest('./public'));
+    return tsRes.js.pipe(gulp.dest('./'));
 });
 
 gulp.task('stylus',() => {
