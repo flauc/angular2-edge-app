@@ -67,15 +67,11 @@ gulp.task('inject-development', ['move-vendorJs'], () => {
 gulp.task('tsServer', () => {
     var tsRes = tsServer.src()
         .pipe(ts(tsServer));
-
-    return tsRes.js.pipe(gulp.dest('./'));
 });
 
 gulp.task('tsPublic', () => {
     var tsRes = tsPublic.src()
         .pipe(ts(tsPublic));
-
-    return tsRes.js.pipe(gulp.dest('./'));
 });
 
 gulp.task('stylus',() => {
