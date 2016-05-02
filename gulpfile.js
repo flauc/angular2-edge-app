@@ -2,9 +2,7 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
-    ts = require('gulp-typescript'),
-    tsServer = ts.createProject('tsconfig.json'),
-    tsPublic = ts.createProject('./public/tsconfig.json'),
+    tsc = require('gulp-tsc'),
 
 
     config = {
@@ -42,6 +40,11 @@ var gulp = require('gulp'),
             './public/assets/vendorJs/lodash.min.js'
         ],
 
+        tsServerFiles: [
+          'index.ts',
+          'server/**/**.ts'
+        ],
+
 
         vendorJsFolder: './public/assets/vendorJs',
 
@@ -64,18 +67,11 @@ gulp.task('inject-development', ['move-vendorJs'], () => {
         .pipe(gulp.dest(config.public));
 });
 
-gulp.task('tsServer', () => {
-    var tsRes = tsServer.src()
-        .pipe(ts(tsServer));
-
-    return tsRes.js.pipe(gulp.dest());
-});
 
 gulp.task('tsPublic', () => {
-    var tsRes = tsPublic.src()
-        .pipe(ts(tsPublic));
-
-    return tsRes.js.pipe(gulp.dest());
+    gulp.src(config.tsServerFiles)
+        .pipe(tsc())
+        .pipe(gulp.dest('./'))
 });
 
 gulp.task('stylus',() => {

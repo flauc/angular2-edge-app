@@ -32,7 +32,6 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-inject": "^4.0.0",
     "gulp-stylus": "^2.3.1",
-    "gulp-typescript": "^2.13.0",
     "typescript": "^1.8.10",
     "typings": "^0.7.12"
   }
