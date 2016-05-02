@@ -10,4 +10,5 @@ export class UserBlockComponent {
 
     public users: any;
     public isVisible: boolean = false;
+
 }

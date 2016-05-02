@@ -24,7 +24,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 ChatComponent = __decorate([
                     core_1.Component({
                         selector: 'edge-chat',
-                        templateUrl: 'app/common/components/chat/chat.html'
+                        templateUrl: 'app/common/components/chat/chat.html',
+                        inputs: ['messages']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ChatComponent);

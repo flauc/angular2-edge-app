@@ -1,7 +1,11 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     inject = require('gulp-inject'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
+    ts = require('gulp-typescript'),
+    tsServer = ts.createProject('tsconfig.json'),
+    tsPublic = ts.createProject('./public/tsconfig.json'),
+
 
     config = {
 
@@ -58,6 +62,16 @@ gulp.task('inject-development', () => {
     return target
         .pipe(inject(vendorStream, {relative: true}))
         .pipe(gulp.dest(config.public));
+});
+
+gulp.task('tsServer', () => {
+    let tsRes = tsServer.src()
+        .pipe(ts(tsServer));
+});
+
+gulp.task('tsPublic', () => {
+    let tsRes = tsPublic.src()
+        .pipe(ts(tsPublic));
 });
 
 gulp.task('stylus',() => {
