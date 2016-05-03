@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     ts = require('gulp-typescript'),
     tsServer = ts.createProject('tsconfig.json'),
-    tsPublic = ts.createProject('public/app/assets/tsconfig.json'),
+    tsPublic = ts.createProject('public/tsconfig.json'),
 
 
     config = {
