@@ -2,7 +2,9 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
-    tsc = require('gulp-tsc'),
+    ts = require('gulp-typescript'),
+    tsServer = ts.createProject('tsconfig.json'),
+    tsPublic = ts.createProject('public/app/assets/tsconfig.json'),
 
 
     config = {
@@ -40,13 +42,6 @@ var gulp = require('gulp'),
             './public/assets/vendorJs/lodash.min.js'
         ],
 
-        tsServerFiles: [
-          'typings/main.d.ts',
-          'index.ts',
-          'server/**/**.ts'
-        ],
-
-
         vendorJsFolder: './public/assets/vendorJs',
 
         stylus: './public/assets/style/**/*.styl',
@@ -68,11 +63,18 @@ gulp.task('inject-development', ['move-vendorJs'], () => {
         .pipe(gulp.dest(config.public));
 });
 
-
 gulp.task('tsServer', () => {
-    gulp.src(config.tsServerFiles)
-        .pipe(tsc({target: 'es6', module: "commonjs", sourceMap: true, emitDecoratorMetadata: true, experimentalDecorators: true, removeComments: true, noImplicitAny: false}))
-        .pipe(gulp.dest('./'))
+    var tsResult = tsServer.src()
+        .pipe(ts(tsServer));
+
+    return tsResult.js.pipe(gulp.dest('./'));
+});
+
+gulp.task('tsPublic', () => {
+    var tsResult = tsPublic.src()
+        .pipe(ts(tsPublic));
+
+    return tsResult.js.pipe(gulp.dest('./public/app/'));
 });
 
 gulp.task('stylus',() => {
@@ -82,7 +84,7 @@ gulp.task('stylus',() => {
         .pipe(gulp.dest(config.public));
 });
 
-gulp.task('build', ['stylus', 'inject-development']);
+gulp.task('build-dev', ['stylus', 'inject-development', 'tsServer', 'tsPublic']);
 
 // Watch Task
 gulp.task('watch', function() {
