@@ -4,13 +4,11 @@ import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {UserStoreService} from './common/services/userStore.service';
-import {IsActiveLinkService} from './common/services/isActiveLink.service';
 import {HomeComponent} from './pages/home/home.component';
 
 @Component({
     selector: 'app',
     directives: [ROUTER_DIRECTIVES],
-    providers: [IsActiveLinkService],
     templateUrl: 'app/app.html',
 })
 
@@ -25,7 +23,6 @@ import {HomeComponent} from './pages/home/home.component';
 ])
 export class AppComponent {
     constructor(
-        public isActiveLink: IsActiveLinkService,
         private _router: Router,
         private _userStore: UserStoreService
     ) {
