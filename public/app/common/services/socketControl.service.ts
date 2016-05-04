@@ -1,5 +1,5 @@
-import {Injectable, EventEmitter} from '@angular2/core';
-import {Router} from '@angular2/router-deprecated';
+import {Injectable, EventEmitter} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 import {UserStoreService} from './userStore.service';
 import {socketValues} from '../config/app.values';
 import {DataService} from './data.service';

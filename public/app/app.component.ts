@@ -1,5 +1,5 @@
-import {Component} from '@angular2/core';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular2/router-deprecated';
+import {Component} from '@angular/core';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';

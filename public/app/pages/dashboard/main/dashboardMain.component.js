@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular2/core');
-var router_deprecated_1 = require('@angular2/router-deprecated');
+var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var data_service_1 = require('../../../common/services/data.service');
 var socketControl_service_1 = require('../../../common/services/socketControl.service');
 var userStore_service_1 = require('../../../common/services/userStore.service');
@@ -45,10 +45,9 @@ var DashboardMainComponent = (function () {
             selector: 'main',
             templateUrl: 'app/pages/dashboard/main/main.html'
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof router_deprecated_1.Router !== 'undefined' && router_deprecated_1.Router) === 'function' && _a) || Object, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
     ], DashboardMainComponent);
     return DashboardMainComponent;
-    var _a;
 }());
 exports.DashboardMainComponent = DashboardMainComponent;
 //# sourceMappingURL=dashboardMain.component.js.map

@@ -1,5 +1,5 @@
-import {Injectable} from "@angular2/core";
-import {Router} from '@angular2/router-deprecated';
+import {Injectable} from "@angular/core";
+import {Router} from '@angular/router-deprecated';
 
 @Injectable()
 export class IsActiveLinkService {

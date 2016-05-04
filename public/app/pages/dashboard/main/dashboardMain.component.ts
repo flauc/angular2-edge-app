@@ -1,5 +1,5 @@
-import {Component} from '@angular2/core';
-import {Router} from '@angular2/router-deprecated';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 import {DataService} from '../../../common/services/data.service';
 import {SocketControlService} from '../../../common/services/socketControl.service';
 import {UserStoreService} from '../../../common/services/userStore.service';

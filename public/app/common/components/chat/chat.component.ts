@@ -1,4 +1,4 @@
-import {Component} from '@angular2/core';
+import {Component} from '@angular/core';
 @Component({
     selector: 'edge-chat',
     templateUrl: 'app/common/components/chat/chat.html',
