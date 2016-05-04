@@ -1,6 +1,6 @@
 <button (click)="isVisible = !isVisible">Open Users</button>
 <ul class="users-block" [class.active]="isVisible">
-    <li *ngFor="#user of users">
+    <li *ngFor="let user of users">
         <img class="chat-icon" [src]="'assets/img/profile_icons/icon-' + user.profileImage + '.svg'">
         <p>{{user.username}}</p>
         <p>{{user.status}}</p>
