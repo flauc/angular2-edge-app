@@ -1,9 +1,10 @@
-import {bootstrap}    from 'angular2/platform/browser'
+import 'rxjs/Rx';
+import {bootstrap}    from '@angular/platform-browser-dynamic'
+import {ComponentRef} from '@angular/core';
+import {HTTP_PROVIDERS} from '@angular2/http';
+import {ROUTER_PROVIDERS} from '@angular2/router-deprecated';
 import {AppComponent} from './app.component'
 import {appInjector} from './common/config/app.injector';
-import {ComponentRef} from 'angular2/core';
-import {HTTP_PROVIDERS} from 'angular2/http';
-import {ROUTER_PROVIDERS} from 'angular2/router';
 // ng2:bootImport
 import {UserStoreService} from './common/services/userStore.service'
 import {ApiService} from './common/services/api.service';

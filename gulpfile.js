@@ -1,8 +1,10 @@
+
 var gulp = require('gulp'),
     inject = require('gulp-inject'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
     ts = require('gulp-typescript'),
+    del = require('del'),
     tsServer = ts.createProject('tsconfig.json'),
     tsPublic = ts.createProject('public/tsconfig.json'),
 
@@ -14,30 +16,25 @@ var gulp = require('gulp'),
         // VendorJs
         vendorJsToMove: [
             'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/es6-shim/es6-shim.map',
-            'node_modules/systemjs/dist/system-polyfills.js',
-            'node_modules/systemjs/dist/system-polyfills.js.map',
-            'node_modules/angular2/es6/dev/src/testing/shims_for_IE.js',
-            'node_modules/angular2/bundles/angular2-polyfills.js',
+            // 'node_modules/es6-shim/es6-shim.map',
+            'node_modules/reflect-metadata/Reflect.js',
+            'node_modules/zone.js/dist/zone.js',
             'node_modules/systemjs/dist/system.src.js',
-            'node_modules/rxjs/bundles/Rx.js',
-            'node_modules/angular2/bundles/angular2.dev.js',
-            'node_modules/angular2/bundles/router.dev.js',
-            'node_modules/angular2/bundles/http.dev.js',
             'node_modules/socket.io-client/socket.io.js',
             'node_modules/lodash/lodash.min.js'
         ],
 
+        vendorJsFolders: {
+            'rxjs': 'node_modules/rxjs/**/**',
+            'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api/**/**',
+            'angular': 'node_modules/@angular/**/**'
+        },
+
         vendorJs: [
             './public/assets/vendorJs/es6-shim.min.js',
-            './public/assets/vendorJs/system-polyfills.js',
-            './public/assets/vendorJs/shims_for_IE.js',
-            './public/assets/vendorJs/angular2-polyfills.js',
+            './public/assets/vendorJs/Reflect.js',
+            './public/assets/vendorJs/zone.js',
             './public/assets/vendorJs/system.src.js',
-            './public/assets/vendorJs/Rx.js',
-            './public/assets/vendorJs/angular2.dev.js',
-            './public/assets/vendorJs/router.dev.js',
-            './public/assets/vendorJs/http.dev.js',
             './public/assets/vendorJs/socket.io.js',
             './public/assets/vendorJs/lodash.min.js'
         ],
@@ -52,6 +49,17 @@ var gulp = require('gulp'),
 gulp.task('move-vendorJs', () => {
     gulp.src(config.vendorJsToMove)
         .pipe(gulp.dest(config.vendorJsFolder))
+});
+
+gulp.task('vendorJs-folders', () => {
+    gulp.src(config.vendorJsFolders.angular)
+        .pipe(gulp.dest(config.vendorJsFolder + '/@angular'));
+
+    gulp.src(config.vendorJsFolders.rxjs)
+        .pipe(gulp.dest(config.vendorJsFolder + '/rxjs'));
+
+    gulp.src(config.vendorJsFolders['angular2-in-memory-web-api'])
+        .pipe(gulp.dest(config.vendorJsFolder + '/angular2-in-memory-web-api'));
 });
 
 gulp.task('inject-development', ['move-vendorJs'], () => {
@@ -84,7 +92,12 @@ gulp.task('stylus',() => {
         .pipe(gulp.dest(config.public));
 });
 
-gulp.task('build-dev', ['stylus', 'inject-development', 'tsServer', 'tsPublic']);
+// Clean tasks
+gulp.task('clean-vendorJs', function () {
+    return del(config.vendorJsFolder);
+});
+
+gulp.task('build-dev', ['stylus', 'vendorJs-folders', 'inject-development', 'tsServer', 'tsPublic']);
 
 // Watch Task
 gulp.task('watch', function() {

@@ -1,7 +1,6 @@
-import 'rxjs/Rx';
-import {Component} from 'angular2/core';
+import {Component} from '@angular2/core';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular2/router-deprecated';
 import {LoginComponent} from './pages/login/login.component';
-import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {SignupComponent} from './pages/signup/signup.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {UserStoreService} from './common/services/userStore.service';

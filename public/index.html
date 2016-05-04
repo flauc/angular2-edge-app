@@ -8,30 +8,16 @@
 
         <!-- inject:js -->
         <script src="assets/vendorJs/es6-shim.min.js"></script>
-        <script src="assets/vendorJs/system-polyfills.js"></script>
-        <script src="assets/vendorJs/shims_for_IE.js"></script>
-        <script src="assets/vendorJs/angular2-polyfills.js"></script>
+        <script src="assets/vendorJs/Reflect.js"></script>
+        <script src="assets/vendorJs/zone.js"></script>
         <script src="assets/vendorJs/system.src.js"></script>
-        <script src="assets/vendorJs/Rx.js"></script>
-        <script src="assets/vendorJs/angular2.dev.js"></script>
-        <script src="assets/vendorJs/router.dev.js"></script>
-        <script src="assets/vendorJs/http.dev.js"></script>
         <script src="assets/vendorJs/socket.io.js"></script>
         <script src="assets/vendorJs/lodash.min.js"></script>
         <!-- endinject -->
 
+        <script src="systemjs.config.js"></script>
         <script>
-            System.config({
-                packages: {
-                    app: {
-                        format: "register",
-                        defaultExtension: "js"
-                    }
-                },
-                map: { 'lodash': 'assets/vendorJs/lodash.min.js' }
-          });
-
-          System.import("app/boot").then(null, console.error.bind(console));
+            System.import('app').catch(function(err){ console.error(err);  });
         </script>
     </head>
 
