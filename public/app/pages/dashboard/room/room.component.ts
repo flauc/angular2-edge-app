@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {RouteParams, Router} from 'angular2/router';
+import {Component} from '@angular2/core';
+import {RouteParams, Router} from '@angular2/router-deprecated';
 import {DataService} from '../../../common/services/data.service';
 import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component';
 import {SocketControlService} from '../../../common/services/socketControl.service';

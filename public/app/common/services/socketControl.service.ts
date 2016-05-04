@@ -1,8 +1,8 @@
-import {Injectable, EventEmitter} from 'angular2/core';
+import {Injectable, EventEmitter} from '@angular2/core';
+import {Router} from '@angular2/router-deprecated';
 import {UserStoreService} from './userStore.service';
 import {socketValues} from '../config/app.values';
 import {DataService} from './data.service';
-import {Router} from 'angular2/router';
 import * as _ from "lodash"
 
 

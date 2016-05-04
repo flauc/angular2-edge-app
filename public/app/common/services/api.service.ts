@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http, Headers, RequestMethod, Request} from 'angular2/http';
+import {Injectable} from '@angular2/core';
+import {Http, Headers, RequestMethod, Request} from '@angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {UserStoreService} from './userStore.service';
 import {urlValues} from '../config/app.values';

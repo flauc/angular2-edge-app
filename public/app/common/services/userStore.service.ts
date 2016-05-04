@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from 'angular2/core';
+import {Injectable, EventEmitter} from '@angular2/core';
 import {appValues} from '../config/app.values';
 
 @Injectable()

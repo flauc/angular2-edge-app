@@ -1,5 +1,5 @@
-import {RouterLink, ROUTER_DIRECTIVES, CanActivate, RouteConfig, Router} from 'angular2/router';
-import {Component, Injector} from 'angular2/core';
+import {RouterLink, ROUTER_DIRECTIVES, CanActivate, RouteConfig, Router} from '@angular2/router-deprecated';
+import {Component, Injector} from '@angular2/core';
 import {UserStoreService} from '../../common/services/userStore.service';
 import {appInjector} from '../../common/config/app.injector';
 import {RoomComponent} from './room/room.component';
