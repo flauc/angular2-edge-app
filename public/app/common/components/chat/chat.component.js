@@ -9,16 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var socketControl_service_1 = require('../../services/socketControl.service');
 var ChatComponent = (function () {
-    function ChatComponent() {
+    function ChatComponent(_socketControl) {
+        this._socketControl = _socketControl;
     }
     ChatComponent = __decorate([
         core_1.Component({
             selector: 'edge-chat',
             templateUrl: 'app/common/components/chat/chat.html',
-            inputs: ['messages']
+            inputs: ['roomName']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [socketControl_service_1.SocketControlService])
     ], ChatComponent);
     return ChatComponent;
 }());

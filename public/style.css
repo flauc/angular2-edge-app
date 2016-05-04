@@ -497,6 +497,12 @@ hr {
   display: table;
   clear: both;
 }
+.users-block {
+  visibility: hidden;
+}
+.users-block.active {
+  visibility: visible;
+}
 .user-profile {
   width: 75px;
   height: 75px;
@@ -504,4 +510,7 @@ hr {
 .chat-icon {
   width: 50px;
   height: 50px;
+}
+room ul li.complete > span {
+  text-decoration: line-through;
 }

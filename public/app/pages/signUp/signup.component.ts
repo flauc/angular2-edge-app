@@ -1,6 +1,6 @@
+import {Component} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 import {ApiService} from '../../common/services/api.service';
-import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
 import {UserStoreService} from '../../common/services/userStore.service';
 
 @Component({

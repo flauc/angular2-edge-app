@@ -3,10 +3,11 @@ import {RouteParams, Router} from '@angular/router-deprecated';
 import {DataService} from '../../../common/services/data.service';
 import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component';
 import {SocketControlService} from '../../../common/services/socketControl.service';
+import {ChatComponent} from '../../../common/components/chat/chat.component';
 
 @Component({
     selector: 'room',
-    directives: [UserBlockComponent],
+    directives: [UserBlockComponent, ChatComponent],
     templateUrl: 'app/pages/dashboard/room/room.html'
 })
 export class RoomComponent {
