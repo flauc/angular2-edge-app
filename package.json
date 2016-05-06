@@ -3,7 +3,8 @@
   "description": "",
   "version": "0.0.1",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "concurrently \"npm run server\" \"npm run db\" ",
+    "server": "node index.js",
     "db": "mongod",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -37,6 +38,7 @@
     "angular2-in-memory-web-api": "0.0.7"
   },
   "devDependencies": {
+    "concurrently": "^2.0.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
