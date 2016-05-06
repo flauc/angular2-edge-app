@@ -1,5 +1,15 @@
 # Developing an Angular 2 edge Application
 
+This application serves as an example for creating an Angular 2 application. The repository also contains the server side code.
+The app features:
+
+* Token based authentication
+* Authorization
+* Simple routing
+* Http and web socket communication
+* CRUD operations
+* "Real time" chat
+
 ## Requirements
 
 To start the application you need the following installed:
