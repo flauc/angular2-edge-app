@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router';
 import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -12,14 +12,14 @@ import {HomeComponent} from './pages/home/home.component';
     templateUrl: 'app/app.html',
 })
 
-@RouteConfig([
-    {path: '/', name: 'Home', component: HomeComponent},
-    {path: '/login', name: 'Login', component: LoginComponent},
-    {path: '/signup', name: 'Signup', component: SignupComponent},
-    {path: '/dashboard/...', name: 'Dashboard', component: DashboardComponent},
+@Routes([
+    {path: '/', component: HomeComponent},
+    {path: '/login', component: LoginComponent},
+    {path: '/signup', component: SignupComponent},
+    {path: '/dashboard', component: DashboardComponent},
 
     // Catch route
-    {path: '/**', redirectTo: ['Home']}
+    {path: '*', component: HomeComponent}
 ])
 export class AppComponent {
     constructor(
@@ -42,7 +42,7 @@ export class AppComponent {
 
     logOut() {
         this._userStore.setUser();
-        this._router.navigate(['Login']);
+        this._router.navigate(['/login']);
     }
 }
  
