@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {RouteParams, Router} from '@angular/router-deprecated';
-import {DataService} from '../../../common/services/data.service';
-import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component';
-import {SocketControlService} from '../../../common/services/socketControl.service';
-import {ChatComponent} from '../../../common/components/chat/chat.component';
+import {Component} from '@angular/core'
+import {RouteParams, Router} from '@angular/router'
+import {DataService} from '../../../common/services/data.service'
+import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component'
+import {SocketControlService} from '../../../common/services/socketControl.service'
+import {ChatComponent} from '../../../common/components/chat/chat.component'
 
 @Component({
     selector: 'room',

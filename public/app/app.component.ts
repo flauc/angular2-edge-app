@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router';
-import {LoginComponent} from './pages/login/login.component';
-import {SignupComponent} from './pages/signup/signup.component';
-import {DashboardComponent} from './pages/dashboard/dashboard.component';
-import {UserStoreService} from './common/services/userStore.service';
-import {HomeComponent} from './pages/home/home.component';
+import {Component} from '@angular/core'
+import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
+import {LoginComponent} from './pages/login/login.component'
+import {SignupComponent} from './pages/signup/signup.component'
+import {DashboardComponent} from './pages/dashboard/dashboard.component'
+import {UserStoreService} from './common/services/userStore.service'
+import {HomeComponent} from './pages/home/home.component'
 
 @Component({
     selector: 'app',

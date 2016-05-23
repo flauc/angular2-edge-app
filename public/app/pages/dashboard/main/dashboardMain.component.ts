@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {DataService} from '../../../common/services/data.service';
-import {SocketControlService} from '../../../common/services/socketControl.service';
-import {UserStoreService} from '../../../common/services/userStore.service';
+import {Component} from '@angular/core'
+import {Router} from '@angular/router'
+import {DataService} from '../../../common/services/data.service'
+import {SocketControlService} from '../../../common/services/socketControl.service'
+import {UserStoreService} from '../../../common/services/userStore.service'
 
 @Component({
     selector: 'main',
@@ -29,7 +29,7 @@ export class DashboardMainComponent {
     
 
     roomEnter(room) {
-        this._router.navigate(['Room', {name: room.name}])
+        this._router.navigate(['/room', {name: room.name}])
     }
 
     roomCreate() {
