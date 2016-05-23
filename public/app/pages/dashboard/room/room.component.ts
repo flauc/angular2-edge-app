@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {RouteParams, Router} from '@angular/router'
+import {RouteSegment, Router} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
 import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component'
 import {SocketControlService} from '../../../common/services/socketControl.service'
@@ -13,22 +13,21 @@ import {ChatComponent} from '../../../common/components/chat/chat.component'
 export class RoomComponent {
     constructor(
         private _router: Router,
-        private _params: RouteParams,
         private _data: DataService,
         private _socketControl: SocketControlService
-    ) {
-
-        // Check if we are in a room that exists 
-        let currentRoom = _data.rooms.find(a => a.name === _params.get('name'));
-        if (currentRoom) this.room = currentRoom;
-        else _router.navigate(['DashboardMain']);
-
-    }
+    ) {}
 
     public room;
-    
+
     // Task Creation
     public taskName: string;
+
+    routerOnActivate(current: RouteSegment): void {
+        // Check if we are in a room that exists
+        let currentRoom = this._data.rooms.find(a => a.name === current.getParam('name'));
+        if (currentRoom) this.room = currentRoom;
+        else this._router.navigate(['/']);
+    }
 
     taskCreate() {
         this._socketControl.taskCreate({roomName: this.room.name, name: this.taskName})
