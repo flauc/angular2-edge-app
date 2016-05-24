@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {Router} from '@angular/router-deprecated'
+import {Router} from '@angular/router'
 import {UserStoreService} from '../../common/services/userStore.service'
 import {ApiService} from '../../common/services/api.service'
 
@@ -29,7 +29,7 @@ export class LoginComponent {
                 delete res['success'];
                 // Store the user data in local storage
                 this._userStore.setUser(res);
-                this._router.navigate(['Dashboard'])
+                this._router.navigate(['/dashboard'])
             },
 
             err => {
