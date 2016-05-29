@@ -1,10 +1,9 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {UserStoreService} from './userStore.service';
-import {socketValues} from '../config/app.values';
-import {DataService} from './data.service';
+import {Injectable, EventEmitter} from '@angular/core'
+import {Router} from '@angular/router-deprecated'
+import {UserStoreService} from './userStore.service'
+import {socketValues} from '../config/app.values'
+import {DataService} from './data.service'
 import * as _ from "lodash"
-
 
 declare var io: any;
 

@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {ApiService} from '../../common/services/api.service';
-import {UserStoreService} from '../../common/services/userStore.service';
+import {Component} from '@angular/core'
+import {Router} from '@angular/router-deprecated'
+import {ApiService} from '../../common/services/api.service'
+import {UserStoreService} from '../../common/services/userStore.service'
 
 @Component({
     selector: 'signup',

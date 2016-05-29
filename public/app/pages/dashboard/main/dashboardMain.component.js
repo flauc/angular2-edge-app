@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var data_service_1 = require('../../../common/services/data.service');
 var socketControl_service_1 = require('../../../common/services/socketControl.service');
 var userStore_service_1 = require('../../../common/services/userStore.service');
@@ -24,7 +24,7 @@ var DashboardMainComponent = (function () {
         this.me = _userStore.getUser().data;
     }
     DashboardMainComponent.prototype.roomEnter = function (room) {
-        this._router.navigate(['Room', { name: room.name }]);
+        this._router.navigate(['/room', { name: room.name }]);
     };
     DashboardMainComponent.prototype.roomCreate = function () {
         var _this = this;
@@ -45,7 +45,7 @@ var DashboardMainComponent = (function () {
             selector: 'main',
             templateUrl: 'app/pages/dashboard/main/main.html'
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
+        __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
     ], DashboardMainComponent);
     return DashboardMainComponent;
 }());

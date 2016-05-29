@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {SocketControlService} from '../../services/socketControl.service';
+import {Component} from '@angular/core'
+import {SocketControlService} from '../../services/socketControl.service'
+
 @Component({
     selector: 'edge-chat',
     templateUrl: 'app/common/components/chat/chat.html',

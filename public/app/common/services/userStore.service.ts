@@ -1,5 +1,5 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {appValues} from '../config/app.values';
+import {Injectable, EventEmitter} from '@angular/core'
+import {appValues} from '../config/app.values'
 
 @Injectable()
 export class UserStoreService {
