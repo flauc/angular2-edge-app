@@ -1,4 +1,4 @@
-import 'rxjs/Rx'
+import './rxjs.imports'
 import {Component} from '@angular/core'
 import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
 import {LoginComponent} from './pages/login/login.component'
