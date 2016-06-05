@@ -7,7 +7,7 @@ import {urlValues} from '../config/app.values'
 @Injectable()
 export class ApiService {
     constructor (
-        private http: Http,
+        private _http: Http,
         private _userStoreService: UserStoreService
     ) {}
 
@@ -71,7 +71,7 @@ export class ApiService {
         // If authHeader is true we need to append the token to the header
         if (authHeader) options.headers.append('Authorization', 'Bearer ' + this._userStoreService.getUser().token);
 
-        return this.http.request(new Request(options))
+        return this._http.request(new Request(options))
             .map(res => res.json())
             .catch(this.logError);
     }
