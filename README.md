@@ -24,7 +24,7 @@ It's also easier if you have the following npm libraries installed globally:
 
 ## Server Documentation
 
-You can find the documentation for the server here [here](https://github.com/flauc/angular2-edge-app/blob/master/serverDoc.md).
+You can find the documentation for the server [here](https://github.com/flauc/angular2-edge-app/blob/master/serverDoc.md).
 
 ## Set Up
 
