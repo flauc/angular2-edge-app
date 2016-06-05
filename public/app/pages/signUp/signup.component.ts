@@ -5,7 +5,7 @@ import {UserStoreService} from '../../common/services/userStore.service'
 
 @Component({
     selector: 'signup',
-    templateUrl: 'app/pages/signup/signup.html'
+    templateUrl: '/signup.html'
 })
 export class SignupComponent {
     constructor(

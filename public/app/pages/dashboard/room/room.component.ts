@@ -1,7 +1,7 @@
 import {Component} from '@angular/core'
 import {RouteSegment, Router} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
-import {UserBlockComponent} from '../../../common/components/userBlock/userBlock.component'
+import {UserBlockComponent} from '../../../common/components/user-block/userBlock.component'
 import {SocketControlService} from '../../../common/services/socketControl.service'
 import {ChatComponent} from '../../../common/components/chat/chat.component'
 

@@ -6,7 +6,7 @@ import {RoomComponent} from './room/room.component'
 import {DashboardMainComponent} from './main/dashboardMain.component'
 import {DataService} from '../../common/services/data.service'
 import {SocketControlService} from '../../common/services/socketControl.service'
-import {UserBlockComponent} from '../../common/components/userBlock/userBlock.component'
+import {UserBlockComponent} from '../../common/components/user-block/userBlock.component'
 
 // @CanActivate(() => {
 //     let injector: Injector = appInjector(),
