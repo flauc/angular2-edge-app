@@ -1,5 +1,5 @@
-import {Component, Injector} from '@angular/core'
-import {ROUTER_DIRECTIVES, Routes} from '@angular/router'
+import {Component} from '@angular/core'
+import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
 import {UserStoreService} from '../../common/services/userStore.service'
 import {appInjector} from '../../common/config/app.injector'
 import {RoomComponent} from './room/room.component'

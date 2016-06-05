@@ -32,7 +32,7 @@ export class AppComponent {
         
         this.userChangeListener = _userStore.emitter.subscribe(item => {
             this.user = item;
-            this.profileImg = `<img src="assets/img/profile_icons/icon-${this.user.data.profileImg}.svg" />`;
+            if (item) this.profileImg = `<img src="assets/img/profile_icons/icon-${this.user.data.profileImg}.svg" />`;
         })
     }
     
