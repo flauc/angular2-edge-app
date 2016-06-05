@@ -12,7 +12,6 @@ import {DataService} from './common/services/data.service'
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
-    // ng2:bootInject
     UserStoreService,
     ApiService,
     DataService
