@@ -1,4 +1,3 @@
-import 'rxjs/Rx'
 import {bootstrap}    from '@angular/platform-browser-dynamic'
 import {ComponentRef} from '@angular/core'
 import {HTTP_PROVIDERS} from '@angular/http'
