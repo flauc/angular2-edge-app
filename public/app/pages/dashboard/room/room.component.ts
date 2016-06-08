@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {RouteSegment, Router} from '@angular/router'
+import {RouteSegment, Router, OnActivate} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
 import {ChatComponent} from '../../../common/components/chat/chat.component'
 import {SocketControlService} from '../../../common/services/socket-control.service'
@@ -10,7 +10,7 @@ import {UserBlockComponent} from '../../../common/components/user-block/user-blo
     directives: [UserBlockComponent, ChatComponent],
     templateUrl: 'app/pages/dashboard/room/room.html'
 })
-export class RoomComponent {
+export class RoomComponent implements OnActivate {
     constructor(
         private _router: Router,
         private _data: DataService,

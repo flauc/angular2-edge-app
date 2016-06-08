@@ -1,11 +1,11 @@
 import {Component} from '@angular/core'
 import {Router} from '@angular/router'
 import {ApiService} from '../../common/services/api.service'
-import {UserStoreService} from '../../common/services/userStore.service'
+import {UserStoreService} from '../../common/services/user-store.service'
 
 @Component({
     selector: 'signup',
-    templateUrl: '/signup.html'
+    templateUrl:  'app/pages/signup/signup.html'
 })
 export class SignupComponent {
     constructor(

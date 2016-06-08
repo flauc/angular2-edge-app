@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
+import {ROUTER_DIRECTIVES, Routes, Router, OnActivate} from '@angular/router'
 import {appInjector} from '../../common/config/app.injector'
 import {RoomComponent} from './room/room.component'
 import {DashboardMainComponent} from './main/dashboardMain.component'
@@ -44,15 +44,21 @@ import {UserBlockComponent} from '../../common/components/user-block/user-block.
     {path: '*', component: DashboardMainComponent}
 ])
 
-export class DashboardComponent {
+export class DashboardComponent implements OnActivate {
     constructor(
         private _socketControl: SocketControlService,
         private _data: DataService
-    ) {
-        // Validate the socket connetion and start listening to client emits
-        _socketControl.validateAndOpenListeners();
-        this.users = _data.users;
-    }
+    ) {}
 
     public users;
+    
+    // TODO Move this back to canActivate when it gets implemented
+    routerOnActivate() {
+        this._data.getAllData()
+            .then(res => {
+                // Validate the socket connection and start listening to client emits
+                this._socketControl.validateAndOpenListeners();
+                this.users = this._data.users;
+            })
+    }
 }
