@@ -1,13 +1,13 @@
 import {Component} from '@angular/core'
 import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
-import {UserStoreService} from '../../common/services/userStore.service'
 import {appInjector} from '../../common/config/app.injector'
 import {RoomComponent} from './room/room.component'
 import {DashboardMainComponent} from './main/dashboardMain.component'
 import {DataService} from '../../common/services/data.service'
-import {SocketControlService} from '../../common/services/socketControl.service'
-import {UserBlockComponent} from '../../common/components/user-block/userBlock.component'
+import {SocketControlService} from '../../common/services/socket-control.service'
+import {UserBlockComponent} from '../../common/components/user-block/user-block.component'
 
+// TODO add in new veriosn
 // @CanActivate(() => {
 //     let injector: Injector = appInjector(),
 //         router: Router = injector.get(Router),

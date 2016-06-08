@@ -4,9 +4,9 @@ import {HTTP_PROVIDERS} from '@angular/http'
 import {ROUTER_PROVIDERS} from '@angular/router'
 import {AppComponent} from './app.component'
 import {appInjector} from './common/config/app.injector'
-import {UserStoreService} from './common/services/userStore.service'
 import {ApiService} from './common/services/api.service'
 import {DataService} from './common/services/data.service'
+import {UserStoreService} from './common/services/user-store.service'
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,

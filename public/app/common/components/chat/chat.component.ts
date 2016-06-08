@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {SocketControlService} from '../../services/socketControl.service'
+import {SocketControlService} from '../../services/socket-control.service';
 
 @Component({
     selector: 'edge-chat',
