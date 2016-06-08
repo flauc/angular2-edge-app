@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="small-form">
     <div class="row">
         <label for="username">Username/Email</label>
         <input
@@ -26,6 +26,6 @@
         <p [hidden]="pass.valid || pass.pristine">Password is required</p>
     </div>
     <div class="row">
-        <input type="submit" [disabled]="!loginForm.form.valid" value="Sign in">
+        <button class="button" type="submit" [disabled]="!loginForm.form.valid">Sign In</button>
     </div>
 </form>

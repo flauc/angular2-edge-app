@@ -48,7 +48,7 @@ $font-color := #222;
 $font-family := "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 //Grid Variables
-$container-width := 960px;
+$container-width := 1500px;
 $container-width-larger-than-mobile := 85%;
 $container-width-larger-than-phablet := 80%;
 $total-columns := 12;
@@ -56,7 +56,8 @@ $column-width := 100 / $total-columns; // calculates individual column width bas
 $column-margin := 4%; // space between columns
 
 // Misc
-$global-radius := 4px;
+$global-radius := 0px;
+$global-box-shadow := 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
 // Functions
 -grid-column-width($n) {
@@ -74,7 +75,7 @@ $global-radius := 4px;
   position: relative;
   width: 100%;
   max-width: $container-width;
-  margin: 0 auto;
+  margin: 30px auto 0;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -85,6 +86,9 @@ $global-radius := 4px;
   float: left;
   box-sizing: border-box;
 }
+
+a
+  cursor pointer
 
 // For devices larger than 400px
 @media ({$bp-larger-than-mobile}){
@@ -230,7 +234,7 @@ button {
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: $secondary-color;
+  color: #fff;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
@@ -239,12 +243,20 @@ button {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
+  background-color: #E53935;
   border-radius: $global-radius;
-  border: 1px solid $border-color;
+  box-shadow $global-box-shadow
+  border: none;
   cursor: pointer;
   box-sizing: border-box;
 }
+
+.button:disabled
+  box-shadow none
+  background: lighten(#E53935, 33.3%);
+  cursor not-allowed
+  &:hover
+    background: lighten(#E53935, 33.3%) !important
 
 input {
   &[type="submit"],
@@ -255,7 +267,7 @@ input {
     padding: 0 30px;
     color: $secondary-color;
     text-align: center;
-    font-size: 11px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 38px;
     letter-spacing: .1rem;
@@ -272,8 +284,7 @@ input {
 
 .button:hover,
 button:hover {
-  color: $dark-grey;
-  border-color: lighten($dark-grey, 33.3%);
+  background: #e05957
   outline: 0;
 }
 
@@ -289,9 +300,8 @@ input {
 
 .button:focus,
 button:focus {
-  color: $dark-grey;
-  border-color: lighten($dark-grey, 33.3%);
   outline: 0;
+  box-shadow none
 }
 
 input {

@@ -1,15 +1,20 @@
 <nav>
-    <ul *ngIf="!user">
-        <li><a [routerLink]="['/home']">Home</a></li>
-        <li><a [routerLink]="['/login']">Log In</a></li>
-        <li><a [routerLink]="['/signup']">Sign Up</a></li>
-    </ul>
-
-    <ul *ngIf="user">
-        <li><a [routerLink]="['/home']">Home</a></li>
-        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
-        <li (click)="logOut()">Log Out</li>
-    </ul>
+    <div class="intro">
+        <h1>Angular 2 Edge App</h1>
+    </div>
+    <div class="menu">
+        <ul class="left">
+            <li><a [routerLink]="['/home']">About</a></li>
+            <li><a *ngIf="user" [routerLink]="['/dashboard']">Dashboard</a></li>
+        </ul>
+        <ul class="right" *ngIf="!user">
+            <li><a [routerLink]="['/login']">Log In</a></li>
+            <li><a [routerLink]="['/signup']">Sign Up</a></li>
+        </ul>
+        <ul class="right" *ngIf="user">
+            <li (click)="logOut()"><a>Log Out</a></li>
+        </ul>
+    </div>
     <div class="user-profile" *ngIf="user" [innerHTML]="profileImg">
     </div>
 </nav>

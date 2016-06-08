@@ -1,6 +1,14 @@
 @import 'skeleton.styl'
 @import 'navigation.styl'
 
+body
+  margin 0
+
+.left
+  float left
+.right
+  float right
+
 .users-block
   visibility hidden
   &.active
@@ -13,6 +21,10 @@
 .chat-icon
   width 50px
   height 50px
+
+.small-form
+  max-width 400px
+  margin 0 auto
 
 room ul li.complete > span
   text-decoration line-through

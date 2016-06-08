@@ -1,8 +1,8 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
+  max-width: 1500px;
+  margin: 30px auto 0;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -11,6 +11,9 @@
   width: 100%;
   float: left;
   box-sizing: border-box;
+}
+a {
+  cursor: pointer;
 }
 @media (min-width: 400px) {
   .container {
@@ -217,7 +220,7 @@ button {
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: #4f4f4f;
+  color: #fff;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
@@ -226,11 +229,20 @@ button {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 1px solid #bbb;
+  background-color: #e53935;
+  border-radius: 0px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: none;
   cursor: pointer;
   box-sizing: border-box;
+}
+.button:disabled {
+  box-shadow: none;
+  background: #ee7b78;
+  cursor: not-allowed;
+}
+.button:disabled:hover {
+  background: #ee7b78 !important;
 }
 input[type="submit"],
 input[type="reset"],
@@ -240,7 +252,7 @@ input[type="button"] {
   padding: 0 30px;
   color: #4f4f4f;
   text-align: center;
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 38px;
   letter-spacing: 0.1rem;
@@ -248,15 +260,14 @@ input[type="button"] {
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
-  border-radius: 4px;
+  border-radius: 0px;
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box;
 }
 .button:hover,
 button:hover {
-  color: #333;
-  border-color: #777;
+  background: #e05957;
   outline: 0;
 }
 input[type="submit"]:hover,
@@ -268,9 +279,8 @@ input[type="button"]:hover {
 }
 .button:focus,
 button:focus {
-  color: #333;
-  border-color: #777;
   outline: 0;
+  box-shadow: none;
 }
 input[type="submit"]:focus,
 input[type="reset"]:focus,
@@ -329,7 +339,7 @@ input[type="password"] {
   padding: 6px 10px;
   background-color: #fff;
   border: 1px solid #c1c1c1;
-  border-radius: 4px;
+  border-radius: 0px;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -339,7 +349,7 @@ select {
   padding: 6px 10px;
   background-color: #fff;
   border: 1px solid #c1c1c1;
-  border-radius: 4px;
+  border-radius: 0px;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -428,7 +438,7 @@ code {
   white-space: nowrap;
   background: #e3e3e3;
   border: 1px solid #e1e1e1;
-  border-radius: 4px;
+  border-radius: 0px;
 }
 pre > code {
   display: block;
@@ -497,6 +507,60 @@ hr {
   display: table;
   clear: both;
 }
+nav {
+  position: relative;
+  width: 100%;
+}
+nav .menu {
+  width: 100%;
+  display: inline-block;
+  background: #e53935;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+nav .menu ul {
+  list-style-type: none;
+  margin: 0;
+}
+nav .menu ul li {
+  margin: 0;
+  display: inline-block;
+  font-size: 20px;
+}
+nav .menu ul li a {
+  padding: 0 15px;
+  text-decoration: none;
+  color: #e5e5e5;
+  display: inline-block;
+  line-height: 60px;
+}
+nav .menu ul li a:hover {
+  color: #fff;
+}
+nav .menu ul li a.router-link-active {
+  background: #e05957;
+  color: #fff !important;
+}
+nav .intro {
+  position: relative;
+  width: 100%;
+  background: #b71c1c;
+}
+nav .intro h1 {
+  color: #fff;
+  text-align: center;
+  line-height: 100px;
+  font-size: 40px;
+  margin: 0;
+}
+body {
+  margin: 0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 .users-block {
   visibility: hidden;
 }
@@ -510,6 +574,10 @@ hr {
 .chat-icon {
   width: 50px;
   height: 50px;
+}
+.small-form {
+  max-width: 400px;
+  margin: 0 auto;
 }
 room ul li.complete > span {
   text-decoration: line-through;
