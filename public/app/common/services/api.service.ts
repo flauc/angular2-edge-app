@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core'
 import {Http, Headers, RequestMethod, Request} from '@angular/http'
 import {Observable} from 'rxjs/Observable'
-import {UserStoreService} from './userStore.service'
 import {urlValues} from '../config/app.values'
+import {UserStoreService} from './user-store.service'
 
 @Injectable()
 export class ApiService {

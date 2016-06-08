@@ -1,7 +1,7 @@
 import {Component} from '@angular/core'
 import {Router} from '@angular/router'
-import {UserStoreService} from '../../common/services/userStore.service'
 import {ApiService} from '../../common/services/api.service'
+import {UserStoreService} from '../../common/services/user-store.service';
 
 
 @Component({

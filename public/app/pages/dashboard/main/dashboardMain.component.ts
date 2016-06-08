@@ -1,8 +1,8 @@
 import {Component} from '@angular/core'
 import {Router} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
-import {SocketControlService} from '../../../common/services/socketControl.service'
-import {UserStoreService} from '../../../common/services/userStore.service'
+import {SocketControlService} from '../../../common/services/socket-control.service'
+import {UserStoreService} from '../../../common/services/user-store.service'
 
 @Component({
     selector: 'main',
