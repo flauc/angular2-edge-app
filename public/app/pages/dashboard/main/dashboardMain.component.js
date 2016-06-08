@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var data_service_1 = require('../../../common/services/data.service');
-var socketControl_service_1 = require('../../../common/services/socketControl.service');
-var userStore_service_1 = require('../../../common/services/userStore.service');
+var socket_control_service_1 = require('../../../common/services/socket-control.service');
+var user_store_service_1 = require('../../../common/services/user-store.service');
 var DashboardMainComponent = (function () {
     function DashboardMainComponent(_router, _data, _socketControl, _userStore) {
         this._router = _router;
@@ -45,7 +45,7 @@ var DashboardMainComponent = (function () {
             selector: 'main',
             templateUrl: 'app/pages/dashboard/main/main.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, socketControl_service_1.SocketControlService, userStore_service_1.UserStoreService])
+        __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, socket_control_service_1.SocketControlService, user_store_service_1.UserStoreService])
     ], DashboardMainComponent);
     return DashboardMainComponent;
 }());

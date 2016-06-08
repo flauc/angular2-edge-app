@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<button (click)="roomCreateToggle = !roomCreateToggle">Create Room</button>
+<button class="create-open" (click)="roomCreateToggle = !roomCreateToggle">{{roomCreateToggle ? 'Create Room' : 'Close'}}</button>
 
 <div class="room-create" [hidden]="!roomCreateToggle">
     <h3>Create New Room</h3>
@@ -36,7 +36,7 @@
                     #desc="ngForm"></textarea>
         </div>
         <div class="row">
-            <input type="submit" [disabled]="!roomForm.form.valid" value="Create">
+            <button class="button" type="submit" [disabled]="!roomForm.form.valid">Create</button>
         </div>
     </form>
 

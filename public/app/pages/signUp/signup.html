@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+<form (ngSubmit)="onSubmit()" #signupForm="ngForm" class="small-form">
     <div class="row">
         <label for="username">Username/Email</label>
         <input
@@ -39,6 +39,6 @@
         <p [hidden]="passCheck.valid || passCheck.pristine">Password confirmation is required</p>
     </div>
     <div class="row">
-        <input type="submit" [disabled]="!signupForm.form.valid" value="Sign up">
+        <button class="button" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
     </div>
 </form>

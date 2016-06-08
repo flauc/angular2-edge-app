@@ -579,6 +579,19 @@ body {
   max-width: 400px;
   margin: 0 auto;
 }
+.room {
+  width: 32%;
+  box-sizing: border-box;
+  margin-right: 2%;
+  margin-bottom: 20px;
+  float: left;
+  background: #e5e5e5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 20px;
+}
+.room:nth-child(3n) {
+  margin-right: 0;
+}
 room ul li.complete > span {
   text-decoration: line-through;
 }
