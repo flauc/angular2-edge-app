@@ -23,6 +23,7 @@ export class RoomComponent implements OnActivate {
     public taskName: string;
 
     routerOnActivate(current: RouteSegment): void {
+        console.log(current.getParam('name'));
         // Check if we are in a room that exists
         let currentRoom = this._data.rooms.find(a => a.name === current.getParam('name'));
         if (currentRoom) this.room = currentRoom;

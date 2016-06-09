@@ -29,7 +29,7 @@ export class DashboardMainComponent {
     
 
     roomEnter(room) {
-        this._router.navigate(['/room', {name: room.name}])
+        this._router.navigate([`/dashboard/${room.name}`])
     }
 
     roomCreate() {
