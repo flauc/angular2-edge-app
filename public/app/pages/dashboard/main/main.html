@@ -7,10 +7,9 @@
     </div>
 </div>
 
-<button class="create-open" (click)="roomCreateToggle = !roomCreateToggle">{{roomCreateToggle ? 'Create Room' : 'Close'}}</button>
-
-<div class="room-create" [hidden]="!roomCreateToggle">
-    <h3>Create New Room</h3>
+<div class="room-create" [class.active]="roomCreateToggle">
+    <span class="create-open" (click)="roomCreateToggle = !roomCreateToggle">{{roomCreateToggle ? 'Close' : 'Create Room'}}</span>
+    <h4>Create New Room</h4>
 
     <form (ngSubmit)="roomCreate()" #roomForm="ngForm">
         <div class="row">
