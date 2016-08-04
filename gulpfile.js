@@ -14,56 +14,37 @@ var gulp = require('gulp'),
         public: './public',
 
         // VendorJs
-        vendorJsToMove: [
-            'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/es6-shim/es6-shim.map',
-            'node_modules/reflect-metadata/Reflect.js',
-            'node_modules/reflect-metadata/Reflect.js.map',
+        vendorJs: [
+            'node_modules/core-js/client/shim.min.js',
             'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js',
             'node_modules/systemjs/dist/system.src.js',
             'node_modules/socket.io-client/socket.io.js',
             'node_modules/lodash/lodash.min.js'
         ],
 
-        vendorJsFolders: {
-            'rxjs': 'node_modules/rxjs/**/**',
-            'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api/**/**',
-            'angular': 'node_modules/@angular/**/**'
-        },
-
-        vendorJs: [
-            './public/assets/vendorJs/es6-shim.min.js',
-            './public/assets/vendorJs/Reflect.js',
-            './public/assets/vendorJs/zone.js',
-            './public/assets/vendorJs/system.src.js',
-            './public/assets/vendorJs/socket.io.js',
-            './public/assets/vendorJs/lodash.min.js'
-        ],
-
-        vendorJsFolder: './public/assets/vendorJs',
-
         stylus: './public/assets/style/**/*.styl',
         stylusMain: './public/assets/style/style.styl'
     };
 
-// Dev Tasks
-gulp.task('move-vendorJs', () => {
-    gulp.src(config.vendorJsToMove)
-        .pipe(gulp.dest(config.vendorJsFolder))
-});
+// // Dev Tasks
+// gulp.task('move-vendorJs', () => {
+//     gulp.src(config.vendorJsToMove)
+//         .pipe(gulp.dest(config.vendorJsFolder))
+// });
+//
+// gulp.task('vendorJs-folders', () => {
+//     gulp.src(config.vendorJsFolders.angular)
+//         .pipe(gulp.dest(config.vendorJsFolder + '/@angular'));
+//
+//     gulp.src(config.vendorJsFolders.rxjs)
+//         .pipe(gulp.dest(config.vendorJsFolder + '/rxjs'));
+//
+//     gulp.src(config.vendorJsFolders['angular2-in-memory-web-api'])
+//         .pipe(gulp.dest(config.vendorJsFolder + '/angular2-in-memory-web-api'));
+// });
 
-gulp.task('vendorJs-folders', () => {
-    gulp.src(config.vendorJsFolders.angular)
-        .pipe(gulp.dest(config.vendorJsFolder + '/@angular'));
-
-    gulp.src(config.vendorJsFolders.rxjs)
-        .pipe(gulp.dest(config.vendorJsFolder + '/rxjs'));
-
-    gulp.src(config.vendorJsFolders['angular2-in-memory-web-api'])
-        .pipe(gulp.dest(config.vendorJsFolder + '/angular2-in-memory-web-api'));
-});
-
-gulp.task('inject-development', ['move-vendorJs'], () => {
+gulp.task('inject-development', () => {
     var target = gulp.src(config.public + '/index.html');
     var vendorStream = gulp.src(config.vendorJs, {read: false});
 
@@ -93,12 +74,7 @@ gulp.task('stylus',() => {
         .pipe(gulp.dest(config.public));
 });
 
-// Clean tasks
-gulp.task('clean-vendorJs', function () {
-    return del(config.vendorJsFolder);
-});
-
-gulp.task('build-dev', ['stylus', 'vendorJs-folders', 'inject-development', 'tsServer', 'tsPublic']);
+gulp.task('build-dev', ['stylus', 'inject-development', 'tsServer', 'tsPublic']);
 
 // Watch Task
 gulp.task('watch', function() {
