@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import {Router} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
 import {SocketControlService} from '../../../common/services/socket-control.service'
@@ -8,16 +8,13 @@ import {UserStoreService} from '../../../common/services/user-store.service'
     selector: 'main',
     templateUrl: 'app/pages/dashboard/main/main.html'
 })
-export class DashboardMainComponent {
+export class DashboardMainComponent implements OnInit, OnDestroy {
     constructor(
         private _router: Router,
         private _data: DataService,
         private _socketControl: SocketControlService,
         private _userStore: UserStoreService
-    ) {
-        this.rooms = _data.rooms;
-        this.me = _userStore.getUser().data;
-    }
+    ) {}
 
     public rooms;
     public me;
@@ -26,13 +23,20 @@ export class DashboardMainComponent {
     public roomCreateToggle: boolean = false;
     public roomName: string;
     public roomDescription: string;
-    
 
-    roomEnter(room) {
+    private _userStoreListener: any;
+
+    ngOnInit(): void {
+        console.log('got here: ', this.rooms);
+        this.rooms = this._data.rooms;
+        this._userStoreListener = this._userStore.emitter.subscribe(item => this.me = item.data)
+    }
+
+    roomEnter(room): void {
         this._router.navigate([`/dashboard/${room.name}`])
     }
 
-    roomCreate() {
+    roomCreate(): void {
         this._socketControl.roomCreate({name: this.roomName, description: this.roomDescription})
             .catch(err => console.log(err))
             .then(() => {
@@ -45,5 +49,9 @@ export class DashboardMainComponent {
     roomDelete(room) {
         this._socketControl.roomDelete(room)
             .catch(err => console.log(err))
+    }
+
+    ngOnDestroy(): void {
+        this._userStoreListener.unsubscribe();
     }
 }

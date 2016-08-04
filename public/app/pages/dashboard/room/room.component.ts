@@ -1,5 +1,4 @@
 import {Component} from '@angular/core'
-import {RouteSegment, Router, OnActivate} from '@angular/router'
 import {DataService} from '../../../common/services/data.service'
 import {ChatComponent} from '../../../common/components/chat/chat.component'
 import {SocketControlService} from '../../../common/services/socket-control.service'

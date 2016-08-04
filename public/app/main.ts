@@ -6,6 +6,8 @@ import {DataService} from './common/services/data.service'
 import {UserStoreService} from './common/services/user-store.service'
 import {routerProviders} from './app.routes';
 import {provideForms, disableDeprecatedForms} from '@angular/forms';
+import {AuthGuard} from './common/guards/auth.guard';
+import {DashboardGuard} from './common/guards/dashboard.guard';
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
@@ -17,5 +19,9 @@ bootstrap(AppComponent, [
 
     UserStoreService,
     ApiService,
-    DataService
+    DataService,
+
+    // Route Guards
+    AuthGuard,
+    DashboardGuard
 ]).catch((err: any) => console.error(err));

@@ -24,11 +24,11 @@ export class DashboardComponent implements OnInit {
     
     // TODO Move this back to canActivate when it gets implemented
     ngOnInit(): void {
-        this._data.getAllData()
-            .then(res => {
-                // Validate the socket connection and start listening to client emits
-                this._socketControl.validateAndOpenListeners();
-                this.users = this._data.users;
-            })
+
+        // Got here
+        console.log(this._data.users);
+        this.users = this._data.users;
+
+        // this._socketControl.validateAndOpenListeners();
     }
 }

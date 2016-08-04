@@ -7,6 +7,10 @@ import {Subject, BehaviorSubject} from 'rxjs/Rx';
  */
 @Injectable()
 export class UserStoreService {
+    constructor() {
+        let user = this.getUser();
+        if (user) this.emitter.next(user);
+    }
     // Components and services can listen to changes on
     // the emitter to find out if the user in local storage has changed
     public emitter: Subject<any> = new BehaviorSubject<any>(null);

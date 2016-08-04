@@ -23,8 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _userChangeListener: any;
 
     ngOnInit(): void {
-        this._userStore.getUser();
-
+        // Subscribe to the emitter in the UserStoreService
+        // to receive changes to the user object
         this._userChangeListener = this._userStore.emitter.subscribe(item => {
             this.user = item;
             if (item) this.profileImg = this._sanitizer.bypassSecurityTrustHtml(`<img src="assets/img/profile_icons/icon-${this.user.data.profileImg}.svg" />`);
