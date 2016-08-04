@@ -38,7 +38,6 @@ export default class SocketConfig {
                             info.data.createdBy = user;
 
                             createRoom(info.data)
-                                .catch(err => fn({success: false, error: err}))
                                 .then(res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
@@ -47,13 +46,13 @@ export default class SocketConfig {
                                         by: user._id,
                                         data: res
                                     })
-                                });
+                                })
+                                .catch(err => fn({success: false, error: err}));
                             break;
                         
                         case 'roomDelete':
                             if (info.data.createdBy.username === user.username) {
                                 delRoom(info.data._id)
-                                    .catch(err => fn({success: false, error: err}))
                                     .then(res => {
                                         fn({success: true, data: res});
                                         socket.broadcast.emit('client', {
@@ -62,7 +61,8 @@ export default class SocketConfig {
                                             by: user._id,
                                             data: res
                                         })
-                                    });   
+                                    })
+                                    .catch(err => fn({success: false, error: err}));
                             }
                             
                             else fn({success: false, error: 'You dont have permission to do that'});
@@ -72,7 +72,6 @@ export default class SocketConfig {
                         case 'taskCreate':
 
                             addTask(info.data.roomName, { name: info.data.name, createdBy: user})
-                                .catch(err => fn({success: false, error: err}))
                                 .then(res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
@@ -82,13 +81,13 @@ export default class SocketConfig {
                                         toRoom: info.data.roomName,
                                         data: res
                                     })
-                                });
+                                })
+                                .catch(err => fn({success: false, error: err}));
                             break;
 
                         case 'taskUpdate':
 
                             updateTask(info.data.roomName, info.data.task)
-                                .catch(err => fn({success: false, error: err}))
                                 .then(res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
@@ -98,12 +97,11 @@ export default class SocketConfig {
                                         toRoom: info.data.roomName,
                                         data: res
                                     })
-                                });
+                                })
+                                .catch(err => fn({success: false, error: err}));
                             break;
                         case 'taskDelete':
-
                             deleteTask(info.data.roomName, info.data.taskId)
-                                .catch(err => fn({success: false, error: err}))
                                 .then(res => {
                                     fn({success: true, data: res});
                                     socket.broadcast.emit('client', {
@@ -113,8 +111,8 @@ export default class SocketConfig {
                                         toRoom: info.data.roomName,
                                         data: res
                                     })
-                                });
-
+                                })
+                                .catch(err => fn({success: false, error: err}));
                             break;
 
                     }   

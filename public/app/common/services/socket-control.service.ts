@@ -24,74 +24,73 @@ export class SocketControlService {
     };
 
     public socket;
-
     private sv: any;
 
-    validateAndOpenListeners() {
-        // Send the validate request to the server
-        this.socket.emit('validate', {token: this._userStore.getUser().token}, info => {
+    // Send the validate request to the server
+    validate() {
+        return new Promise((resolve, reject) => {
+            this.socket.emit('validate', {token: this._userStore.getUser().token}, info => {
+                if (info.success) {
+                    this.changeStatus(info.data.username, info.data.status);
+                    this.openListeners();
+                    return resolve(true);
+                }
 
-            if (info.success) {
-                this.changeStatus(info.data.username, info.data.status);
+                return reject(false);
+            });
+        })
+    }
 
-                // Once the connection is valid start listening
-                this.socket.on('client', (value) => {
+    openListeners() {
+        this.socket.on('client', (value) => {
 
-                    let index, taskIndex;
+            let index, taskIndex;
 
-                    // Handle all the events the server emits
-                    switch (value.command) {
+            // Handle all the events the server emits
+            switch (value.command) {
 
-                        // When a user connects or disconnects
-                        case 'userStatus':
-                            this.changeStatus(value.data.username, value.data.status);
-                            break;
+                // When a user connects or disconnects
+                case 'userStatus':
+                    this.changeStatus(value.data.username, value.data.status);
+                    break;
 
-                        // When a new user is created
-                        case 'userCreated':
-                            this._data.users.push(value.data);
-                            break;
+                // When a new user is created
+                case 'userCreated':
+                    this._data.users.push(value.data);
+                    break;
 
-                        // When a new room is created
-                        case 'roomCreated':
-                            this._data.rooms.push(value.data);
-                            break;
+                // When a new room is created
+                case 'roomCreated':
+                    this._data.rooms.push(value.data);
+                    break;
 
-                        // When a room is deleted
-                        case 'roomDeleted':
-                            this._data.rooms.splice(this._data.rooms.indexOf(value.data), 1);
-                            break;
+                // When a room is deleted
+                case 'roomDeleted':
+                    this._data.rooms.splice(this._data.rooms.indexOf(value.data), 1);
+                    break;
 
-                        // When a task is created
-                        case 'taskCreated':
-                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
-                            if (index !== -1) this._data.rooms[index].tasks.push(value.data);
-                            break;
+                // When a task is created
+                case 'taskCreated':
+                    index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                    if (index !== -1) this._data.rooms[index].tasks.push(value.data);
+                    break;
 
-                        // When a task is updated
-                        case 'taskUpdated':
-                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
-                            taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data._id);
-                            this._data.rooms[index].tasks[taskIndex] = value.data;
-                            break;
+                // When a task is updated
+                case 'taskUpdated':
+                    index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                    taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data._id);
+                    this._data.rooms[index].tasks[taskIndex] = value.data;
+                    break;
 
-                        // When a task i deleted
-                        case 'taskDeleted':
-                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
-                            taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data);
-                            this._data.rooms[index].tasks.splice(taskIndex, 1);
-                            break;
+                // When a task i deleted
+                case 'taskDeleted':
+                    index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                    taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data);
+                    this._data.rooms[index].tasks.splice(taskIndex, 1);
+                    break;
 
-                    }
-                })
             }
-
-            // If there was an error that means there is something wrong with the token
-            else {
-                this._userStore.setUser();
-                this._router.navigate(['Login'])
-            }
-        });
+        })
     }
 
     changeStatus(username, status) {

@@ -27,9 +27,11 @@ export class DashboardMainComponent implements OnInit, OnDestroy {
     private _userStoreListener: any;
 
     ngOnInit(): void {
-        console.log('got here: ', this.rooms);
+        console.log('got here: ', this._data.rooms);
         this.rooms = this._data.rooms;
-        this._userStoreListener = this._userStore.emitter.subscribe(item => this.me = item.data)
+        this._userStoreListener = this._userStore.emitter.subscribe(item => {
+            if (item) this.me = item.data
+        })
     }
 
     roomEnter(room): void {

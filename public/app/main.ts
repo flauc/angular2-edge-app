@@ -8,6 +8,7 @@ import {routerProviders} from './app.routes';
 import {provideForms, disableDeprecatedForms} from '@angular/forms';
 import {AuthGuard} from './common/guards/auth.guard';
 import {DashboardGuard} from './common/guards/dashboard.guard';
+import {SocketControlService} from './common/services/socket-control.service';
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
@@ -20,6 +21,7 @@ bootstrap(AppComponent, [
     UserStoreService,
     ApiService,
     DataService,
+    SocketControlService,
 
     // Route Guards
     AuthGuard,

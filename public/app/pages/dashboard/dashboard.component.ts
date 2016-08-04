@@ -7,7 +7,6 @@ import {UserBlockComponent} from '../../common/components/user-block/user-block.
 @Component({
     selector: 'user',
     templateUrl: 'app/pages/dashboard/dashboard.html',
-    providers: [SocketControlService],
     directives: [
         ROUTER_DIRECTIVES,
         UserBlockComponent
@@ -24,9 +23,6 @@ export class DashboardComponent implements OnInit {
     
     // TODO Move this back to canActivate when it gets implemented
     ngOnInit(): void {
-
-        // Got here
-        console.log(this._data.users);
         this.users = this._data.users;
 
         // this._socketControl.validateAndOpenListeners();

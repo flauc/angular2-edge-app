@@ -11,12 +11,12 @@ export class DataService {
         private _api: ApiService
     ) {}
     
-    public rooms: any;
-    public users: any;
+    public rooms: any[] = [];
+    public users: any[] = [];
 
     // This promise resolves when both Users and Rooms are received from the server successfully
     getAllData() {
-        return Promise.all([this.getRooms(), this.getUsers()])
+        return Promise.all([this.getRooms(), this.getUsers()]);
     }
 
     getRooms() {
@@ -24,7 +24,7 @@ export class DataService {
             this._api.send('getRooms').subscribe(
                 res => {
                     this.rooms = res.data;
-                    resolve(res)
+                    return resolve(res)
                 }, 
                 err => reject(err)
             )
@@ -36,7 +36,7 @@ export class DataService {
             this._api.send('getUsers').subscribe(
                 res => {
                     this.users = res.data;
-                    resolve(res)
+                    return resolve(res)
                 },
                 err => reject(err)
             )
