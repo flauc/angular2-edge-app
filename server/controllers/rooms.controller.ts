@@ -17,10 +17,7 @@ export function getRooms(searchCriteria?: Object) {
             else {
 
                 // Remove the fields that should not be sent
-                docs.forEach(a => {
-                    delete a['__v'];
-                });
-
+                docs.forEach(a => delete a['__v']);
                 resolve(docs)
             }
 

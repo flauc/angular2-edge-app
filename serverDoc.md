@@ -5,7 +5,9 @@ provides a couple of HTTP Routes for demonstrational purposes.
 
 ## HTTP API 
 
-Base Url: `localhost:1000`
+The API handles primarily JSON data.
+
+**Base Url:** `localhost:1000`
 
 Route | Method | Request | Description
 ------------ | ------------- | ------------- | -------------

@@ -13,14 +13,14 @@ export default class SocketConfig {
                 unpackToken(info.token).then(
                     res => {
                         // Add the user to the list of validated users
-                        updateUser({_id: res._id, status: 'online'}).then(
+                        updateUser({_id: res['_id'], status: 'online'}).then(
                             res => {
 
                                 // Emit to other listeners that the user has come online
-                                socket.broadcast.emit('client', {command: 'userStatus', data: {username: res.username, status: 'online'}});
+                                socket.broadcast.emit('client', {command: 'userStatus', data: {username: res['username'], status: 'online'}});
                                 user = res;
 
-                                fn({success: true, data: {username: res.username, status: 'online'}})
+                                fn({success: true, data: {username: res['username'], status: 'online'}})
                             }
                         )
                     },
@@ -124,7 +124,9 @@ export default class SocketConfig {
             });
 
             socket.on('disconnect', () => {
-                if (user) updateUser({_id: user._id, status: 'offline'}).then(res => socket.broadcast.emit('client', {command: 'userStatus', data: {username: res.username, status: 'offline'}}))
+                if (user)
+                    updateUser({_id: user._id, status: 'offline'})
+                        .then(res => socket.broadcast.emit('client', {command: 'userStatus', data: {username: res['username'], status: 'offline'}}))
             });
 
 

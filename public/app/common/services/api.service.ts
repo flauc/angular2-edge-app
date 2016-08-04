@@ -1,9 +1,14 @@
 import {Injectable} from '@angular/core'
 import {Http, Headers, RequestMethod, Request} from '@angular/http'
-import {Observable} from 'rxjs/Observable'
 import {urlValues} from '../config/app.values'
 import {UserStoreService} from './user-store.service'
+import {Observable} from 'rxjs/Rx';
 
+/*
+    This service handles all HTTP requests to the server. Handling all
+    requests through one service provides a simple way to append headers to all requests
+    with out extending angular 2's Http class
+ */
 @Injectable()
 export class ApiService {
     constructor (
@@ -73,10 +78,6 @@ export class ApiService {
 
         return this._http.request(new Request(options))
             .map(res => res.json())
-            .catch(this.logError);
-    }
-
-    private logError (error: Error) {
-        return Observable.throw(error);
+            .catch(err => Observable.throw(err));
     }
 }

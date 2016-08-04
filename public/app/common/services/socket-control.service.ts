@@ -7,6 +7,9 @@ import * as _ from 'lodash'
 
 declare var io: any;
 
+/*
+    This service handles all socket communication with the server
+ */
 @Injectable()
 export class SocketControlService {
     constructor(
@@ -16,7 +19,7 @@ export class SocketControlService {
     ) {
         this.sv = socketValues;
 
-        // Open connection
+        // Open the connection with the server
         this.socket = io.connect(this.sv.url);
     };
 
@@ -25,13 +28,18 @@ export class SocketControlService {
     private sv: any;
 
     validateAndOpenListeners() {
-        this.socket.emit('validate', {token: this._userStore.getUser().token}, (info) => {
+        // Send the validate request to the server
+        this.socket.emit('validate', {token: this._userStore.getUser().token}, info => {
 
             if (info.success) {
                 this.changeStatus(info.data.username, info.data.status);
 
                 // Once the connection is valid start listening
                 this.socket.on('client', (value) => {
+
+                    let index, taskIndex;
+
+                    // Handle all the events the server emits
                     switch (value.command) {
 
                         // When a user connects or disconnects
@@ -56,21 +64,21 @@ export class SocketControlService {
 
                         // When a task is created
                         case 'taskCreated':
-                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
                             if (index !== -1) this._data.rooms[index].tasks.push(value.data);
                             break;
 
                         // When a task is updated
                         case 'taskUpdated':
-                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom),
-                                taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data._id);
+                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                            taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data._id);
                             this._data.rooms[index].tasks[taskIndex] = value.data;
                             break;
 
                         // When a task i deleted
                         case 'taskDeleted':
-                            let index = _.findIndex(this._data.rooms, o => o.name === value.toRoom),
-                                taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data);
+                            index = _.findIndex(this._data.rooms, o => o.name === value.toRoom);
+                            taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === value.data);
                             this._data.rooms[index].tasks.splice(taskIndex, 1);
                             break;
 
