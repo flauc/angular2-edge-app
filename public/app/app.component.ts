@@ -1,27 +1,13 @@
 import './rxjs.imports'
 import {Component} from '@angular/core'
-import {ROUTER_DIRECTIVES, Routes, Router} from '@angular/router'
-import {LoginComponent} from './pages/login/login.component'
-import {DashboardComponent} from './pages/dashboard/dashboard.component'
-import {HomeComponent} from './pages/home/home.component'
+import {ROUTER_DIRECTIVES, Router} from '@angular/router'
 import {UserStoreService} from './common/services/user-store.service'
-import {SignupComponent} from './pages/signup/signup.component'
 
 @Component({
-    selector: 'app',
+    selector: 'edge-app',
     directives: [ROUTER_DIRECTIVES],
     templateUrl: 'app/app.html',
 })
-
-@Routes([
-    {path: '/', component: HomeComponent},
-    {path: '/login', component: LoginComponent},
-    {path: '/signup', component: SignupComponent},
-    {path: '/dashboard', component: DashboardComponent},
-
-    // Catch route
-    {path: '*', component: HomeComponent}
-])
 export class AppComponent {
     constructor(
         private _router: Router,

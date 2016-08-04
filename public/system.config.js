@@ -8,7 +8,7 @@
         },
 
         packages = {
-            'app': {main: 'boot.js', defaultExtension: 'js'},
+            'app': {main: 'main.js', defaultExtension: 'js'},
             'rxjs': {defaultExtension: 'js' }
         },
 

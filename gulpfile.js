@@ -27,29 +27,12 @@ var gulp = require('gulp'),
         stylusMain: './public/assets/style/style.styl'
     };
 
-// // Dev Tasks
-// gulp.task('move-vendorJs', () => {
-//     gulp.src(config.vendorJsToMove)
-//         .pipe(gulp.dest(config.vendorJsFolder))
-// });
-//
-// gulp.task('vendorJs-folders', () => {
-//     gulp.src(config.vendorJsFolders.angular)
-//         .pipe(gulp.dest(config.vendorJsFolder + '/@angular'));
-//
-//     gulp.src(config.vendorJsFolders.rxjs)
-//         .pipe(gulp.dest(config.vendorJsFolder + '/rxjs'));
-//
-//     gulp.src(config.vendorJsFolders['angular2-in-memory-web-api'])
-//         .pipe(gulp.dest(config.vendorJsFolder + '/angular2-in-memory-web-api'));
-// });
-
 gulp.task('inject-development', () => {
     var target = gulp.src(config.public + '/index.html');
     var vendorStream = gulp.src(config.vendorJs, {read: false});
 
     return target
-        .pipe(inject(vendorStream, {relative: true}))
+        .pipe(inject(vendorStream, {relative: false}))
         .pipe(gulp.dest(config.public));
 });
 

@@ -9,6 +9,7 @@ export const config = {
     domain: 'http://localhost',
     rootPath: rootPath,
     staticPath: path.normalize(`${rootPath}/public`),
+    nodeModulesPath: path.normalize(`${rootPath}/node_modules`),
     appSecret: 'something very secret',
 
     // Mongo

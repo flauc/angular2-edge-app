@@ -6,7 +6,8 @@ export default class ExpressConfig {
     constructor(app, config) {
         app.use(bodyParser.urlencoded({extended: true}));
         app.use(bodyParser.json());
-        app.use(express.static(config.staticPath));
+        app.use('/', express.static(config.staticPath));
+        app.use('/node_modules', express.static(config.nodeModulesPath));
 
         app.use(function (req, res, next) {
                 res.setHeader('Access-Control-Allow-Origin', `${config.domain}:${config.port}`);
