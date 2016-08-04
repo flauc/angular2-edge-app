@@ -5,12 +5,6 @@ import {checkPassword} from '../helpers/commonHelpers';
 
 export function login(req, res) {
     getUsers({username: req.body.username}, true)
-        .catch(() => {
-            res.status(401).send({
-                success: false,
-                error: 'Authentication failed. User not found.'
-            });
-        })
         // Check if the user has a valid password
         .then(user => {
             return {
@@ -21,19 +15,25 @@ export function login(req, res) {
                 receivedPass: req.body.password
             }
         })
+        .catch(() => {
+            res.status(401).send({
+                success: false,
+                error: 'Authentication failed. User not found.'
+            });
+        })
         .then(user => checkPassword(user))
-        // Return error if a bad password was sent
-        .catch(() => { res.status(401).send({ success: false, error: 'Wrong username and password combination.' })})
         .then((user) => {
             // create the jwt token and add the username and _id
-            let token = jwt.sign({username: user.username, _id: user._id}, config.appSecret, {expiresIn: 2880});
+            let token = jwt.sign({username: user['username'], _id: user['_id']}, config.appSecret, {expiresIn: '1y'});
             // return the information including token as JSON
             res.json({
                 success: true,
-                data: {username: user.username, _id: user._id, profileImg: user.profileImage,},
+                data: {username: user['username'], _id: user['_id'], profileImg: user['profileImage']},
                 token: token
             });
-        });
+        })
+        // Return error if a bad password was sent
+        .catch(() => { res.status(401).send({ success: false, error: 'Wrong username and password combination.' })})
 }
 
 export function loginAfterReg(data) {
@@ -45,7 +45,7 @@ export function loginAfterReg(data) {
                 resolve({
                     success: true,
                     data: {username: data.username, _id: data._id},
-                    token: jwt.sign({username: data.username, _id: data._id}, config.appSecret, {expiresIn: 2880})
+                    token: jwt.sign({username: data.username, _id: data._id}, config.appSecret, {expiresIn: '1y'})
                 })
             })
     })
