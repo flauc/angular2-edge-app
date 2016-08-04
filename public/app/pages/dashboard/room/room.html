@@ -1,11 +1,13 @@
-<h3>Name: {{room.name}}</h3>
-<h5>Description: {{room.description}}</h5>
+<div class="header">
+    <h3>Name: {{room?.name}}</h3>
+    <h5>Description: {{room?.description}}</h5>
+</div>
 
 
 <!--<edge-tasksBlock [room]></edge-tasksBlock>-->
 
 <ul>
-    <li *ngFor="let task of room.tasks" [class.complete]="task.complete">
+    <li *ngFor="let task of room?.tasks" [class.complete]="task.complete">
         <span>{{task.name}}</span>
         <button (click)="taskComplete(task)">Complete</button>
         <button (click)="taskDelete(task._id)">Delete</button>
@@ -21,10 +23,10 @@
                     type="text"
                     placeholder="What is the task?"
                     id="task"
+                    name="task"
                     required
                     [(ngModel)]="taskName"
-                    ngControl="task"
-                    #task="ngForm">
+                    #task="ngModel">
         </div>
         <div class="row">
             <button type="submit" [disabled]="!taskForm.form.valid">Create</button>
@@ -32,4 +34,4 @@
     </form>
 </div>
 
-<edge-chat [roomName]="room.name"></edge-chat>
+<edge-chat  *ngIf="room" [roomName]="room.name"></edge-chat>

@@ -27,7 +27,6 @@ export class DashboardMainComponent implements OnInit, OnDestroy {
     private _userStoreListener: any;
 
     ngOnInit(): void {
-        console.log('got here: ', this._data.rooms);
         this.rooms = this._data.rooms;
         this._userStoreListener = this._userStore.emitter.subscribe(item => {
             if (item) this.me = item.data
@@ -35,7 +34,7 @@ export class DashboardMainComponent implements OnInit, OnDestroy {
     }
 
     roomEnter(room): void {
-        this._router.navigate([`/dashboard/${room.name}`])
+        this._router.navigate([`/dashboard/room/${room.name}`])
     }
 
     roomCreate(): void {

@@ -1,4 +1,5 @@
-import {Component} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
+import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../../../common/services/data.service'
 import {ChatComponent} from '../../../common/components/chat/chat.component'
 import {SocketControlService} from '../../../common/services/socket-control.service'
@@ -9,8 +10,9 @@ import {UserBlockComponent} from '../../../common/components/user-block/user-blo
     directives: [UserBlockComponent, ChatComponent],
     templateUrl: 'app/pages/dashboard/room/room.html'
 })
-export class RoomComponent implements OnActivate {
+export class RoomComponent implements OnInit {
     constructor(
+        private _activeRoute: ActivatedRoute,
         private _router: Router,
         private _data: DataService,
         private _socketControl: SocketControlService
@@ -21,12 +23,14 @@ export class RoomComponent implements OnActivate {
     // Task Creation
     public taskName: string;
 
-    routerOnActivate(current: RouteSegment): void {
-        console.log(current.getParam('name'));
-        // Check if we are in a room that exists
-        let currentRoom = this._data.rooms.find(a => a.name === current.getParam('name'));
-        if (currentRoom) this.room = currentRoom;
-        else this._router.navigate(['/']);
+    ngOnInit(): void {
+        this._activeRoute.params.subscribe(params => {
+            this.room = this._data.rooms.find(a => params['name'] === a.name);
+            if (!this.room) {
+                this._router.navigate(['/dashboard']);
+                return false;
+            }
+        })
     }
 
     taskCreate() {
