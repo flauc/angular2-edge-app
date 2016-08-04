@@ -6,11 +6,11 @@
                 type="email"
                 placeholder="test@mailbox.com"
                 id="username"
+                name="username"
                 required
                 [(ngModel)]="username"
-                ngControl="user"
-                #user="ngForm">
-        <p [hidden]="user.valid || user.pristine">Username is required</p>
+                #username="ngModel">
+        <p [hidden]="username.valid || username.pristine">Username is required</p>
     </div>
     <div class="row">
         <label for="password">Password</label>
@@ -19,11 +19,11 @@
                 type="password"
                 placeholder="Password"
                 id="password"
+                name="password"
                 required
                 [(ngModel)]="password"
-                ngControl="pass"
-                #pass="ngForm">
-        <p [hidden]="pass.valid || pass.pristine">Password is required</p>
+                #password="ngModel">
+        <p [hidden]="password.valid || password.pristine">Password is required</p>
     </div>
     <div class="row">
         <button class="button" type="submit" [disabled]="!loginForm.form.valid">Sign In</button>

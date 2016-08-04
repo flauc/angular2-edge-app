@@ -19,10 +19,10 @@
                     type="text"
                     placeholder="Some Title"
                     id="name"
+                    name="name"
                     required
                     [(ngModel)]="roomName"
-                    ngControl="name"
-                    #name="ngForm">
+                    #name="ngModel">
         </div>
         <div class="row">
             <label for="roomDescription">Description</label>
@@ -30,9 +30,11 @@
                     class="u-full-width"
                     placeholder="What is this room about?"
                     id="roomDescription"
+                    name="description"
+                    required
                     [(ngModel)]="roomDescription"
                     ngControl="desc"
-                    #desc="ngForm"></textarea>
+                    #description="ngForm"></textarea>
         </div>
         <div class="row">
             <button class="button" type="submit" [disabled]="!roomForm.form.valid">Create</button>
