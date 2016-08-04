@@ -8,7 +8,7 @@ provides a couple of HTTP Routes for demonstrational purposes.
 Base Url: `localhost:1000`
 
 Route | Method | Request | Description
----| --- | --- 
+------------ | ------------- | ------------- | -------------
 /api/login | POST | {username: string, password: string} | Returns the user along with the generated token
 /api/sign-up | POST | {username: string, password: string} | Creates a user and logs him in
 /api/users | GET | null | Returns a list of all users in the database
