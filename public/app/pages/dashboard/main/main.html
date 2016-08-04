@@ -33,8 +33,7 @@
                     name="description"
                     required
                     [(ngModel)]="roomDescription"
-                    ngControl="desc"
-                    #description="ngForm"></textarea>
+                    #description="ngModel"></textarea>
         </div>
         <div class="row">
             <button class="button" type="submit" [disabled]="!roomForm.form.valid">Create</button>
