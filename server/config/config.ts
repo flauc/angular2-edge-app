@@ -1,19 +1,21 @@
 import * as path from 'path'
 
-let rootPath = path.normalize(`${__dirname}/../../`);
+const rootPath = path.normalize(`${__dirname}/../../`);
 
 export const config = {
     appName: 'angular2-edge',
-    port: process.env.PORT || 1000,
+    port: process.env.PORT || 2000,
     env: process.env.NODE_ENV || 'dev',
     domain: 'http://localhost',
     rootPath: rootPath,
     staticPath: path.normalize(`${rootPath}/public`),
     nodeModulesPath: path.normalize(`${rootPath}/node_modules`),
-    appSecret: 'something very secret',
+    appSecret: 'asdasd',
 
     // Mongo
-    mongoServer: '127.0.0.1',
-    mongoPort: 27017
+    mongo: {
+        server: '127.0.0.1',
+        port: 27017
+    },
 
 };

@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken'
 import {getUsers} from '../controllers/users.controller'
 import {config} from './config'
-import {checkPassword} from '../helpers/commonHelpers';
+import DataValidationService from '../services/data-validation';
 
 export function login(req, res) {
     getUsers({username: req.body.username}, true)
@@ -15,13 +15,7 @@ export function login(req, res) {
                 receivedPass: req.body.password
             }
         })
-        .catch(() => {
-            res.status(401).send({
-                success: false,
-                error: 'Authentication failed. User not found.'
-            });
-        })
-        .then(user => checkPassword(user))
+        .catch(() => res.status(401).send({success: false, error: 'Authentication failed. User not found.'}))
         .then((user) => {
             // create the jwt token and add the username and _id
             let token = jwt.sign({username: user['username'], _id: user['_id']}, config.appSecret, {expiresIn: '1y'});
