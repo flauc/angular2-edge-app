@@ -1,17 +1,17 @@
 import * as express from 'express'
 import * as http from 'http'
 import * as socketIo from 'socket.io'
-import {config} from './server/config/config'
-import ExpressConfig from './server/config/express'
-import RoutesConfig from './server/config/routes'
-import SocketConfig from './server/config/socket'
+import {config} from './config/config'
+import ExpressConfig from './config/express'
+import RoutesConfig from './config/routes'
+import SocketConfig from './config/socket'
 
 const app = express(),
     server = http.Server(app),
     io = socketIo(server),
 
     // TODO: Find a better solution for handling this import and the export in the mongo.js file
-    mongo = require('./server/config/mongo'),
+    mongo = require('./config/mongo'),
 
     // Configuration classes
     expressConfig = new ExpressConfig(app, config),

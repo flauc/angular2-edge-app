@@ -25,8 +25,7 @@
     "member-ordering": [
       true,
       "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
+      "static-before-instance"
     ],
 
     "variable-name": [true, "ban-keywords"],
