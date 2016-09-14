@@ -1,31 +1,30 @@
-import * as express from 'express'
+import * as express from 'express';
 import * as http from 'http'
 import * as socketIo from 'socket.io'
-import {config} from './config/config'
-import ExpressConfig from './config/express'
-import RoutesConfig from './config/routes'
+import {config} from './config/values.const';
+import ExpressConfig from './config/express';
+import RoutesConfig from './config/routes';
 import SocketConfig from './config/socket'
+import Mongo from './config/mongo';
+import UsersController from './controllers/users';
+import AuthService from './services/auth';
 
 const app = express(),
     server = http.Server(app),
     io = socketIo(server),
+    // Config
+    expressConfig = new ExpressConfig(app);
 
-    // TODO: Find a better solution for handling this import and the export in the mongo.js file
-    mongo = require('./config/mongo'),
 
-    // Configuration classes
-    expressConfig = new ExpressConfig(app, config),
-    routesConfig = new RoutesConfig(app, config),
-    socketConfig = new SocketConfig(io);
+// Open connection to mongo
+Mongo.init()
+    .then(client => {
 
-// Init the db
-mongo.init(function (error) {
-    if (error) console.log('db error: ', error);
+        // Mongo dependent config
+        const userInstance = new UsersController(client.collection('users')),
+            authInstance = new AuthService(client.collection('users')),
+            routerConfig = new RoutesConfig(app, userInstance, authInstance);
 
-    else {
-        // Db open now init the server
-        server.listen(config.port, () => {
-            console.log(`Server listening on port ${config.port}`);
-        });
-    }
-});
+        app.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
+    })
+    .catch(err => console.log(err));
