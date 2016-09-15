@@ -1,133 +1,112 @@
-import {unpackToken} from './auth'
-import {updateUser} from '../controllers/user'
-import {createRoom, delRoom, addTask, updateTask, deleteTask} from '../controllers/rooms.controller';
+import UsersController from '../controllers/user';
+import RoomsController from '../controllers/room';
+import AuthService from '../services/auth';
+import {jwtVerifyPromise} from '../services/auth';
+const phrases = {
+    validate: 'validate',
+    status: 'status',
+    room: {
+        create: 'roomCreate',
+        delete: 'roomDelete'
+    },
+    task: {
+        create: 'taskCreate',
+        update: 'taskUpdate',
+        delete: 'taskDelete'
+    },
+    message: 'message'
+
+};
 
 export default class SocketConfig {
+    constructor(
+        private _io: any,
+        private _user: UsersController,
+        private _room: RoomsController
+    ) {
+        this._io.on('connection', (socket) => {
+            socket.on(phrases.validate, (token, fn) => {
 
-    constructor(io) {
-        io.on('connection', (socket) => {
-            
-            let user;
+                this.disconnect(socket);
 
-            socket.on('validate', (info, fn) => {
-                unpackToken(info.token).then(
-                    res => {
-                        // Add the user to the list of validated users
-                        updateUser({_id: res['_id'], status: 'online'}).then(
-                            res => {
+                jwtVerifyPromise(token)
+                    .then(data => {
+                        this.connections.push({_id: data._id, socket: socket});
+                        socket.broadcast.emit(phrases.status, {_id: data._id, status: 'online'});
 
-                                // Emit to other listeners that the user has come online
-                                socket.broadcast.emit('client', {command: 'userStatus', data: {username: res['username'], status: 'online'}});
-                                user = res;
+                        this.room(socket);
+                        this.task(socket);
+                        this.chat(socket);
 
-                                fn({success: true, data: {username: res['username'], status: 'online'}})
-                            }
-                        )
-                    },
-                    err => fn({success: false, error: err})
+                        return this._user.get()
+                    })
+                    .then(data => {
+                        data.map(a => a['status'] = this.connections.find(b => a._id === b._id) ? 'online' : 'offline');
+                        fn(this._standardResponse(true, {users: data}));
+                    })
+                    .catch(err => fn(this._standardResponse(false, 'Authentication failed')));
+            })
+        })
+    }
 
-                )
-            });
+    connections: any[] = [];
 
-            socket.on('server', (info, fn) => {
-                if (user) {
-                    switch (info.command) {
-                        case 'roomCreate':
-
-                            // Add the user
-                            info.data.createdBy = user;
-
-                            createRoom(info.data)
-                                .then(res => {
-                                    fn({success: true, data: res});
-                                    socket.broadcast.emit('client', {
-                                        success: true,
-                                        command: 'roomCreated',
-                                        by: user._id,
-                                        data: res
-                                    })
-                                })
-                                .catch(err => fn({success: false, error: err}));
-                            break;
-                        
-                        case 'roomDelete':
-                            if (info.data.createdBy.username === user.username) {
-                                delRoom(info.data._id)
-                                    .then(res => {
-                                        fn({success: true, data: res});
-                                        socket.broadcast.emit('client', {
-                                            success: true,
-                                            command: 'roomDeleted',
-                                            by: user._id,
-                                            data: res
-                                        })
-                                    })
-                                    .catch(err => fn({success: false, error: err}));
-                            }
-                            
-                            else fn({success: false, error: 'You dont have permission to do that'});
-                            
-                            break;    
-                        
-                        case 'taskCreate':
-
-                            addTask(info.data.roomName, { name: info.data.name, createdBy: user})
-                                .then(res => {
-                                    fn({success: true, data: res});
-                                    socket.broadcast.emit('client', {
-                                        success: true,
-                                        command: 'taskCreated',
-                                        by: user._id,
-                                        toRoom: info.data.roomName,
-                                        data: res
-                                    })
-                                })
-                                .catch(err => fn({success: false, error: err}));
-                            break;
-
-                        case 'taskUpdate':
-
-                            updateTask(info.data.roomName, info.data.task)
-                                .then(res => {
-                                    fn({success: true, data: res});
-                                    socket.broadcast.emit('client', {
-                                        success: true,
-                                        command: 'taskUpdated',
-                                        by: user._id,
-                                        toRoom: info.data.roomName,
-                                        data: res
-                                    })
-                                })
-                                .catch(err => fn({success: false, error: err}));
-                            break;
-                        case 'taskDelete':
-                            deleteTask(info.data.roomName, info.data.taskId)
-                                .then(res => {
-                                    fn({success: true, data: res});
-                                    socket.broadcast.emit('client', {
-                                        success: true,
-                                        command: 'taskDeleted',
-                                        by: user._id,
-                                        toRoom: info.data.roomName,
-                                        data: res
-                                    })
-                                })
-                                .catch(err => fn({success: false, error: err}));
-                            break;
-
-                    }   
-                }
-
-                else fn({success: false, error: 'You dont have permission to do that.'})
-            });
-
-            socket.on('disconnect', () => {
-                if (user)
-                    updateUser({_id: user._id, status: 'offline'})
-                        .then(res => socket.broadcast.emit('client', {command: 'userStatus', data: {username: res['username'], status: 'offline'}}))
-            });
-
-
+    room(socker) {
+        socker.on(phrases.room.create, (data) => {
+            this._room.create(data)
+                .then(data => this._standardResponse(true, data))
+                .catch(err => this._standardResponse(false, err))
         });
+
+        socker.on(phrases.room.delete, (data) => {
+            this._room.delete(data)
+                .then(data => this._standardResponse(true))
+                .catch(err => this._standardResponse(false, err))
+        })
+    }
+
+    task(socket) {
+        socket.on(phrases.task.create, (data) => {
+            this._room.addTask(data)
+                .then(data => this._standardResponse(true, data))
+                .catch(err => this._standardResponse(false, err))
+        });
+
+        socket.on(phrases.task.update, (data) => {
+            this._room.editTask(data)
+                .then(data => this._standardResponse(true, data))
+                .catch(err => this._standardResponse(false, err))
+        });
+
+        socket.on(phrases.task.delete, (data) => {
+            this._room.removeTask(data)
+                .then(data => this._standardResponse(true, data))
+                .catch(err => this._standardResponse(false, err))
+        })
+    }
+
+    chat(socket) {
+        socket.on(phrases.message, (data) => {
+            socket.broadcast.emit(phrases.message, {_id: this.connections.find(a => a.socket === socket)._id, message: data})
+        })
+    }
+
+    disconnect(socket) {
+        socket.on('disconnect', () => {
+            let id = this.connections.find(a => a.socket === socket);
+
+            if (id) socket.broadcast.emit(phrases.status, {_id: id, status: 'offline'})
+        });
+    }
+
+    private _standardResponse(success: boolean, data?: any) {
+        let toReturn = {success: success};
+
+        if (data) {
+            if (success) toReturn.data = data;
+            else toReturn.error = data;
+        }
+
+        return toReturn;
     }
 }

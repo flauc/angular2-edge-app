@@ -13,6 +13,11 @@ export default class RoomsController {
         return GeneralController.get(this.coll, {}, true)
     }
 
+    @validateFormat(roomValidation.create, true)
+    create(@required room: Room): Promise<Room> {
+        return GeneralController.create(this.coll, room)
+    }
+
     @validateFormat(roomValidation.delete, true)
     delete(@required item: any): Promise<Room> {
         return GeneralController.delete(this.coll, {_id: item._id}, false)

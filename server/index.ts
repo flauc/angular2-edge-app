@@ -7,8 +7,8 @@ import SocketConfig from './config/socket'
 import Mongo from './config/mongo';
 import AuthService from './services/auth';
 import UsersController from './controllers/user';
-import {config} from './config/config';
 import RoomsController from './controllers/room';
+import {config} from './config/config';
 
 const app = express(),
     server = http.Server(app),
@@ -25,7 +25,8 @@ Mongo.init()
         const userInstance = new UsersController(client.collection('users')),
             roomInstance = new RoomsController(client.collection('rooms')),
             authInstance = new AuthService(client.collection('users')),
-            routerConfig = new RoutesConfig(app, userInstance, roomInstance, authInstance);
+            routerConfig = new RoutesConfig(app, userInstance, roomInstance, authInstance),
+            socketConfig = new SocketConfig(io, userInstance, roomInstance);
 
         app.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
     })
