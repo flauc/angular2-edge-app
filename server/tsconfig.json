@@ -12,14 +12,20 @@
   "files": [
     "../typings/index.d.ts",
     "index.ts",
-    "config/config.ts",
-    "config/mongo.ts",
-    "config/auth.ts",
     "config/express.ts",
+    "config/mongo.ts",
     "config/routes.ts",
+    "config/config.ts",
     "config/socket.ts",
-    "controllers/rooms.controller.ts",
-    "controllers/users.controller.ts",
-    "helpers/commonHelpers.ts"
+    "controllers/general.ts",
+    "controllers/users.ts",
+    "controllers/room.ts",
+    "interfaces/user/user.ts",
+    "interfaces/user/user.validation.ts",
+    "interfaces/room/room.ts",
+    "interfaces/room/task.ts",
+    "interfaces/room/room.validation.ts",
+    "services/data-validation.ts",
+    "services/auth.ts"
   ]
 }

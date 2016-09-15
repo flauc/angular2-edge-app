@@ -1,5 +1,5 @@
 import {unpackToken} from './auth'
-import {updateUser} from '../controllers/users.controller'
+import {updateUser} from '../controllers/user'
 import {createRoom, delRoom, addTask, updateTask, deleteTask} from '../controllers/rooms.controller';
 
 export default class SocketConfig {

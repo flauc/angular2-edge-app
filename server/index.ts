@@ -1,13 +1,14 @@
 import * as express from 'express';
 import * as http from 'http'
 import * as socketIo from 'socket.io'
-import {config} from './config/values.const';
 import ExpressConfig from './config/express';
 import RoutesConfig from './config/routes';
 import SocketConfig from './config/socket'
 import Mongo from './config/mongo';
-import UsersController from './controllers/users';
 import AuthService from './services/auth';
+import UsersController from './controllers/user';
+import {config} from './config/config';
+import RoomsController from './controllers/room';
 
 const app = express(),
     server = http.Server(app),
@@ -22,8 +23,9 @@ Mongo.init()
 
         // Mongo dependent config
         const userInstance = new UsersController(client.collection('users')),
+            roomInstance = new RoomsController(client.collection('rooms')),
             authInstance = new AuthService(client.collection('users')),
-            routerConfig = new RoutesConfig(app, userInstance, authInstance);
+            routerConfig = new RoutesConfig(app, userInstance, roomInstance, authInstance);
 
         app.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
     })

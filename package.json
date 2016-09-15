@@ -15,7 +15,6 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
-    "co": "^4.6.0",
     "express": "^4.13.4",
     "jsonwebtoken": "^6.1.0",
     "lodash": "^4.11.1",
