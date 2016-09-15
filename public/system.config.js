@@ -2,32 +2,29 @@
 
     var map = {
             'app': 'app',
-            'rxjs': '../node_modules/rxjs',
-            'lodash': '../node_modules/lodash/lodash.min.js',
-            '@angular': '../node_modules/@angular'
+            '@angular': 'node_modules/@angular',
+            'rxjs': 'node_modules/rxjs'
         },
-
         packages = {
-            'app': {main: 'main.js', defaultExtension: 'js'},
-            'rxjs': {defaultExtension: 'js' }
+            'app': { main: 'main.js',  defaultExtension: 'js' },
+            'rxjs': { defaultExtension: 'js' }
         },
-
-        packageNames = [
+        ngPackageNames = [
             'common',
             'compiler',
             'core',
-            'forms',
             'http',
             'platform-browser',
             'platform-browser-dynamic',
-            'router',
             'upgrade',
+            'router',
+            'forms'
         ];
 
-    packageNames.forEach(function(pkgName) {
-        packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' }
-    });
+    function packUmd(pkgName) {packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.min.js', defaultExtension: 'js' }}
 
+    var setPackageConfig = packUmd;
+    ngPackageNames.forEach(setPackageConfig);
     var config = {
         map: map,
         packages: packages
