@@ -103,8 +103,8 @@ export default class SocketConfig {
         let toReturn = {success: success};
 
         if (data) {
-            if (success) toReturn.data = data;
-            else toReturn.error = data;
+            if (success) toReturn['data'] = data;
+            else toReturn['error'] = data;
         }
 
         return toReturn;
