@@ -4,10 +4,11 @@ import {ApiService} from '../../common/services/api.service'
 import {UserStoreService} from '../../common/services/user-store.service'
 
 @Component({
-    selector: 'signup',
-    templateUrl:  'app/pages/signup/signup.html'
+    moduleId: module.id,
+    selector: 'edge-sign-up',
+    templateUrl:  'sign-up.html'
 })
-export class SignupComponent {
+export class SignUpComponent {
     constructor(
         private _router: Router,
         private _userStore: UserStoreService,

@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run db\" ",
-    "server": "node index.js",
+    "server": "node server/index.js",
     "db": "mongod",
     "tsc": "tsc",
     "tsc:w": "tsc -w",

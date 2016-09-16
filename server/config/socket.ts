@@ -1,7 +1,7 @@
 import UsersController from '../controllers/user';
 import RoomsController from '../controllers/room';
-import AuthService from '../services/auth';
 import {jwtVerifyPromise} from '../services/auth';
+
 const phrases = {
     validate: 'validate',
     status: 'status',
@@ -15,7 +15,6 @@ const phrases = {
         delete: 'taskDelete'
     },
     message: 'message'
-
 };
 
 export default class SocketConfig {

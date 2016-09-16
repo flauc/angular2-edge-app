@@ -1,24 +1,4 @@
-const base = 'http://localhost:1000/';
-
-export const urlValues = {
-    login: `${base}api/login`,
-    signUp: `${base}api/sign-up`,
-    getUsers: `${base}api/users`,
-    getRooms: `${base}api/rooms`
-};
-
 export const appValues = {
-    name: 'angular2-edge-app'
-};
-
-export const socketValues = {
-    url: base,
-    
-    // Commands
-    roomCreate: 'roomCreate',
-    roomDelete: 'roomDelete',
-
-    taskCreate: 'taskCreate',
-    taskUpdate: 'taskUpdate',
-    taskDelete: 'taskDelete'
+    name: 'angular2-edge-app',
+    base: 'http://localhost:2000/'
 };

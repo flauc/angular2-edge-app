@@ -5,8 +5,9 @@ import {UserStoreService} from '../../common/services/user-store.service';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'login',
-    templateUrl:  'app/pages/login/login.html'
+    templateUrl:  'login.html'
 })
 
 export class LoginComponent {

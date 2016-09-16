@@ -1,13 +1,8 @@
 export const userValidation = {
     signUp: {
         email: {type: 'string', regEx: new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')},
-        password: {type: 'string'}
-    },
-
-    create: {
-        email: {type: 'string', regEx: new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')},
         password: {type: 'string'},
-        role: {type: 'enum', valid: ['user', 'admin']}
+        profileImage: {type: 'number'}
     },
 
     update: {

@@ -1,8 +1,8 @@
 import * as mongodb from 'mongodb'
 import {config} from './config'
 import {MongoError} from 'mongodb';
-import UsersController from '../controllers/users';
 import DataValidationService from '../services/data-validation';
+import UsersController from '../controllers/user';
 
 export default class Mongo {
     static init(): Promise<MongoError | any> {
@@ -27,11 +27,11 @@ export default class Mongo {
                                 DataValidationService.hashPass('ran')
                             ])
                                 .then(res => Promise.all([
-                                    user.create({email: 'filip.lauc93@gmail.com', status: 'offline', profileImage: 0, password: res[0]}),
-                                    user.create({email: 'wojtek.kwiatek@gmail.com', status: 'offline', profileImage: 0, password: res[1]}),
-                                    user.create({email: 'laco0416@gmail.com', status: 'offline', profileImage: 0, password: res[3]}),
-                                    user.create({email: 'mgualtieri7@gmail.com', status: 'offline', profileImage: 0, password: res[4]}),
-                                    user.create({email: 'ran.wahle@gmail.com', status: 'offline', profileImage: 0, password: res[5]})
+                                    user.create({email: 'filip.lauc93@gmail.com', profileImage: 0, password: res[0]}),
+                                    user.create({email: 'wojtek.kwiatek@gmail.com', profileImage: 1, password: res[1]}),
+                                    user.create({email: 'laco0416@gmail.com', profileImage: 2, password: res[3]}),
+                                    user.create({email: 'mgualtieri7@gmail.com', profileImage: 3, password: res[4]}),
+                                    user.create({email: 'ran.wahle@gmail.com', profileImage: 4, password: res[5]})
                                 ]))
                         }
 
