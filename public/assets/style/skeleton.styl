@@ -243,7 +243,7 @@ button {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #E53935;
+  background-color: $main-background
   border-radius: $global-radius;
   box-shadow $global-box-shadow
   border: none;
@@ -253,10 +253,10 @@ button {
 
 .button:disabled
   box-shadow none
-  background: lighten(#E53935, 33.3%);
+  background: lighten($main-background, 33.3%);
   cursor not-allowed
   &:hover
-    background: lighten(#E53935, 33.3%) !important
+    background: lighten($main-background, 33.3%) !important
 
 input {
   &[type="submit"],
@@ -284,7 +284,7 @@ input {
 
 .button:hover,
 button:hover {
-  background: #e05957
+  background: darken($main-background, 10)
   outline: 0;
 }
 
@@ -292,8 +292,8 @@ input {
   &[type="submit"]:hover,
   &[type="reset"]:hover,
   &[type="button"]:hover {
-    color: $dark-grey;
-    border-color: lighten($dark-grey, 33.3%);
+    color: $main-background;
+    border-color: lighten($main-background, 33.3%);
     outline: 0;
   }
 }

@@ -1,3 +1,12 @@
+<h3 class="subtitle">Select An Avatar</h3>
+<div class="avatar-select">
+    <div class="single" *ngFor="let i of icons" (click)="selectAvatar(i)">
+        <div class="single-wrapper" [class.active]="i === profileImage">
+            <img [src]="'assets/img/profile_icons/icon-' + (i + 1) + '.svg'" />
+        </div>
+    </div>
+</div>
+
 <form (ngSubmit)="onSubmit()" #signupForm="ngForm" class="small-form">
     <div class="row">
         <label for="username">Username/Email</label>

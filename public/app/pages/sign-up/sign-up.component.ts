@@ -18,12 +18,17 @@ export class SignUpComponent {
     public username: string;
     public password: string;
     public passwordCheck: string;
+    public profileImage: number = 0;
+
+    public icons: number[] = Array.from(Array(49).keys());
     
     public submitted: boolean = false;
 
-    // TODO add logic for validation (password's need to match)
+    selectAvatar(index: number): void {
+        this.profileImage = index;
+    }
 
-    onSubmit() {
+    onSubmit(): void {
         this.submitted = true;
         this._api.send('signUp', {username: this.username, password: this.password}).subscribe(
             res => {

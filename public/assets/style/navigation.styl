@@ -4,7 +4,7 @@ nav
   .menu
     width 100%
     display inline-block
-    background #e53935
+    background $main-background
     box-shadow $global-box-shadow
     ul
       list-style-type none
@@ -22,17 +22,21 @@ nav
           &:hover
             color #fff
           &.active
-            background #e05957
+            background darken($main-background, 10)
             color #fff !important
 
 
-  .intro
-    position relative
-    width 100%
-    background #b71c1c
+  .title
+    position absolute
+    width 430px
+    display inline-block
+    left 50%
+    transform translateX(-50%)
     h1
       color #fff
       text-align center
-      line-height 100px
-      font-size: 40px
+      line-height 6rem
+      text-transform uppercase
+      letter-spacing 1px
+      font-size: 3rem
       margin 0

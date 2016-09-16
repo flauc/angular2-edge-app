@@ -1,13 +1,22 @@
+@import 'variables.styl'
 @import 'skeleton.styl'
 @import 'navigation.styl'
+@import 'pages/sign-up.styl'
 
 body
   margin 0
+  background $page-background
 
 .left
   float left
 .right
   float right
+
+.subtitle
+  text-transform uppercase
+  letter-spacing 1px
+  font-size 2.5rem
+  text-align center
 
 .users-block
   visibility hidden
@@ -25,6 +34,10 @@ body
 .small-form
   max-width 400px
   margin 0 auto
+  padding $block-padding
+  box-shadow $global-box-shadow
+  background $block-background
+  margin-bottom 5rem
 
 .room
   width 32%
@@ -71,7 +84,7 @@ room ul li.complete > span
   text-transform uppercase
   text-decoration none
   white-space nowrap
-  background-color #e53935
+  background-color $main-background
   border-radius 0px
   border none
   cursor pointer
