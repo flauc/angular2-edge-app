@@ -1,10 +1,16 @@
 <nav>
     <div class="menu">
-        <div class="dashboard-title left">
-            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <div class="profile left">
+            <img [src]="" alt="">
+            <div class="inner">
+                <button class="right chat-button" (click)="logOut()">Log Out</button>
+            </div>
         </div>
         <button class="right chat-button" (click)="toggleChat()">Chat</button>
     </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="rooms" *ngFor="let room of rooms | async">
+    <div class="title">{{room.name}}</div>
+    <div class="description">{{room.description}}</div>
+</div>

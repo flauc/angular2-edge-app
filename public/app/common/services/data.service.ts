@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core'
 import {ApiService} from './api.service'
+import {Subject, BehaviorSubject} from 'rxjs/Rx';
+import {Room} from '../interfaces/room.interface';
 
 /*
     This service handles getting data that the application requires from the server
@@ -10,36 +12,7 @@ export class DataService {
     constructor(
         private _api: ApiService
     ) {}
-    
-    public rooms: any[] = [];
-    public users: any[] = [];
 
-    // This promise resolves when both Users and Rooms are received from the server successfully
-    getAllData() {
-        return Promise.all([this.getRooms(), this.getUsers()]);
-    }
-
-    getRooms() {
-        return new Promise((resolve, reject) => {
-            this._api.send('getRooms').subscribe(
-                res => {
-                    this.rooms = res.data;
-                    return resolve(res)
-                }, 
-                err => reject(err)
-            )
-        })
-    }
-
-    getUsers() {
-        return new Promise((resolve, reject) => {
-            this._api.send('getUsers').subscribe(
-                res => {
-                    this.users = res.data;
-                    return resolve(res)
-                },
-                err => reject(err)
-            )
-        })
-    }
+    public rooms: Subject<Room[]> = new BehaviorSubject([]);
+    public users: Subject<any> = new BehaviorSubject([]);
 }

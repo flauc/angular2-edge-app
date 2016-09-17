@@ -3,12 +3,12 @@ import {HomeComponent} from './pages/home/home.component';
 import {LoginComponent} from './pages/login/login.component';
 import {SignUpComponent} from './pages/sign-up/sign-up.component';
 import {LayoutComponent} from './pages/layout/layout.component';
-import {dashboardRoutes, dashboardRoutingComponents} from './pages/dashboard/dashboard.router';
+import {DashboardResolve} from './common/resolves/dashboard.resolve';
 import {AuthGuard} from './common/guards/auth.guard';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {DataService} from './common/services/data.service';
 
 const routesConfig: Routes = [
-    ...dashboardRoutes,
-
     {
         path: '',
         component: LayoutComponent,
@@ -17,6 +17,15 @@ const routesConfig: Routes = [
             {path: 'login', component: LoginComponent},
             {path: 'sign-up', component: SignUpComponent},
         ]
+    },
+
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        resolve: {
+            rooms: DashboardResolve
+        }
     },
 
     // Catch route
@@ -28,10 +37,11 @@ export const appRoutingComponents: any[] = [
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-
-    ...dashboardRoutingComponents
+    DashboardComponent
 ];
 export const appRoutingProviders: any[] = [
-    ...AuthGuard
+    AuthGuard,
+    DashboardResolve,
+    DataService
 ];
 export const routing = RouterModule.forRoot(routesConfig);

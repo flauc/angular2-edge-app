@@ -1,7 +1,8 @@
 export const roomValidation = {
     create: {
         name: {type: 'string'},
-        description: {type: 'string'}
+        description: {type: 'string'},
+        createdBy: {type: 'string'}
     },
 
     addTask: {
