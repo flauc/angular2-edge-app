@@ -5,6 +5,7 @@ import {Room} from '../../common/interfaces/room.interface';
 import {UserStoreService} from '../../common/services/user-store.service';
 import {Router} from '@angular/router';
 import {User} from '../../../../server/interfaces/user/user';
+import {SocketControlService} from '../../common/services/socket-control.service';
 
 @Component({
     moduleId: module.id,
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
     constructor(
         private _router: Router,
         private _data: DataService,
+        private _socket: SocketControlService,
         private _userStore: UserStoreService
     ) { }
 
@@ -39,7 +41,9 @@ export class DashboardComponent implements OnInit {
     }
 
     createRoom(): void {
-
+        this._socket.createRoom(this.room);
+        this.room.name = '';
+        this.room.description = '';
     }
 
     logOut(): void {

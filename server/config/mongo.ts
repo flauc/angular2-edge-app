@@ -3,6 +3,7 @@ import {config} from './config'
 import {MongoError} from 'mongodb';
 import DataValidationService from '../services/data-validation';
 import UsersController from '../controllers/user';
+import {User} from '../interfaces/user/user';
 
 export default class Mongo {
     static init(): Promise<MongoError | any> {

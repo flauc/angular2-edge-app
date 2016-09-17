@@ -1,6 +1,5 @@
 import * as express from 'express';
-import * as http from 'http'
-import * as socketIo from 'socket.io'
+import * as io from 'socket.io'
 import ExpressConfig from './config/express';
 import RoutesConfig from './config/routes';
 import SocketConfig from './config/socket'
@@ -11,8 +10,6 @@ import RoomsController from './controllers/room';
 import {config} from './config/config';
 
 const app = express(),
-    server = http.Server(app),
-    io = socketIo(server),
     // Config
     expressConfig = new ExpressConfig(app);
 
@@ -26,8 +23,12 @@ Mongo.init()
             roomInstance = new RoomsController(client.collection('rooms')),
             authInstance = new AuthService(client.collection('users')),
             routerConfig = new RoutesConfig(app, userInstance, roomInstance, authInstance),
-            socketConfig = new SocketConfig(io, userInstance, roomInstance);
 
-        app.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
+            server = app.listen(config.port, () => {
+
+                const socketConfig = new SocketConfig(io.listen(server), userInstance, roomInstance);
+
+                console.log(`Server listening on port ${config.port}`)
+            });
     })
     .catch(err => console.log(err));

@@ -92,7 +92,8 @@ export default class SocketConfig {
 
     disconnect(socket) {
         socket.on('disconnect', () => {
-            let id = this.connections.find(a => a.socket === socket);
+            console.log('got here: ', socket);
+            let id = this.connections.find(a => a.socket === socket)._id;
 
             if (id) socket.broadcast.emit(phrases.status, {_id: id, status: 'offline'})
         });
