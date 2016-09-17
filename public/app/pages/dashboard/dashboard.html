@@ -66,7 +66,10 @@
     <div class="row">
         <div class="room" *ngFor="let room of rooms | async">
             <div class="inner">
-                <div class="title">{{room.name}}</div>
+                <div class="title">
+                    {{room.name}}
+                    <button *ngIf="room.createdBy._id === me._id" class="button right" (click)="deleteRoom(room._id)">Delete</button>
+                </div>
                 <div class="main-block">
                     <div class="description">
                         <h3>Description:</h3>

@@ -40,14 +40,20 @@ export class SocketControlService {
     }
 
     createRoom(room: Room) {
-        this.socket.emit(socketValues.room.create, room, (res) => {
+        this.socket.emit(socketValues.room.create, room, res => {
             if (res.success) this._data.addRoom(res.data)
+        })
+    }
+
+    deleteRoom(id: string) {
+        this.socket.emit(socketValues.room.delete, {_id: id}, res => {
+            if (res.success) this._data.removeRoom(res.data.removed)
         })
     }
 
     private _openListeners() {
         this.socket.on(socketValues.room.create, (data) => this._data.addRoom(data));
-        this.socket.on(socketValues.room.delete, data => this._data.removeRoom(data))
+        this.socket.on(socketValues.room.delete, data => this._data.removeRoom(data.removed))
     }
 
     // changeStatus(username, status) {

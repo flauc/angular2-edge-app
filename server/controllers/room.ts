@@ -15,7 +15,7 @@ export default class RoomsController {
 
     @validateFormat(roomValidation.create, true)
     create(@required room: Room): Promise<Room> {
-        return GeneralController.create(this.coll, room)
+        return GeneralController.create(this.coll, Object.assign(room, {tasks: []}))
     }
 
     @validateFormat(roomValidation.delete, true)

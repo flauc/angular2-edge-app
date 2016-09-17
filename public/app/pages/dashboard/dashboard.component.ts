@@ -53,6 +53,10 @@ export class DashboardComponent implements OnInit {
         this.room.description = '';
     }
 
+    deleteRoom(id: string) {
+        this._socket.deleteRoom(id);
+    }
+
     logOut(): void {
         this._userStore.setUser();
         this._socket.disconnect();

@@ -33,12 +33,13 @@ export class DataService {
     }
 
     addRoom(room: Room) {
+        console.log(room);
         this._rooms.push(Object.assign(room, {createdBy: this._users.find(a => a._id === room.createdBy)}));
         this.rooms.next(this._rooms);
     }
 
-    removeRoom(id: string) {
-        const index = this._rooms.findIndex(a => a._id === id);
+    removeRoom(data: {_id: string}) {
+        const index = this._rooms.findIndex(a => a._id === data._id);
         this._rooms.splice(index, 1);
         this.rooms.next(this._rooms);
     }
