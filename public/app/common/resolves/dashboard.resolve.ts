@@ -5,6 +5,7 @@ import {ApiService} from '../services/api.service';
 import {urlValues} from '../config/url.values';
 import {UserStoreService} from '../services/user-store.service';
 import {DataService} from '../services/data.service';
+import {Room} from '../interfaces/room.interface';
 
 @Injectable()
 export class DashboardResolve implements Resolve<any> {
@@ -17,8 +18,8 @@ export class DashboardResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot) {
 
         return this._api.send(urlValues.getRooms, 'Get').subscribe(
-            res => {
-                this._data.rooms.next(res);
+            (res: Room[]) => {
+                this._data.loadRooms(res);
                 return true;
             },
             err => {

@@ -20,12 +20,13 @@ export default class Mongo {
                             console.log('Creating administrator');
 
                             return Promise.all([
-                                user.signUp({email: 'filip.lauc93@gmail.com', profileImage: 0, password: 'filip'}),
-                                user.signUp({email: 'wojtek.kwiatek@gmail.com', profileImage: 1, password: 'wojtek'}),
-                                user.signUp({email: 'laco0416@gmail.com', profileImage: 2, password: 'suguru'}),
-                                user.signUp({email: 'mgualtieri7@gmail.com', profileImage: 3, password: 'mary'}),
-                                user.signUp({email: 'ran.wahle@gmail.com', profileImage: 4, password: 'ran'})
+                                user.signUp({email: 'filip.lauc93@gmail.com', profileImage: 1, password: 'filip'}),
+                                user.signUp({email: 'wojtek.kwiatek@gmail.com', profileImage: 2, password: 'wojtek'}),
+                                user.signUp({email: 'laco0416@gmail.com', profileImage: 3, password: 'suguru'}),
+                                user.signUp({email: 'mgualtieri7@gmail.com', profileImage: 4, password: 'mary'}),
+                                user.signUp({email: 'ran.wahle@gmail.com', profileImage: 5, password: 'ran'})
                             ])
+
                         }
 
                         return resolve(client)

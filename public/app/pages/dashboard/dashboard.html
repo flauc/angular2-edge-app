@@ -1,16 +1,72 @@
 <nav>
     <div class="menu">
         <div class="profile left">
-            <img [src]="" alt="">
-            <div class="inner">
-                <button class="right chat-button" (click)="logOut()">Log Out</button>
+            <div class="img">
+                <img [src]="'assets/img/profile_icons/icon-' + me.profileImage + '.svg'" />
+            </div>
+            <span>{{me.email}}</span>
+            <div class="dd">
+                <div class="inner">
+                    <button class="log-out" (click)="logOut()">Log Out</button>
+                </div>
             </div>
         </div>
         <button class="right chat-button" (click)="toggleChat()">Chat</button>
     </div>
 </nav>
 
-<div class="rooms" *ngFor="let room of rooms | async">
-    <div class="title">{{room.name}}</div>
-    <div class="description">{{room.description}}</div>
+<div class="container">
+    <div class="row">
+        <div class="six columns">
+            <h2>New Room</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut beatae consequatur consequuntur dicta dignissimos, doloribus enim et eum id illum in ipsum magnam, magni nesciunt perferendis placeat praesentium voluptates?
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum debitis dolores error ex illo impedit ipsam laboriosam laudantium placeat, possimus qui saepe velit voluptate. Cumque eaque explicabo facere nesciunt porro.
+            </p>
+        </div>
+        <div class="six columns">
+            <form (ngSubmit)="createRoom()" #roomForm="ngForm" class="room-form">
+                <div class="row">
+                    <label for="name">Name</label>
+                    <input
+                            class="u-full-width"
+                            type="text"
+                            placeholder="A Cool Room"
+                            id="name"
+                            name="room.name"
+                            required
+                            [(ngModel)]="room.name"
+                            #name="ngModel">
+                    <p [hidden]="name.valid || name.pristine">Name is required</p>
+                </div>
+                <div class="row">
+                    <label for="description">Description</label>
+                    <textarea
+                            class="u-full-width"
+                            name="description"
+                            id="description"
+                            required
+                            cols="30"
+                            rows="10"
+                            placeholder="What's the room about?"
+                            [(ngModel)]="room.description"
+                            #description="ngModel">
+
+                </textarea>
+                    <p [hidden]="description.valid || description.pristine">Description is required</p>
+                </div>
+                <div class="row">
+                    <button class="button" type="submit" [disabled]="!roomForm.form.valid">Create Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rooms" *ngFor="let room of rooms | async">
+            <div class="title">{{room.name}}</div>
+            <div class="description">{{room.description}}</div>
+        </div>
+    </div>
 </div>

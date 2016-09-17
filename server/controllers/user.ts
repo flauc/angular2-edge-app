@@ -28,7 +28,7 @@ export default class UsersController {
                     if (res[0]) return reject(`This email is already in use.`);
                     return DataValidationService.hashPass(user.password);
                 })
-                .then(password => GeneralController.create(this.coll, Object.assign(user, {role: 'user', password: password})))
+                .then(password => GeneralController.create(this.coll, Object.assign(user, {password: password})))
                 .then(data => {
                     delete data.password;
                     return resolve(data);
