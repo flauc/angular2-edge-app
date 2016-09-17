@@ -27,7 +27,7 @@
             </p>
         </div>
         <div class="six columns">
-            <form (ngSubmit)="createRoom()" #roomForm="ngForm" class="room-form">
+            <form *ngIf="formActive" (ngSubmit)="createRoom()" #roomForm="ngForm" class="room-form">
                 <div class="row">
                     <label for="name">Name</label>
                     <input
@@ -64,9 +64,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="rooms" *ngFor="let room of rooms | async">
-            <div class="title">{{room.name}}</div>
-            <div class="description">{{room.description}}</div>
+        <div class="room" *ngFor="let room of rooms | async">
+            <div class="inner">
+                <div class="title">{{room.name}}</div>
+                <div class="main-block">
+                    <div class="description">
+                        <h3>Description:</h3>
+                        <p>{{room.description}}</p>
+                    </div>
+                </div>
+                <div class="author">
+                    <div class="img">
+                        <img [src]="'assets/img/profile_icons/icon-' + room.createdBy.profileImage + '.svg'" />
+                    </div>
+                    <span>{{room.createdBy.email}}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

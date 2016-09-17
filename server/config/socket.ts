@@ -50,49 +50,63 @@ export default class SocketConfig {
 
     connections: any[] = [];
 
-    room(socker) {
-        socker.on(phrases.room.create, (data) => {
+    room(socket) {
+        socket.on(phrases.room.create, (data, fn) => {
             this._room.create(data)
-                .then(data => this._standardResponse(true, data))
-                .catch(err => this._standardResponse(false, err))
+                .then(data => {
+                    fn(this._standardResponse(true, data));
+                    socket.broadcast.emit(phrases.room.create, data)
+                })
+                .catch(err => fn(this._standardResponse(false, err)))
         });
 
-        socker.on(phrases.room.delete, (data) => {
+        socket.on(phrases.room.delete, (data, fn) => {
             this._room.delete(data)
-                .then(data => this._standardResponse(true))
-                .catch(err => this._standardResponse(false, err))
+                .then(data => {
+                    fn(this._standardResponse(true, data));
+                    socket.broadcast.emit(phrases.room.delete, data);
+                })
+                .catch(err => fn(this._standardResponse(false, err)))
         })
     }
 
     task(socket) {
-        socket.on(phrases.task.create, (data) => {
+        socket.on(phrases.task.create, (data, fn) => {
             this._room.addTask(data)
-                .then(data => this._standardResponse(true, data))
-                .catch(err => this._standardResponse(false, err))
+                .then(data => {
+                    fn(this._standardResponse(true, data));
+                    socket.broadcast.emit(phrases.task.create, data);
+                })
+                .catch(err => fn(this._standardResponse(false, err)))
         });
 
-        socket.on(phrases.task.update, (data) => {
+        socket.on(phrases.task.update, (data, fn) => {
             this._room.editTask(data)
-                .then(data => this._standardResponse(true, data))
-                .catch(err => this._standardResponse(false, err))
+                .then(data => {
+                    fn(this._standardResponse(true, data));
+                    socket.broadcast.emit(phrases.task.update, data);
+                })
+                .catch(err => fn(this._standardResponse(false, err)))
         });
 
-        socket.on(phrases.task.delete, (data) => {
+        socket.on(phrases.task.delete, (data, fn) => {
             this._room.removeTask(data)
-                .then(data => this._standardResponse(true, data))
-                .catch(err => this._standardResponse(false, err))
+                .then(data => {
+                    fn(this._standardResponse(true, data));
+                    socket.broadcast.emit(phrases.task.delete, data);
+                })
+                .catch(err => fn(this._standardResponse(false, err)))
         })
     }
 
     chat(socket) {
-        socket.on(phrases.message, (data) => {
+        socket.on(phrases.message, (data, fn) => {
             socket.broadcast.emit(phrases.message, {_id: this.connections.find(a => a.socket === socket)._id, message: data})
         })
     }
 
     disconnect(socket) {
         socket.on('disconnect', () => {
-            console.log('got here: ', socket);
             let id = this.connections.find(a => a.socket === socket)._id;
 
             if (id) socket.broadcast.emit(phrases.status, {_id: id, status: 'offline'})

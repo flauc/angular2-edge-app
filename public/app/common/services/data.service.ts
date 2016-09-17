@@ -25,8 +25,15 @@ export class DataService {
         this._rooms = rooms;
     }
 
+    loadUsers(users: User[]) {
+        this.users.next(users);
+        this._users = users;
+        this._rooms.forEach(a => a.createdBy = this._users.find(b => b._id === a.createdBy));
+        this.rooms.next(this._rooms);
+    }
+
     addRoom(room: Room) {
-        this._rooms.push(room);
+        this._rooms.push(Object.assign(room, {createdBy: this._users.find(a => a._id === room.createdBy)}));
         this.rooms.next(this._rooms);
     }
 

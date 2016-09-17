@@ -29,9 +29,8 @@ export class SocketControlService {
         return new Promise((resolve, reject) => {
             this.socket.emit(socketValues.validate, this._userStore.getUser().token, info => {
                 if (info.success) {
-
+                    this._data.loadUsers(info.data.users);
                     this._openListeners();
-
                     return resolve(true);
                 }
 
@@ -41,17 +40,13 @@ export class SocketControlService {
     }
 
     createRoom(room: Room) {
-        this.socket.emit(socketValues.room, room, (res) => {
-            console.log('on send: ', res);
+        this.socket.emit(socketValues.room.create, room, (res) => {
             if (res.success) this._data.addRoom(res.data)
         })
     }
 
     private _openListeners() {
-        this.socket.on(socketValues.room.create, (data) => {
-            console.log('got here: ', data);
-            this._data.addRoom(data)
-        });
+        this.socket.on(socketValues.room.create, (data) => this._data.addRoom(data));
         this.socket.on(socketValues.room.delete, data => this._data.removeRoom(data))
     }
 

@@ -7,7 +7,7 @@ import {DashboardResolve} from './common/resolves/dashboard.resolve';
 import {AuthGuard} from './common/guards/auth.guard';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {DataService} from './common/services/data.service';
-import {SocketGuard} from './common/guards/socket.guard';
+import {SocketResolve} from './common/resolves/socket.resolve';
 
 const routesConfig: Routes = [
     {
@@ -23,9 +23,10 @@ const routesConfig: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard, SocketGuard],
+        canActivate: [AuthGuard],
         resolve: {
-            rooms: DashboardResolve
+            rooms: DashboardResolve,
+            socket: SocketResolve
         }
     },
 
@@ -44,6 +45,6 @@ export const appRoutingProviders: any[] = [
     AuthGuard,
     DashboardResolve,
     DataService,
-    SocketGuard
+    SocketResolve
 ];
 export const routing = RouterModule.forRoot(routesConfig);
