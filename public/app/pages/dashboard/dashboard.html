@@ -75,6 +75,17 @@
                         <h3>Description:</h3>
                         <p>{{room.description}}</p>
                     </div>
+                    <div class="tasks">
+                        <ul>
+                            <li *ngFor="let task of room.tasks">
+                                <span class="name">{{task.name}}</span>
+                                <div class="button-group">
+                                    <button (click)="removeTask(task._id, room._id)">Remove</button>
+                                    <button (click)="completeTask(task._id, room._id)">Complete</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="author">
                     <div class="img">

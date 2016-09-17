@@ -5,6 +5,7 @@ import {UserStoreService} from './user-store.service'
 import {socketValues} from '../config/socket.values';
 import {appValues} from '../config/app.values';
 import {Room} from '../interfaces/room.interface';
+import {Task} from '../interfaces/task.interface';
 
 declare const io: any;
 
@@ -51,92 +52,35 @@ export class SocketControlService {
         })
     }
 
-    private _openListeners() {
-        this.socket.on(socketValues.room.create, (data) => this._data.addRoom(data));
-        this.socket.on(socketValues.room.delete, data => this._data.removeRoom(data.removed))
+    createTask(roomId: string, taks: Task) {
+        this.socket.emit(socketValues.task.create, {roomId: roomId, task: Task}, res => {
+            if (res.success) this._data.createTask(res.data)
+        })
     }
 
-    // changeStatus(username, status) {
-    //     this._data.users.forEach(a => {
-    //         if (a.username === username) a.status = status
-    //     });
-    // }
-    //
-    // // Room Methods
-    // roomCreate(data) {
-    //     return new Promise((resolve, reject) => {
-    //         this.socket.emit('server', {command: this.sv.roomCreate, data: data}, val => {
-    //             if (val.success) {
-    //                 this._data.rooms.push(val.data);
-    //                 resolve(val);
-    //             }
-    //
-    //             else reject(val)
-    //         })
-    //     });
-    // }
-    //
-    // roomDelete(data) {
-    //     return new Promise((resolve, reject) => {
-    //         this.socket.emit('server', {command: this.sv.roomDelete, data: data}, val => {
-    //             if (val.success) {
-    //                 this._data.rooms.splice(this._data.rooms.indexOf(data), 1);
-    //                 resolve(val);
-    //             }
-    //
-    //             else reject(val)
-    //         })
-    //     })
-    // }
-    //
-    // // Task Methods
-    // taskCreate(data) {
-    //     return new Promise((resolve, reject) => {
-    //         this.socket.emit('server', {command: this.sv.taskCreate, data: {roomName: data.roomName, name: data.name}}, val => {
-    //             if (val.success) {
-    //                 let index = _.findIndex(this._data.rooms, o => o.name === data.roomName);
-    //                 if (index !== -1) this._data.rooms[index].tasks.push(val.data);
-    //                 resolve(val)
-    //             }
-    //
-    //             else reject(val)
-    //         })
-    //     })
-    // }
-    //
-    // taskUpdate(data) {
-    //     return new Promise((resolve, reject) => {
-    //         this.socket.emit('server', {command: this.sv.taskUpdate, data: data}, val => {
-    //             if (val.success) {
-    //                 let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
-    //                     taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data._id);
-    //                 this._data.rooms[index].tasks[taskIndex] = val.data;
-    //             }
-    //
-    //             else reject(val)
-    //         })
-    //     })
-    // }
-    //
-    // taskDelete(data) {
-    //     return new Promise((resolve, reject) => {
-    //         this.socket.emit('server', {command: this.sv.taskDelete, data: data}, val => {
-    //             if (val.success) {
-    //
-    //                 let index = _.findIndex(this._data.rooms, o => o.name === data.roomName),
-    //                     taskIndex = _.findIndex(this._data.rooms[index].tasks, o => o._id === val.data);
-    //
-    //                 this._data.rooms[index].tasks.splice(taskIndex, 1);
-    //             }
-    //
-    //             else reject(val)
-    //         })
-    //     })
-    // }
+    updateTask(roomId: string, task: Task) {
+        this.socket.emit(socketValues.task.update, {roomId: roomId, task: Task}, res => {
+            if (res.success) this._data.updateTask(res.data)
+        })
+    }
+
+    deleteTask(roomId: string, taskId: string) {
+        this.socket.emit(socketValues.task.delete, {roomId: roomId, taskId: taskId}, res => {
+            if (res.success) this._data.deleteTask(res.data)
+        })
+    }
 
     // Disconnect the socket
     disconnect() {
         this.socket.disconnect();
     }
 
+    private _openListeners() {
+        this.socket.on(socketValues.room.create, data => this._data.addRoom(data));
+        this.socket.on(socketValues.room.delete, data => this._data.removeRoom(data.removed));
+        this.socket.on(socketValues.task.create, data => this._data.createTask(data));
+        this.socket.on(socketValues.task.update, data => this._data.updateTask(data));
+        this.socket.on(socketValues.task.delete, data => this._data.deleteTask(data));
+        this.socket.on(socketValues.message, data => this._data.newMessage(data));
+    }
 }
