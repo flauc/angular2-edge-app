@@ -37,11 +37,6 @@ export default class UsersController {
         })
     }
 
-    @validateFormat(userValidation.create, true)
-    create(@required user: User): Promise<User> {
-        return GeneralController.create(this.coll, user)
-    }
-
     @validateFormat(userValidation.update, false)
     update(@required user: any): Promise<User>  {
         let toSet = Object.assign({}, user);

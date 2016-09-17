@@ -2,6 +2,7 @@ import {Component} from '@angular/core'
 import {Router} from '@angular/router'
 import {ApiService} from '../../common/services/api.service'
 import {UserStoreService} from '../../common/services/user-store.service';
+import {urlValues} from '../../common/config/url.values';
 
 
 @Component({
@@ -24,10 +25,8 @@ export class LoginComponent {
 
     onSubmit() {
         this.submitted = true;
-        this._api.send('login', {username: this.username, password: this.password}).subscribe(
+        this._api.send(urlValues.login, 'Post', {email: this.username, password: this.password}).subscribe(
             res => {
-                // Remove success so we don't store it in local
-                delete res['success'];
                 // Store the user data in local storage
                 this._userStore.setUser(res);
                 this._router.navigate(['/dashboard'])

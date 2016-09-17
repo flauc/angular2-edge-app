@@ -1,37 +1,38 @@
-<div class="header">
-    <h3>Name: {{room?.name}}</h3>
-    <h5>Description: {{room?.description}}</h5>
-</div>
+<!--<div class="header">-->
+    <!--<h3>Name: {{room?.name}}</h3>-->
+    <!--<h5>Description: {{room?.description}}</h5>-->
+<!--</div>-->
 
 
-<!--<edge-tasksBlock [room]></edge-tasksBlock>-->
+<!--&lt;!&ndash;<edge-tasksBlock [room]></edge-tasksBlock>&ndash;&gt;-->
 
-<ul>
-    <li *ngFor="let task of room?.tasks" [class.complete]="task.complete">
-        <span>{{task.name}}</span>
-        <button (click)="taskComplete(task)">Complete</button>
-        <button (click)="taskDelete(task._id)">Delete</button>
-    </li>
-</ul>
+<!--<ul>-->
+    <!--<li *ngFor="let task of room?.tasks" [class.complete]="task.complete">-->
+        <!--<span>{{task.name}}</span>-->
+        <!--<button (click)="taskComplete(task)">Complete</button>-->
+        <!--<button (click)="taskDelete(task._id)">Delete</button>-->
+    <!--</li>-->
+<!--</ul>-->
 
-<div class="tast-create">
-    <form (ngSubmit)="taskCreate()" #taskForm="ngForm">
-        <div class="row">
-            <label for="task">Name</label>
-            <input
-                    class="u-full-width"
-                    type="text"
-                    placeholder="What is the task?"
-                    id="task"
-                    name="task"
-                    required
-                    [(ngModel)]="taskName"
-                    #task="ngModel">
-        </div>
-        <div class="row">
-            <button type="submit" [disabled]="!taskForm.form.valid">Create</button>
-        </div>
-    </form>
-</div>
+<!--<div class="tast-create">-->
+    <!--<form (ngSubmit)="taskCreate()" #taskForm="ngForm">-->
+        <!--<div class="row">-->
+            <!--<label for="task">Name</label>-->
+            <!--<input-->
+                    <!--class="u-full-width"-->
+                    <!--type="text"-->
+                    <!--placeholder="What is the task?"-->
+                    <!--id="task"-->
+                    <!--name="task"-->
+                    <!--required-->
+                    <!--[(ngModel)]="taskName"-->
+                    <!--#task="ngModel">-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<button type="submit" [disabled]="!taskForm.form.valid">Create</button>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
 
-<edge-chat  *ngIf="room" [roomName]="room.name"></edge-chat>
+<!--<edge-chat  *ngIf="room" [roomName]="room.name"></edge-chat>-->
+<p>Single room</p>

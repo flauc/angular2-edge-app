@@ -32,11 +32,7 @@ export class SignUpComponent {
     onSubmit(): void {
         this.submitted = true;
         this._api.send(urlValues.signUp, 'Post', {email: this.username, password: this.password, profileImage: this.profileImage}).subscribe(
-            res => {
-                // Store the user data in local storage
-                this._userStore.setUser(res);
-                this._router.navigate(['/dashboard'])
-            },
+            res => this._router.navigate(['/login']),
 
             err => {
                 // Clean the password

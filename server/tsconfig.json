@@ -18,7 +18,7 @@
     "config/config.ts",
     "config/socket.ts",
     "controllers/general.ts",
-    "controllers/users.ts",
+    "controllers/user.ts",
     "controllers/room.ts",
     "interfaces/user/user.ts",
     "interfaces/user/user.validation.ts",

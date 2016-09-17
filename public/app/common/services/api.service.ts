@@ -10,10 +10,7 @@ import {Observable} from 'rxjs/Rx';
  */
 @Injectable()
 export class ApiService {
-    constructor (
-        private _http: Http,
-        private _userStoreService: UserStoreService
-    ) {}
+    constructor (private _http: Http) {}
 
     send(url: string, type: "Get" | "Post" | "Put" | "Update" | "Delete", item?: any, id?: string) {
 

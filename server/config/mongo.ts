@@ -19,20 +19,13 @@ export default class Mongo {
                         if (!data.length) {
                             console.log('Creating administrator');
 
-                            Promise.all([
-                                DataValidationService.hashPass('filip'),
-                                DataValidationService.hashPass('wojtek'),
-                                DataValidationService.hashPass('suguru'),
-                                DataValidationService.hashPass('mary'),
-                                DataValidationService.hashPass('ran')
+                            return Promise.all([
+                                user.signUp({email: 'filip.lauc93@gmail.com', profileImage: 0, password: 'filip'}),
+                                user.signUp({email: 'wojtek.kwiatek@gmail.com', profileImage: 1, password: 'wojtek'}),
+                                user.signUp({email: 'laco0416@gmail.com', profileImage: 2, password: 'suguru'}),
+                                user.signUp({email: 'mgualtieri7@gmail.com', profileImage: 3, password: 'mary'}),
+                                user.signUp({email: 'ran.wahle@gmail.com', profileImage: 4, password: 'ran'})
                             ])
-                                .then(res => Promise.all([
-                                    user.create({email: 'filip.lauc93@gmail.com', profileImage: 0, password: res[0]}),
-                                    user.create({email: 'wojtek.kwiatek@gmail.com', profileImage: 1, password: res[1]}),
-                                    user.create({email: 'laco0416@gmail.com', profileImage: 2, password: res[3]}),
-                                    user.create({email: 'mgualtieri7@gmail.com', profileImage: 3, password: res[4]}),
-                                    user.create({email: 'ran.wahle@gmail.com', profileImage: 4, password: res[5]})
-                                ]))
                         }
 
                         return resolve(client)

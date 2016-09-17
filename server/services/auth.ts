@@ -11,7 +11,7 @@ export default class AuthService {
         private coll
     ) {}
 
-    @validateFormat(userValidation.signUp, true)
+    @validateFormat(userValidation.logIn, true)
     generateToken(@required data: UserSignUp) {
 
         return new Promise((resolve, reject) => {

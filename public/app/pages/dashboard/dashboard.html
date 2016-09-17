@@ -1,3 +1,10 @@
-<router-outlet></router-outlet>
+<nav>
+    <div class="menu">
+        <div class="dashboard-title left">
+            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </div>
+        <button class="right chat-button" (click)="toggleChat()">Chat</button>
+    </div>
+</nav>
 
-<edge-userBlock [users]="users"></edge-userBlock>
+<router-outlet></router-outlet>
