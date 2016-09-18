@@ -9,7 +9,6 @@ export class SocketResolve implements Resolve<any> {
         private _router: Router
     ) {}
     resolve(route: ActivatedRouteSnapshot) {
-
         return this._socket.validate()
             .then(_ => true)
             .catch(_ => {

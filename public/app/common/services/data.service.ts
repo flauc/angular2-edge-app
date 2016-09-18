@@ -36,7 +36,6 @@ export class DataService {
     }
 
     addRoom(room: Room) {
-        console.log(room);
         this._rooms.push(Object.assign(room, {createdBy: this._users.find(a => a._id === room.createdBy)}));
         this.rooms.next(this._rooms);
     }

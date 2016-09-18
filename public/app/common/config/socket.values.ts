@@ -10,5 +10,6 @@ export const socketValues = {
         update: 'taskUpdate',
         delete: 'taskDelete'
     },
-    message: 'message'
+    message: 'message',
+    leave: 'leave'
 };

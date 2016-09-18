@@ -14,7 +14,8 @@ const phrases = {
         update: 'taskUpdate',
         delete: 'taskDelete'
     },
-    message: 'message'
+    message: 'message',
+    leave: 'leave'
 };
 
 export default class SocketConfig {
@@ -30,12 +31,14 @@ export default class SocketConfig {
 
                 jwtVerifyPromise(token)
                     .then(data => {
+
                         this.connections.push({_id: data._id, socket: socket});
                         socket.broadcast.emit(phrases.status, {_id: data._id, status: 'online'});
 
                         this.room(socket);
                         this.task(socket);
                         this.chat(socket);
+                        this.leave(socket);
 
                         return this._user.get()
                     })
@@ -106,12 +109,13 @@ export default class SocketConfig {
         })
     }
 
-    disconnect(socket) {
-        socket.on('disconnect', () => {
-            const index = this.connections.findIndex(a => a.socket === socket);
-            if (index) socket.broadcast.emit(phrases.status, {_id: this.connections[index]._id, status: 'offline'})
-            this.connections.splice(index, 1);
-        });
+    leave(socket) { socket.on(phrases.leave, () => this._discUser(socket));}
+    disconnect(socket) { socket.on('disconnect', () => this._discUser(socket));}
+
+    private _discUser(socket) {
+        const index = this.connections.findIndex(a => a.socket === socket);
+        if (index) socket.broadcast.emit(phrases.status, {_id: this.connections[index]._id, status: 'offline'});
+        this.connections.splice(index, 1);
     }
 
     private _standardResponse(success: boolean, data?: any) {

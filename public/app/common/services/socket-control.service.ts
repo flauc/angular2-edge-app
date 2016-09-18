@@ -30,6 +30,7 @@ export class SocketControlService {
         return new Promise((resolve, reject) => {
             this.socket.emit(socketValues.validate, this._userStore.getUser().token, info => {
                 if (info.success) {
+                    console.log(info);
                     this._data.loadUsers(info.data.users);
                     this._openListeners();
                     return resolve(true);
