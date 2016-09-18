@@ -4,6 +4,8 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared.module';
 import {routing, appRoutingProviders, appRoutingComponents} from './routes.config';
+import {ChatSortPipe} from './pages/dashboard/chat/chat-sort.pipe';
+import {ChatComponent} from './pages/dashboard/chat/chat.component';
 
 @NgModule({
     imports: [
@@ -17,6 +19,8 @@ import {routing, appRoutingProviders, appRoutingComponents} from './routes.confi
     ],
     declarations: [
         AppComponent,
+        ChatComponent,
+        ChatSortPipe,
         appRoutingComponents
     ],
     bootstrap: [AppComponent]

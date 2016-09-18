@@ -3,11 +3,11 @@
 <div class="chat-window" [class.active]="open">
     <div class="tabs">
         <span [class.active]="!userView" (click)="toggleView(false)">Messages</span>
-        <span [class.active]="userView" (click)="toggleView(true)">Online Users</span>
+        <span [class.active]="userView" (click)="toggleView(true)">Users</span>
     </div>
     <div class="view" [ngSwitch]="true">
         <template [ngSwitchCase]="!userView">
-            <ul class="message-view">
+            <ul class="message-view" #view>
                 <li *ngFor="let m of messages">
                     <div class="img">
                         <img [src]="'assets/img/profile_icons/icon-' + m.createdBy.profileImage + '.svg'">
@@ -21,10 +21,13 @@
             </div>
         </template>
         <template [ngSwitchCase]="userView">
-            <ul>
-                <li *ngFor="let user of users | async">
-                    <img [src]="'assets/img/profile_icons/icon-' + user.profileImage + '.svg'">
-                    <span>{{user.email}}</span>
+            <ul class="user-view">
+                <li *ngFor="let user of users | async | chatSort">
+                    <div class="img">
+                        <img [src]="'assets/img/profile_icons/icon-' + user.profileImage + '.svg'">
+                    </div>
+                    <span class="aut">{{user.email}}</span>
+                    <span class="status" [class.active]="user.status === 'online'"></span>
                 </li>
             </ul>
         </template>

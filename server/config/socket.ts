@@ -40,7 +40,7 @@ export default class SocketConfig {
                         return this._user.get()
                     })
                     .then(data => {
-                        data.map(a => a['status'] = this.connections.find(b => a._id === b._id) ? 'online' : 'offline');
+                        data.map(a => a['status'] = this.connections.find(b => a._id.toString() === b._id) ? 'online' : 'offline');
                         fn(this._standardResponse(true, {users: data}));
                     })
                     .catch(err => fn(this._standardResponse(false, 'Authentication failed')));

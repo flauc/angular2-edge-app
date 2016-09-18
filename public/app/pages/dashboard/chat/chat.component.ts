@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core'
+import {Component, OnDestroy, OnInit, ViewChild, ElementRef} from '@angular/core'
 import {Message} from '../../../common/interfaces/message.interface';
 import {DataService} from '../../../common/services/data.service';
 import {User} from '../../../common/interfaces/user.interface';
@@ -17,6 +17,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         private _socket: SocketControlService
     ) {}
 
+    @ViewChild('view') viewEl: ElementRef;
+
     public open: boolean = false;
     public userView: boolean = false;
 
@@ -29,7 +31,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.users = this._data.users;
         // We listen for new messages from the DataService
-        this._msgListener = this._data.message.subscribe(a => this.messages.push(a))
+        this._msgListener = this._data.message.subscribe(a => {
+            this.messages.push(a);
+            setTimeout(() => this.viewEl.nativeElement.scrollTop = this.viewEl.nativeElement.scrollHeight, 0)
+        })
     }
 
     toggle() { this.open = !this.open; }
