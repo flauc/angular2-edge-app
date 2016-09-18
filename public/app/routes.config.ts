@@ -8,6 +8,7 @@ import {AuthGuard} from './common/guards/auth.guard';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {DataService} from './common/services/data.service';
 import {SocketResolve} from './common/resolves/socket.resolve';
+import {ChatComponent} from './pages/dashboard/chat/chat.component';
 
 const routesConfig: Routes = [
     {
@@ -39,7 +40,8 @@ export const appRoutingComponents: any[] = [
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChatComponent
 ];
 export const appRoutingProviders: any[] = [
     AuthGuard,

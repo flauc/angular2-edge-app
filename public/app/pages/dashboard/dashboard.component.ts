@@ -6,7 +6,6 @@ import {UserStoreService} from '../../common/services/user-store.service';
 import {Router} from '@angular/router';
 import {User} from '../../../../server/interfaces/user/user';
 import {SocketControlService} from '../../common/services/socket-control.service';
-import {FormGroup} from '@angular/forms';
 import {Message} from '../../common/interfaces/message.interface';
 
 @Component({
@@ -15,7 +14,7 @@ import {Message} from '../../common/interfaces/message.interface';
     templateUrl: 'dashboard.html',
 })
 
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
     constructor(
         private _router: Router,
         private _data: DataService,
@@ -25,12 +24,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public me: User;
     public rooms: Observable<Room[]>;
-    public chatOpen: boolean = false;
-
-    public messages: Message[] = [];
 
     // Room creation
-
     // Trick for reseting the form
     public formActive: boolean = true;
     // Form modal
@@ -39,18 +34,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         description: ''
     };
 
-    private _msgListener: any;
-
     ngOnInit() {
         this.rooms = this._data.rooms;
         this.me = this._userStore.getUser().user;
-
-        // We listen for new messages from the DataService
-        this._msgListener = this._data.message.subscribe(a => this.messages.push(a))
-    }
-
-    toggleChat(): void {
-
     }
 
     createRoom(): void {
@@ -77,10 +63,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this._userStore.setUser();
         this._socket.disconnect();
         this._router.navigate(['/login'])
-    }
-
-    ngOnDestroy() {
-        // When the component is destroyed we make sure to unsubscribe our message listener
-        if (this._msgListener) this._msgListener.unsubscribe();
     }
 }

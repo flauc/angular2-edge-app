@@ -5,15 +5,12 @@
                 <img [src]="'assets/img/profile_icons/icon-' + me.profileImage + '.svg'" />
             </div>
             <span>{{me.email}}</span>
-            <div class="dd">
-                <div class="inner">
-                    <button class="log-out" (click)="logOut()">Log Out</button>
-                </div>
-            </div>
         </div>
-        <button class="right chat-button" (click)="toggleChat()">Chat</button>
+        <button class="log-out right" (click)="logOut()">Log Out</button>
     </div>
 </nav>
+
+<edge-chat></edge-chat>
 
 <div class="container">
     <div class="row">

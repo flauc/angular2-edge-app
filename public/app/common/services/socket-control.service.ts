@@ -52,14 +52,14 @@ export class SocketControlService {
         })
     }
 
-    createTask(roomId: string, taks: Task) {
-        this.socket.emit(socketValues.task.create, {roomId: roomId, task: Task}, res => {
+    createTask(roomId: string, task: Task) {
+        this.socket.emit(socketValues.task.create, {roomId: roomId, task: task}, res => {
             if (res.success) this._data.createTask(res.data)
         })
     }
 
     updateTask(roomId: string, task: Task) {
-        this.socket.emit(socketValues.task.update, {roomId: roomId, task: Task}, res => {
+        this.socket.emit(socketValues.task.update, {roomId: roomId, task: task}, res => {
             if (res.success) this._data.updateTask(res.data)
         })
     }
@@ -67,6 +67,12 @@ export class SocketControlService {
     deleteTask(roomId: string, taskId: string) {
         this.socket.emit(socketValues.task.delete, {roomId: roomId, taskId: taskId}, res => {
             if (res.success) this._data.deleteTask(res.data)
+        })
+    }
+
+    newMessage(message: string) {
+        this.socket.emit(socketValues.message, message, res => {
+            if (res.success) this._data.newMessage(res.data)
         })
     }
 

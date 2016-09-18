@@ -101,15 +101,16 @@ export default class SocketConfig {
 
     chat(socket) {
         socket.on(phrases.message, (data, fn) => {
-            socket.broadcast.emit(phrases.message, {_id: this.connections.find(a => a.socket === socket)._id, message: data})
+            socket.broadcast.emit(phrases.message, {createdBy: this.connections.find(a => a.socket === socket)._id, message: data});
+            fn(this._standardResponse(true, {createdBy: this.connections.find(a => a.socket === socket)._id, message: data}));
         })
     }
 
     disconnect(socket) {
         socket.on('disconnect', () => {
-            let id = this.connections.find(a => a.socket === socket)._id;
-
-            if (id) socket.broadcast.emit(phrases.status, {_id: id, status: 'offline'})
+            const index = this.connections.findIndex(a => a.socket === socket);
+            if (index) socket.broadcast.emit(phrases.status, {_id: this.connections[index]._id, status: 'offline'})
+            this.connections.splice(index, 1);
         });
     }
 

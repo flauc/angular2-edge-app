@@ -70,6 +70,7 @@ export class DataService {
     };
 
     newMessage(message: Message) {
+        console.log(message);
         message.createdBy = this._users.find(a => a._id === message.createdBy);
         this.message.next(message);
     }

@@ -1,0 +1,32 @@
+<button class="chat-button" (click)="toggle()" [class.active]="open">{{open ? 'Close Chat' : 'Open Chat'}}</button>
+
+<div class="chat-window" [class.active]="open">
+    <div class="tabs">
+        <span [class.active]="!userView" (click)="toggleView(false)">Messages</span>
+        <span [class.active]="userView" (click)="toggleView(true)">Online Users</span>
+    </div>
+    <div class="view" [ngSwitch]="true">
+        <template [ngSwitchCase]="!userView">
+            <ul class="message-view">
+                <li *ngFor="let m of messages">
+                    <div class="img">
+                        <img [src]="'assets/img/profile_icons/icon-' + m.createdBy.profileImage + '.svg'">
+                    </div>
+                    <span class="aut">{{m.createdBy.email}} writes:</span>
+                    <p>{{m.message}}</p>
+                </li>
+            </ul>
+            <div class="new-message">
+                <input type="text" placeholder="Write a new message" name="message" [(ngModel)]="message" (keydown)="newMessage($event.keyCode)">
+            </div>
+        </template>
+        <template [ngSwitchCase]="userView">
+            <ul>
+                <li *ngFor="let user of users | async">
+                    <img [src]="'assets/img/profile_icons/icon-' + user.profileImage + '.svg'">
+                    <span>{{user.email}}</span>
+                </li>
+            </ul>
+        </template>
+    </div>
+</div>
