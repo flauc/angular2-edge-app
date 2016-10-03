@@ -9,17 +9,14 @@ import UsersController from './controllers/user';
 import RoomsController from './controllers/room';
 import {config} from './config/config';
 
-const app = express(),
-    // Config
-    expressConfig = new ExpressConfig(app);
-
-
 // Open connection to mongo
 Mongo.init()
     .then(client => {
 
-        // Mongo dependent config
-        const userInstance = new UsersController(client.collection('users')),
+        const app = express(),
+            // Config
+            expressConfig = new ExpressConfig(app),
+            userInstance = new UsersController(client.collection('users')),
             roomInstance = new RoomsController(client.collection('rooms')),
             authInstance = new AuthService(client.collection('users')),
             routerConfig = new RoutesConfig(app, userInstance, roomInstance, authInstance),

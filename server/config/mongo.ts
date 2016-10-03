@@ -15,7 +15,7 @@ export default class Mongo {
                 const user = new UsersController(client.collection('users'));
 
                 user.get()
-                    .then(data => {
+                    .then((data): any => {
                         // If there are no users create initial
                         if (!data.length) {
                             console.log('Creating administrator');

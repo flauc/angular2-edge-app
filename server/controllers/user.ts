@@ -9,7 +9,7 @@ export default class UsersController {
 
     constructor(private coll) {}
 
-    get(): Promise<User[]> {
+    get(): Promise<any> {
         return new Promise((resolve, reject) => {
             GeneralController.get(this.coll, {}, true)
                 .then(res => {

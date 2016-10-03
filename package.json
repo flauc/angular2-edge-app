@@ -7,21 +7,19 @@
     "server": "node server/index.js",
     "db": "mongod",
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings",
-    "postinstall": "typings install"
+    "tsc:w": "tsc -w"
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "2.0.0",
-    "@angular/compiler": "2.0.0",
-    "@angular/core": "2.0.0",
-    "@angular/forms": "2.0.0",
-    "@angular/http": "2.0.0",
-    "@angular/platform-browser": "2.0.0",
-    "@angular/platform-browser-dynamic": "2.0.0",
-    "@angular/router": "3.0.0",
-    "@angular/upgrade": "2.0.0",
+    "@angular/common": "^2.0.1",
+    "@angular/compiler": "^2.0.1",
+    "@angular/core": "^2.0.1",
+    "@angular/forms": "^2.0.1",
+    "@angular/http": "^2.0.1",
+    "@angular/platform-browser": "^2.0.1",
+    "@angular/platform-browser-dynamic": "^2.0.1",
+    "@angular/router": "^3.0.1",
+    "@angular/upgrade": "^2.0.1",
     "angular2-in-memory-web-api": "0.0.20",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
@@ -38,6 +36,18 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/bcrypt-nodejs": "0.0.30",
+    "@types/body-parser": "0.0.29",
+    "@types/cors": "0.0.33",
+    "@types/express": "^4.0.32",
+    "@types/express-serve-static-core": "^4.0.33",
+    "@types/hammerjs": "^2.0.32",
+    "@types/jsonwebtoken": "^7.1.32",
+    "@types/mongodb": "^2.1.33",
+    "@types/node": "^6.0.38",
+    "@types/reflect-metadata": "0.0.4",
+    "@types/serve-static": "^1.7.27",
+    "@types/socket.io": "^1.4.27",
     "browser-sync": "^2.16.0",
     "concurrently": "^2.0.0",
     "del": "^2.2.0",
@@ -46,6 +56,8 @@
     "gulp-inject": "^4.1.0",
     "gulp-stylus": "^2.5.0",
     "gulp-typescript": "^2.13.6",
-    "stream-series": "^0.1.1"
+    "stream-series": "^0.1.1",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3"
   }
 }

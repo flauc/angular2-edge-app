@@ -18,12 +18,11 @@ The repository also contains the server side code.
 To start the application you need the following installed on your machine:
 
  * Node
- * MongoDB
+ * MongoDB 
 
 You should also have the following npm libraries installed globally:
 
 * typescript
-* typings
 * tslint
 * gulp
 
