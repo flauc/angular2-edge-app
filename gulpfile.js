@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     series = require('stream-series'),
     inject = require('gulp-inject'),
-    ts = require('gulp-typescript'),
 
     config = {
         // Sass
@@ -34,17 +33,10 @@ var gulp = require('gulp'),
             run: 'public/system.js'
         },
 
-        tsFiles: 'public/app/**/**.js',
-        tsConfig: 'public/tsconfig.json',
-        serverTsConfig: 'server/tsconfig.json',
         buildDir: 'public/build/',
-        browserSyncTarger: 'http://localhost:2000'
+        browserSyncTarger: 'http://localhost:5000'
 
-    },
-
-    // TS Setup,
-    tsServer = ts.createProject(config.serverTsConfig),
-    tsClient = ts.createProject(config.tsConfig);
+    };
 
 // Stylus Task
 gulp.task('stylus',() => {
@@ -55,19 +47,8 @@ gulp.task('stylus',() => {
         .pipe(browserSync.stream());
 });
 
-// TS Tasks
-gulp.task('tsServer', () => {
-    var tsResult = tsServer.src().pipe(ts(tsServer));
-    return tsResult.js.pipe(gulp.dest('./'));
-});
-
-gulp.task('tsClient', () => {
-    var tsResult = tsClient.src().pipe(ts(tsClient));
-    return tsResult.js.pipe(gulp.dest('./public/app/'));
-});
-
 // Development Build
-gulp.task('dev-build', ['stylus', 'tsClient', 'tsServer'], () => {
+gulp.task('dev-build', ['stylus'], () => {
 
     var js = config.vendor.js;
 
@@ -95,7 +76,6 @@ gulp.task('serve', () => {
 
     gulp.watch(config.stylus, ['stylus']);
     // Watches for template changes
-    gulp.watch(config.clientDir + 'app/**/**.ts', ['tsClient']);
     gulp.watch(config.clientDir + 'app/**/**.js').on('change', browserSync.reload);
     gulp.watch(config.clientDir + "app/**/**.html").on('change', browserSync.reload);
 });

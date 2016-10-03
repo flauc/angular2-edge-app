@@ -3,11 +3,15 @@
   "description": "",
   "version": "0.0.2",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run db\" ",
+    "startup": "concurrently \"npm run db\" \"npm run server\" ",
     "server": "node server/index.js",
     "db": "mongod",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "stylus": "gulp stylus",
+    "build": "concurrently \"npm run stylus\" \"npm run tsc\" ",
+    "start": "npm run build && npm run startup",
+    "watch": "concurrently \"npm run tsc:w\" \"gulp serve\" "
   },
   "license": "MIT",
   "dependencies": {

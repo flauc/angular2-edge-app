@@ -4,7 +4,7 @@ const rootPath = path.normalize(`${__dirname}/../../`);
 
 export const config = {
     appName: 'angular2-edge',
-    port: process.env.PORT || 2000,
+    port: process.env.PORT || 5000,
     env: process.env.NODE_ENV || 'dev',
     domain: 'http://localhost',
     rootPath: rootPath,
