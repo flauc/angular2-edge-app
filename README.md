@@ -36,13 +36,12 @@ npm install
 This installs all of the application dependencies from `npm`.
 Now we need to compile `.ts` and `.styl` files. To do this run the following command: 
 
-```
-gulp dev-build
-```
-
-**note:** You might get a lot of errors and warnings depending on your development environment, but the compilation tasks most likely finished successfully.  
-
-Once built you can start the server and database with `npm start` or if you have a mongo server already running ( if you're running linux or a mac machine this might be the case ), just run `npm run server`.
+Now you can start the server and database with `npm start` 
+or if you have a mongo server already running
+( if you're running linux or a mac machine this might be the case ),
+ first run `npm run build` and then `npm run server`.
+ 
+You can also run `npm run watch` to start browser-sync for live reloading and the typescript compiler.  
 
 ## Server
 
@@ -53,7 +52,7 @@ provides a couple of HTTP Routes for demonstrational purposes.
 
 The API primarily handles JSON data.
 
-**Base Url:** `localhost:2000`
+**Base Url:** `localhost:5000`
 
 Route | Method | Request | Description
 ------------ | ------------- | ------------- | -------------

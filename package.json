@@ -59,7 +59,6 @@
     "gulp-autoprefixer": "^3.1.1",
     "gulp-inject": "^4.1.0",
     "gulp-stylus": "^2.5.0",
-    "gulp-typescript": "^2.13.6",
     "stream-series": "^0.1.1",
     "tslint": "^3.15.1",
     "typescript": "^2.0.3"
