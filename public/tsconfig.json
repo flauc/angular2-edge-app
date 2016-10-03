@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -7,9 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,
-    "noImplicitAny": false
-  },
-  "exclude": [
-    "assets"
-  ]
+    "noImplicitAny": false,
+    "sourceRoot": "public"
+  }
 }

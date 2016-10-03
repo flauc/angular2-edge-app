@@ -1,106 +1,81 @@
-
 var gulp = require('gulp'),
-    inject = require('gulp-inject'),
-    stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
-    ts = require('gulp-typescript'),
-    del = require('del'),
-    tsServer = ts.createProject('tsconfig.json'),
-    tsPublic = ts.createProject('public/tsconfig.json'),
-
+    stylus = require('gulp-stylus'),
+    browserSync = require('browser-sync').create(),
+    series = require('stream-series'),
+    inject = require('gulp-inject'),
 
     config = {
+        // Sass
+        stylus: './public/assets/style/**/*.styl',
+        stylusMain: './public/assets/style/style.styl',
 
-        public: './public',
+        clientDir: 'public/',
+        index: 'public/index.html',
 
-        // VendorJs
-        vendorJsToMove: [
-            'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/es6-shim/es6-shim.map',
-            'node_modules/reflect-metadata/Reflect.js',
-            'node_modules/reflect-metadata/Reflect.js.map',
-            'node_modules/zone.js/dist/zone.js',
-            'node_modules/systemjs/dist/system.src.js',
-            'node_modules/socket.io-client/socket.io.js',
-            'node_modules/lodash/lodash.min.js'
-        ],
+        // Vendor
+        vendor: {
+            js: [
+                'node_modules/core-js/client/shim.min.js',
+                'node_modules/zone.js/dist/zone.js',
+                'node_modules/reflect-metadata/Reflect.js',
+                'node_modules/systemjs/dist/system.src.js',
+                'node_modules/socket.io-client/socket.io.js'
+            ],
 
-        vendorJsFolders: {
-            'rxjs': 'node_modules/rxjs/**/**',
-            'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api/**/**',
-            'angular': 'node_modules/@angular/**/**'
+            css: [
+                'public/assets/css/main.css'
+            ]
         },
 
-        vendorJs: [
-            './public/assets/vendorJs/es6-shim.min.js',
-            './public/assets/vendorJs/Reflect.js',
-            './public/assets/vendorJs/zone.js',
-            './public/assets/vendorJs/system.src.js',
-            './public/assets/vendorJs/socket.io.js',
-            './public/assets/vendorJs/lodash.min.js'
-        ],
+        system: {
+            config: 'public/system.config.js',
+            run: 'public/system.js'
+        },
 
-        vendorJsFolder: './public/assets/vendorJs',
+        buildDir: 'public/build/',
+        browserSyncTarger: 'http://localhost:5000'
 
-        stylus: './public/assets/style/**/*.styl',
-        stylusMain: './public/assets/style/style.styl'
     };
 
-// Dev Tasks
-gulp.task('move-vendorJs', () => {
-    gulp.src(config.vendorJsToMove)
-        .pipe(gulp.dest(config.vendorJsFolder))
-});
-
-gulp.task('vendorJs-folders', () => {
-    gulp.src(config.vendorJsFolders.angular)
-        .pipe(gulp.dest(config.vendorJsFolder + '/@angular'));
-
-    gulp.src(config.vendorJsFolders.rxjs)
-        .pipe(gulp.dest(config.vendorJsFolder + '/rxjs'));
-
-    gulp.src(config.vendorJsFolders['angular2-in-memory-web-api'])
-        .pipe(gulp.dest(config.vendorJsFolder + '/angular2-in-memory-web-api'));
-});
-
-gulp.task('inject-development', ['move-vendorJs'], () => {
-    var target = gulp.src(config.public + '/index.html');
-    var vendorStream = gulp.src(config.vendorJs, {read: false});
-
-    return target
-        .pipe(inject(vendorStream, {relative: true}))
-        .pipe(gulp.dest(config.public));
-});
-
-gulp.task('tsServer', () => {
-    var tsResult = tsServer.src()
-        .pipe(ts(tsServer));
-
-    return tsResult.js.pipe(gulp.dest('./'));
-});
-
-gulp.task('tsPublic', () => {
-    var tsResult = tsPublic.src()
-        .pipe(ts(tsPublic));
-
-    return tsResult.js.pipe(gulp.dest('./public/app/'));
-});
-
+// Stylus Task
 gulp.task('stylus',() => {
     gulp.src(config.stylusMain)
         .pipe(stylus())
         .pipe(autoprefixer({browsers: ['last 2 version']}))
-        .pipe(gulp.dest(config.public));
+        .pipe(gulp.dest(config.clientDir))
+        .pipe(browserSync.stream());
 });
 
-// Clean tasks
-gulp.task('clean-vendorJs', function () {
-    return del(config.vendorJsFolder);
+// Development Build
+gulp.task('dev-build', ['stylus'], () => {
+
+    var js = config.vendor.js;
+
+    js.push(config.system.config);
+    js.push(config.system.run);
+
+    var target = gulp.src(config.index),
+        cssStream = gulp.src(config.vendor.css, {read: false}),
+        vendorStream = gulp.src(js, {read: false});
+
+    return target
+        .pipe(inject(series(vendorStream, cssStream), {addRootSlash: false, relative: true}))
+        .pipe(gulp.dest(config.clientDir));
 });
 
-gulp.task('build-dev', ['stylus', 'vendorJs-folders', 'inject-development', 'tsServer', 'tsPublic']);
+// Static Server + watching scss/html files
+gulp.task('serve', () => {
 
-// Watch Task
-gulp.task('watch', function() {
+    browserSync.init({
+        proxy: {
+            target: config.browserSyncTarger,
+            ws: true
+        }
+    });
+
     gulp.watch(config.stylus, ['stylus']);
+    // Watches for template changes
+    gulp.watch(config.clientDir + 'app/**/**.js').on('change', browserSync.reload);
+    gulp.watch(config.clientDir + "app/**/**.html").on('change', browserSync.reload);
 });

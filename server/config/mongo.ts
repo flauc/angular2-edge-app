@@ -1,20 +1,42 @@
 import * as mongodb from 'mongodb'
 import {config} from './config'
-import {createDefaultDbDocs} from '../helpers/commonHelpers'
+import {MongoError} from 'mongodb';
+import DataValidationService from '../services/data-validation';
+import UsersController from '../controllers/user';
+import {User} from '../interfaces/user/user';
 
-module.exports.createId = function (id?) {
-    return new mongodb.ObjectID(id);
-};
+export default class Mongo {
+    static init(): Promise<MongoError | any> {
+        return new Promise((resolve, reject) => {
+            let server = new mongodb.Server(config.mongo.server, config.mongo.port, {});
+            new mongodb.Db(config.appName, server, {w: 1}).open((err, client) => {
+                if (err) return reject(err);
 
-module.exports.init = function (callback) {
-    let server = new mongodb.Server('127.0.0.1', 27017, {});
-    new mongodb.Db(config.appName, server, {w: 1}).open(function (error, client) {
+                const user = new UsersController(client.collection('users'));
 
-        createDefaultDbDocs(client);
+                user.get()
+                    .then((data): any => {
+                        // If there are no users create initial
+                        if (!data.length) {
+                            console.log('Creating administrator');
 
-        // export the client and maybe some collections as a shortcut
-        module.exports.client = client;
+                            return Promise.all([
+                                user.signUp({email: 'filip.lauc93@gmail.com', profileImage: 1, password: 'filip'}),
+                                user.signUp({email: 'wojtek.kwiatek@gmail.com', profileImage: 2, password: 'wojtek'}),
+                                user.signUp({email: 'laco0416@gmail.com', profileImage: 3, password: 'suguru'}),
+                                user.signUp({email: 'mgualtieri7@gmail.com', profileImage: 4, password: 'mary'}),
+                                user.signUp({email: 'ran.wahle@gmail.com', profileImage: 5, password: 'ran'})
+                            ])
 
-        callback(error);
-    });
-};
+                        }
+
+                        return resolve(client)
+                    })
+                    .then(res => resolve(client))
+                    .catch(err => reject(err));
+            });
+        })
+    };
+
+    static createId = (id?: string): any =>  new mongodb.ObjectID(id)
+}

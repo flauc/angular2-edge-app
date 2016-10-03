@@ -1,9 +1,9 @@
 .idea
-typings
+npm-debug.log
 node_modules
 public/app/**/**.js
 public/app/**/**.js.map
-public/assets/vendorJs
+public/style.css
 server/**/**.js
 server/**/**.js.map
 index.js.map
