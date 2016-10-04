@@ -3,7 +3,8 @@
     var map = {
             'app': 'app',
             '@angular': 'node_modules/@angular',
-            'rxjs': 'node_modules/rxjs'
+            'rxjs': 'node_modules/rxjs',
+            'socket.io': 'node_modules/socket.io-client/socket.io.js'
         },
         packages = {
             'app': { main: 'main.js',  defaultExtension: 'js' },

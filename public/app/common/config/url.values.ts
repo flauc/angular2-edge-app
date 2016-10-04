@@ -1,5 +1,5 @@
 import {appValues} from './app.values';
-const base = 'http://localhost:2000/';
+const base = 'http://localhost:5000/';
 
 export const urlValues = {
     login: `${appValues.base}api/authorize`,

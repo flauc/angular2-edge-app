@@ -6,8 +6,7 @@ import {socketValues} from '../config/socket.values';
 import {appValues} from '../config/app.values';
 import {Room} from '../interfaces/room.interface';
 import {Task} from '../interfaces/task.interface';
-
-declare const io: any;
+import * as 'io' from 'socket.io';
 
 /*
     This service handles all socket communication with the server
